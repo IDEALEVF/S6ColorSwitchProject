@@ -6,12 +6,15 @@ package main.model.forms;
 public class FormsFactory {
 	
 	public static Form build(String forme, int x, int y, int vitesse) {
-		switch(Formes.get(forme)) {
-		case ROUND1:System.out.println("ici");return new Round1(x , y, vitesse);//ROUND 1
-		case RECTANGLE:break;//return new System.out.println("ici");
-		default:break;//DEFAULT
+		String acomparer = forme.toUpperCase();
+		if(acomparer.equals("ROUND1")){
+			System.out.println("round1");
+			return new Round1(x , y, vitesse);//ROUND 1
+		}else if(acomparer.equals("RECANGLE")) {
+			return null;//return new System.out.println("ici");
+		}else {
+			return null;//DEFAULT
 		}
-		return null;//DEFAULT
 	}
 
 	@Override

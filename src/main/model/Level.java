@@ -3,13 +3,14 @@ package main.model;
 import java.util.Scanner;
 import java.util.Vector;
 
+import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 
 public class Level {
 	private final int TAILLE_ENTETE = 5;
 	
 	private int score;
-	private Vector<Object> objects;
+	private Vector<Form> objects;
 	private String name;
 	private int number;
 	private Type type;
@@ -17,7 +18,7 @@ public class Level {
 	public Level() {
 		name = "niveau 1";
 		score = 0;
-		objects = new Vector<Object>();
+		objects = new Vector<Form>();
 		number = 0;
 		type = Type.NORMAL;
 	}
@@ -43,7 +44,7 @@ public class Level {
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
 			System.out.println("parties[0] : "+parties[0]);
-			Object o = FormsFactory.build(parties[0],
+			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),
 					Integer.parseInt(parties[3]));
@@ -62,7 +63,7 @@ public class Level {
 		this.score = score;
 	}
 
-	public Vector<Object> getObjects() {
+	public Vector<Form> getObjects() {
 		return objects;
 	}
 	
