@@ -8,7 +8,6 @@ public class FormsFactory {
 	public static Form build(String forme, int x, int y, int vitesse) {
 		String acomparer = forme.toUpperCase();
 		if(acomparer.equals("ROUND1")){
-			System.out.println("round1");
 			return new Round1(x , y, vitesse);//ROUND 1
 		}else if(acomparer.equals("RECANGLE")) {
 			return null;//return new System.out.println("ici");

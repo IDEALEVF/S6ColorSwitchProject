@@ -9,21 +9,38 @@ import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.controler.Moteur;
+import main.model.ColorSelected;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
  
 public class Fenetre extends Application {
-	StackPane root;
+	VBox root;
 	
     public static void main(String[] args) {
         launch(args);
     }
     
-    public StackPane getRoot() {
+    public VBox getRoot() {
     	return root;
+    }
+    
+    public Rectangle fond() {
+    	Rectangle r = new Rectangle();//fond
+        r.setFill(ColorSelected.BLACK);
+        r.setWidth(300);
+        r.setHeight(250);
+        
+        return r;
+    }
+    
+    private void placerForme(StackPane components, Moteur m, int num) {
+    	components.getChildren().add(m.getForm(num));//formes
+        components.getChildren().get(num).setTranslateX(m.getFormX(num));
+        components.getChildren().get(num).setTranslateY(m.getFormY(num));
     }
     
     @Override
@@ -36,16 +53,25 @@ public class Fenetre extends Application {
 			}
         });
     	
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
         
-        root = new StackPane();
-        System.out.println(root.getChildren().toString());
+        root = new VBox();
+        StackPane components = new StackPane();//boite contenant les formes du jeu
         
-        root.getChildren().add(m.getFirstForm());
-        System.out.println(root.getChildren().toString());
+        MenuBar2 menuBar = new MenuBar2(root);//la barre de menu
+        
+        components.getChildren().add(fond());//fond
+        for(int i=0;i<m.getFormNumber();i++) {//place les formes
+        	 placerForme(components, m, i);
+        }
+        
+        root.getChildren().add(menuBar);//Barre de Menu
+        root.getChildren().add(components);
+        
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
     }
+    
 }
 
 
