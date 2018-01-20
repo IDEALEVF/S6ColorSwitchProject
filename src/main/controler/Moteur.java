@@ -20,16 +20,35 @@ public class Moteur implements Runnable{
 		return level;
 	}
 	
-	public Group getFirstForm() {
-		return level.getObjects().get(0).getForme();
+	public Group getForm(int num) {
+		return level.getObjects().get(num).getForme();
+	}
+	
+	public int getFormX(int num) {
+		return level.getObjects().get(num).getPosX();
+	}
+	
+	public int getFormY(int num) {
+		return level.getObjects().get(num).getPosY();
+	}
+	
+	private void deplacerForme(int num) {
+		level.getObjects().get(num).deplacer();
+	}
+	
+	public int getFormNumber() {
+		return level.getObjects().size();
 	}
 
 	@Override
 	public void run() {
 		int val = 0;
 		while(true) {
-			getFirstForm().setRotate(val);
-			val += 20;
+			//getFirstForm().setRotate(val);
+			for(int i=0;i<getFormNumber();i++) {
+				deplacerForme(i);
+			}
+			val += 5;
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
