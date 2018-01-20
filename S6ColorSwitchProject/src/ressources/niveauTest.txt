@@ -8,3 +8,4 @@ Round1 20 25 2
 Round1 -40 20 2
 Carre -20 -30 2
 Round1 -40 -50 2
+CroixG 40 40 2
