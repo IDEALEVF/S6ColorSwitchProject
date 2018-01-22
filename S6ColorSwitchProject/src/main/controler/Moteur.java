@@ -15,8 +15,22 @@ public class Moteur implements Runnable{
 		t = new Thread(this);
 	}
 	
-	public void start() {
+	public synchronized void start() {
 		t.start();
+	}
+	
+	public synchronized void restart() {
+		t.resume();
+		//synchronized(t) {
+		//	t.notify();
+		//}
+	}
+	
+	public synchronized void stop() {
+		t.suspend();
+		//synchronized(t) {
+			//t.interrupt();
+		//}
 	}
 
 	public Level getLevel() {
@@ -50,10 +64,11 @@ public class Moteur implements Runnable{
 				deplacerForme(i);
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 		}
 	}
 }

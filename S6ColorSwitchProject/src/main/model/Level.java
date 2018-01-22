@@ -43,7 +43,6 @@ public class Level {
 		
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
-			System.out.println("parties[0] : "+parties[0]);
 			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),

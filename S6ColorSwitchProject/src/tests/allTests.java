@@ -16,7 +16,6 @@ class allTests {
 		testLevel t2 = new testLevel();
 		t2.testConstructorDefault();
 		t2.testConstructorLoader();
-		
 	}
 	
 	@Test
