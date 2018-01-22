@@ -64,31 +64,9 @@ public class Score {
 	}
 
 	private void trierParScores() {
-		ToIntFunction compare = new ToIntFunction<compare>();
-		Comparator<Pair<String, Integer>> c = Comparator.comparingInt(compare);
-		tabScores.sort(c);
+		QuickSort q = new QuickSort();
+		q.quickSort(tabScores, 0, tabScores.size());
 	}
-	
-	private void sort() {
-		int[] atrier = getScores();
-		qsort(atrier);
-	}
-	
-	
-	
-//	public int compareTo(Object obj) {
-//		if(obj.getClass() != Pair.class){
-//			throw new IllegalArgumentException("Impossible de comparer une Pair avec un "+obj.getClass());
-//		}
-//		Pair<String, Integer> paire = (Pair<String, Integer>) obj;
-//		if(paire.arg2 < this.arg2){
-//			return 1;
-//		}else if(paire.arg2 > this.arg2){
-//			return -1;
-//		}else {
-//			return 0;
-//		}
-//	}
 	
 	public int compare(int d, int d1) {
 		  return d - d1;

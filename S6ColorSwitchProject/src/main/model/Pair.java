@@ -4,17 +4,30 @@ public class Pair<T, G>{
 	T arg1;
 	G arg2;
 	
-	Pair(T arg1, G arg2){
+	public Pair(T arg1, G arg2){
 		this.arg1 = arg1;
 		this.arg2 = arg2;
 	}
 	
-	T first(){
+	public T first(){
 		return arg1;
 	}
 	
-	G second(){
+	public G second(){
 		return arg2;
+	}
+	
+	public void setFirst(T arg1) {
+		this.arg1 = arg1;
+	}
+	
+	public void setSecond(G arg2) {
+		this.arg2 = arg2;
+	}
+
+	@Override
+	public String toString() {
+		return "Pair [arg1=" + arg1 + ", arg2=" + arg2 + "]";
 	}
 
 //	@Override
@@ -31,4 +44,5 @@ public class Pair<T, G>{
 //			return 0;
 //		}
 //	}
+	
 }

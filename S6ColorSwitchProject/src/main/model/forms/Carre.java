@@ -39,6 +39,7 @@ public class Carre extends Obstacles{
 		Shape angle2=Shape.union(ligneDroite, ligneBas);
 		Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
+		
 
 		forme.getChildren().add(ligneHaut);
 		forme.getChildren().add(ligneBas);
@@ -51,7 +52,7 @@ public class Carre extends Obstacles{
 		if(rotation > 360) {//la rotation reste modulo 360
 			rotation -= 360;
 		}
-		rotation += 20;
+		rotation += 2;
 		forme.setRotate(rotation);
 	}
 

@@ -70,7 +70,7 @@ public class Round1 extends Obstacles{
 		if(rotation > 360) {//la rotation reste modulo 360
 			rotation -= 360;
 		}
-		rotation += 20;
+		rotation += 8;
 		forme.setRotate(rotation);
 	}
 
