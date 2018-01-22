@@ -9,8 +9,8 @@ public class FormsFactory {
 		String acomparer = forme.toUpperCase();
 		if(acomparer.equals("ROUND1")){
 			return new Round1(x , y, vitesse);//ROUND 1
-		}else if(acomparer.equals("RECANGLE")) {
-			return null;//return new System.out.println("ici");
+		}else if(acomparer.equals("CARRE")) {
+			return new Carre(x, y, vitesse);//return new System.out.println("ici");
 		}else {
 			return null;//DEFAULT
 		}

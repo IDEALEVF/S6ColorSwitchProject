@@ -13,7 +13,24 @@ public class Moteur implements Runnable{
 	public Moteur(Fenetre f) {
 		this.level = new Level("src/ressources/niveauTest.txt");
 		t = new Thread(this);
+	}
+	
+	public synchronized void start() {
 		t.start();
+	}
+	
+	public synchronized void restart() {
+		t.resume();
+		//synchronized(t) {
+		//	t.notify();
+		//}
+	}
+	
+	public synchronized void stop() {
+		t.suspend();
+		//synchronized(t) {
+			//t.interrupt();
+		//}
 	}
 
 	public Level getLevel() {
@@ -42,18 +59,16 @@ public class Moteur implements Runnable{
 
 	@Override
 	public void run() {
-		int val = 0;
 		while(true) {
-			//getFirstForm().setRotate(val);
 			for(int i=0;i<getFormNumber();i++) {
 				deplacerForme(i);
 			}
-			val += 5;
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 		}
 	}
 }

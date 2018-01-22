@@ -21,7 +21,7 @@ class testLevel {
 	
 	@Test
 	void testConstructorLoader() {
-		Level l = new Level("src/ressources/niveauTest.txt");
+		Level l = new Level("src/ressources/niveauTesting.txt");
 		assertTrue("Default constructor loader name", l.getName().equals("niveau 1"));
 		assertTrue("Default constructor loader score",l.getScore() == 0);
 		assertTrue("Default constructor loader object not null",l.getObjects() != null);
