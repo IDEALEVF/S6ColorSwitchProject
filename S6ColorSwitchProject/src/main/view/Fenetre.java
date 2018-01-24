@@ -1,17 +1,23 @@
 package main.view;
 
-import java.util.Iterator;
-import java.util.Vector;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.controler.Moteur;
@@ -21,8 +27,14 @@ import main.view.menubar.ZMenuBar;
 import javafx.scene.shape.*;
 import javafx.stage.WindowEvent;
  
+/**
+ * Classe qui se charge de la vitrine de l'application.
+ * @author PITROU Adrien
+ * @version 1.0
+ * @since 24/01/18
+ * */
 public class Fenetre extends Application {
-	private VBox root;
+	private BorderPane root;
 	private final int HAUTEUR_FENETRE = 600;
 	private final int LARGEUR_FENETRE = 400;
 	
@@ -30,70 +42,61 @@ public class Fenetre extends Application {
         launch(args);
     }
     
-    public VBox getRoot() {
-    	return root;
-    }
-    
-    public Rectangle fond(VBox root) {
-    	Rectangle r = new Rectangle();//fond
-        r.setFill(ColorSelected.BLACK);
-        r.setWidth(LARGEUR_FENETRE);
-        r.setHeight(HAUTEUR_FENETRE);
-        
-        return r;
-    }
-    
-    private void placerForme(StackPane components, Moteur m, int num) {
-    	components.getChildren().add(m.getForm(num));//formes
+    /**
+     * Place la forme d'indice num du moteur aux coordonnees x et y de cette forme
+     * @param components Le panneau dans lequel ajouter la forme
+     * @param m le moteur de jeu qui contient l'objet Level et les formes
+     * @param num le numero de la forme a ajouter
+     * */
+    private void placerForme(Pane components, Moteur m, int num) {
+    	components.getChildren().add(m.getForm(num));//formeG
         components.getChildren().get(num).setTranslateX(m.getFormX(num));
         components.getChildren().get(num).setTranslateY(m.getFormY(num));
     }
     
     @Override
     public void start(Stage primaryStage) {
-    	Moteur m = new Moteur(this);
-    	primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
+    	
+    	//parametres de l'objet Stage
+    	primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
+    	primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//fermeture
             @Override
             public void handle(final WindowEvent event) {
 				System.exit(0);
 			}
         });
     	
-        primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
-        
-        root = new VBox();
-        StackPane components = new StackPane();//boite contenant les formes du jeu
-        
+        //composants
+        Pane components = new Pane();//boite contenant les formes du jeu
+		components.setBackground(b);//fond
+
+		//Menus
+		Moteur m = new Moteur(this);
         ZMenuBar menuBar = new ZMenuBar(root, m);//la barre de menu
         ContextualMenu cm = new ContextualMenu(m);
-        
-        components.getChildren().add(fond(root));//fond
         components.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
         	@Override public void handle(MouseEvent e) {
         	if (e.getButton() == MouseButton.SECONDARY)
         	cm.show(components, e.getScreenX(), e.getScreenY());
         	}
         });
-        Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
-		components.setBackground(b);//fond
+        
+		//placement des formes
         for(int i=0;i<m.getFormNumber();i++) {//place les formes
         	 placerForme(components, m, i);
         }
         
-        root.getChildren().add(menuBar);//Barre de Menu
-        root.getChildren().add(components);
-        
+        //objet root
+        root = new BorderPane();
+        root.setCenter(components);
+        root.setTop(menuBar);//Barre de Menu
         primaryStage.setScene(new Scene(root, LARGEUR_FENETRE, HAUTEUR_FENETRE));
-        /*components.setLayoutX(0);
-        components.setLayoutY(40);
-        components.setScaleX(root.getWidth());
-        components.setScaleY(root.getWidth());*/
-        components.minHeight(400);
-        //root.getChildren().get(1).setLayoutY(40);
-        System.out.println(root.getChildren().get(1).getLayoutBounds());
-        m.start();
-        primaryStage.setResizable(false);
+        root.setPrefSize(LARGEUR_FENETRE, HAUTEUR_FENETRE);
+        
+        //primaryStage.setResizable(false);
         primaryStage.show();
+        m.start();
     }
     
 }

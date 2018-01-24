@@ -11,13 +11,11 @@ import main.model.ColorSelected;
 import main.model.Type;
 
 public class MenuItemMode extends MenuItem {
-	VBox root;
 	Moteur m;
 	Type modeType;
 	
-	MenuItemMode(VBox root, Moteur m, int mode){
+	MenuItemMode(Moteur m, int mode){
 		this.m = m;
-		this.root = root;
 		switch(mode) {
 		case 1:modeType = Type.INVERSE;break;
 		case 2:modeType = Type.DEUX_AXES;break;

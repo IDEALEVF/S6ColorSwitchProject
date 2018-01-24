@@ -15,22 +15,22 @@ public class Moteur implements Runnable{
 		t = new Thread(this);
 	}
 	
-	public synchronized void start() {
+	public void start() {
 		t.start();
 	}
 	
 	public synchronized void restart() {
 		t.resume();
-		//synchronized(t) {
-		//	t.notify();
-		//}
+		/*synchronized(t) {
+			t.notify();
+		}*/
 	}
 	
 	public synchronized void stop() {
 		t.suspend();
-		//synchronized(t) {
-			//t.interrupt();
-		//}
+		/*synchronized(t) {
+			t.interrupt();
+		}*/
 	}
 
 	public Level getLevel() {

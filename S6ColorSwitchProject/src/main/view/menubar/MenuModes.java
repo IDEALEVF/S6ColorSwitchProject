@@ -1,21 +1,18 @@
 package main.view.menubar;
 
-import javafx.scene.layout.VBox;
 import main.controler.Moteur;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 
 public class MenuModes extends Menu{
-	VBox root;
 	Moteur m;
 
-	MenuModes(VBox root, Moteur m){
+	MenuModes(Moteur m){
 		this.m = m;
-		this.root = root;
 		this.setText("Modes de jeu");
 		for(int i=0;i<5;i++) {
-			this.getItems().add(new MenuItemMode(root, m , i));
+			this.getItems().add(new MenuItemMode(m , i));
 		}
 		this.setOnShowing(new entreeMenu());
 		this.setOnHiding(new sortieMenu());

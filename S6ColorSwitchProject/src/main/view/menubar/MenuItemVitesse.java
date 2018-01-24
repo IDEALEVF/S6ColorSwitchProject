@@ -7,13 +7,11 @@ import javafx.scene.layout.VBox;
 import main.controler.Moteur;
 
 public class MenuItemVitesse extends MenuItem{
-	VBox root;
 	Moteur m;
 	int vitesse;
 	
-	MenuItemVitesse(VBox root, Moteur m, int vitesse){
+	MenuItemVitesse(Moteur m, int vitesse){
 		this.m = m;
-		this.root = root;
 		this.vitesse = vitesse;
 		this.setText("Mode "+vitesse);
 		this.setOnAction(new actionBouton());

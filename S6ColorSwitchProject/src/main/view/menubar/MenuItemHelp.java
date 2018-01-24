@@ -21,7 +21,7 @@ public class MenuItemHelp extends MenuItem {
         @Override
         public void handle(ActionEvent t) {
         	System.out.println("Bonjour");
-        	new Help();//j' en suis la
+        	new DialogHelp();//j' en suis la
         }
 	}
 }

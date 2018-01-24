@@ -56,13 +56,6 @@ public class Round1 extends Obstacles{
         forme.getChildren().add(arc2);
         forme.getChildren().add(arc3);
         forme.getChildren().add(arc4);
-        
-        //forme.setLayoutX(posX);
-        //forme.setLayoutY(posY);
-        //forme.setLayoutX(150);
-        //forme.setLayoutY(100);
-        
-        System.out.println(this);
 	}
 
 	@Override
