@@ -1,8 +1,8 @@
 # S6ColorSwitchProject
 ------Liste d'idees pour le projet------
 
--Developper une classe pour gerer l' IA dans le cas le plus simple
--Faire un editeur de niveaux
+-Developper une classe pour gerer l' IA dans le cas le plus simple</br>
+-Faire un editeur de niveaux<br>
 -Implementer les actions des boutons de menu
 -Prise en compte de la vitesse de jeu et de celle des formes.
 -Gestion du "lag de demarrage"
