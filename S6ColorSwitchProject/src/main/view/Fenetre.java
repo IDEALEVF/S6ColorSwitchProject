@@ -2,8 +2,6 @@ package main.view;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -11,20 +9,11 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
-import javafx.scene.shape.*;
 import javafx.stage.WindowEvent;
  
 /**
@@ -96,7 +85,12 @@ public class Fenetre extends Application {
         
         //primaryStage.setResizable(false);
         primaryStage.show();
-        m.start();
+        
+        //synchronise sinon le show() lance un nouveau thread et le moteur n'a pas 
+        //le temps de charger le jeu que la fenetre se raffraichit deja
+        synchronized(Thread.currentThread()){
+        	m.start();
+        }
     }
     
 }

@@ -7,10 +7,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.WindowEvent;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 public class DialogHelp extends Dialog<Scene>{
 	DialogHelp(){
-		this.setContentText("Projet realise par PITROU Adrien, CALVO-FERNANDEZ Adelie et BARRECH Mehdi");
+		this.setGraphic(new Label("Projet realise par PITROU Adrien, CALVO-FERNANDEZ Adelie et BARRECH Mehdi"));
 		this.setWidth(200);
 		this.setHeight(200);
 		this.setTitle("Ma boite");

@@ -2,10 +2,8 @@ package main.model;
 
 import java.util.Comparator;
 import java.util.Vector;
-import java.util.function.ToIntFunction;
 
-
-public class Score {
+public class Score{
 	Vector<Pair<String, Integer>> tabScores;
 	
 	Score(int size){
@@ -58,17 +56,20 @@ public class Score {
 		tabScores.remove(indexMin);
 	}
 	
+	/**
+	 * Renvoie un Vector de Pair trie par ordre decroissant contenant les noms
+	 * et scores des joueurs ayant fait les meilleurs resultats.
+	 * @return tabScores un tableau de scores trie par ordre decroissant.
+	 * */
 	public Vector<Pair<String, Integer>> getTab(){
-		trierParScores();
+		tabScores.sort(new Comparateur());
 		return tabScores;
 	}
-
-	private void trierParScores() {
-		QuickSort q = new QuickSort();
-		q.quickSort(tabScores, 0, tabScores.size());
-	}
 	
-	public int compare(int d, int d1) {
-		  return d - d1;
+	private class Comparateur implements Comparator<Pair<String, Integer>>{
+		@Override
+		public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
+			return -o1.second().compareTo(o2.second());
+		}
 	}
 }

@@ -20,6 +20,7 @@ public class MenuFichier extends Menu{
 		this.getItems().add(new MenuVitesse(m));
 		this.getItems().add(new SeparatorMenuItem());
 		this.getItems().add(new MenuItemQuitter());
+		this.getItems().add(new MenuItemScore(m));
 		
 		this.setOnAction(new actionMenu());
 		this.setOnShowing(new entreeMenu());
