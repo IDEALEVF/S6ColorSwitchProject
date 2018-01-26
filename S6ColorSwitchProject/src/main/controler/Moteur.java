@@ -65,15 +65,16 @@ public class Moteur implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
-			for(int i=0;i<getFormNumber();i++) {
-				deplacerForme(i);
+			synchronized(t) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				for(int i=0;i<getFormNumber();i++) {
+					deplacerForme(i);
+				}
 			}
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
 		}
 	}
 }

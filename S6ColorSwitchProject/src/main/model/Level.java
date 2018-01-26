@@ -1,13 +1,12 @@
 package main.model;
 
-import java.util.Scanner;
 import java.util.Vector;
 
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 
 public class Level {
-	private final int TAILLE_ENTETE = 5;
+	private final int TAILLE_ENTETE = 6;
 	
 	private Score score;
 	private Vector<Form> objects;
@@ -20,6 +19,8 @@ public class Level {
 		name = "niveau 1";
 		score = new Score(6);
 		score.add("Bob", 23);
+		score.add("Adrien", 230);
+		score.add("Anne", 140);
 		objects = new Vector<Form>();
 		number = 0;
 		points = 0;
@@ -49,7 +50,10 @@ public class Level {
 			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),
-					Integer.parseInt(parties[3]));
+					Integer.parseInt(parties[3]),
+					Integer.parseInt(parties[4]),
+					Integer.parseInt(parties[5]),
+					Integer.parseInt(parties[6]));
 			if(o != null){
 				objects.add(o);//cree les objets
 			}
