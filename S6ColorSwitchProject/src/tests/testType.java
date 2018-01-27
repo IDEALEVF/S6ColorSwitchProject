@@ -2,11 +2,19 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+<<<<<<< HEAD
 import org.junit.jupiter.api.Test;
 
 import main.model.Type;
 
 class testType {
+=======
+import org.junit.Test;
+
+import main.model.Type;
+
+public class testType {
+>>>>>>> figure
 
 	@Test
 	void testEnumType() {

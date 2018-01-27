@@ -2,12 +2,12 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import main.model.Level;
 import main.model.Type;
 
-class testLevel {
+public class testLevel {
 	
 	@Test
 	void testConstructorDefault() {
