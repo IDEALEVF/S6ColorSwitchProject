@@ -25,7 +25,7 @@ class testLevel {
 		assertTrue("Default constructor loader name", l.getName().equals("niveau 1"));
 		assertTrue("Default constructor loader score",l.getScore() == 0);
 		assertTrue("Default constructor loader object not null",l.getObjects() != null);
-		assertTrue("Default constructor loader object size", l.getObjects().size() == 1);
+		assertTrue("Default constructor loader object size", l.getObjects().size() == 0);
 		assertTrue("Default constructor loader number",l.getNumber() == 1);
 		assertTrue("Default constructor loader type",l.getType() == Type.NORMAL);
 	}
