@@ -15,8 +15,8 @@ public enum Type{
 	 * @param str le type a obtenir
 	 * @return le type obtenu
 	 * */
-	public static Type get(String string){
-		String str = string.toUpperCase();//suppression de la casse
+	public static Type get(String str){
+		str.toUpperCase();//suppression de la casse
 		if(str.equals("INVERSE")) {
 			return INVERSE;
 		}else if(str.equals("DEUX_AXES")) {

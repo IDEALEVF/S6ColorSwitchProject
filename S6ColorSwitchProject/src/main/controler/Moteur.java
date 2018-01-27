@@ -1,59 +1,55 @@
 package main.controler;
 
+import java.util.Iterator;
+
 import javafx.scene.Group;
 import main.model.Level;
+import main.model.forms.Form;
 import main.view.Fenetre;
 
-public class Moteur implements Runnable{
-	
-	private Level level;
+public class Moteur extends Form{
+
+	//private Level level;
 	private Thread t;
-	Fenetre f;
-	
-	public Moteur(Fenetre f) {
-		this.level = new Level("src/ressources/niveauTest.txt");
+	Group g;
+
+	public Moteur(Group g,int posX, int posY, int speed) {
+		super(posX, posY, speed);
+		//this.level = new Level("src/ressources/niveauTest.txt");
 		t = new Thread(this);
-	}
-	
-	public void start() {
 		t.start();
+		this.g=g;
 	}
 
-	public Level getLevel() {
+	/*public Level getLevel() {
 		return level;
-	}
-	
-	public Group getForm(int num) {
-		return level.getObjects().get(num).getForme();
-	}
-	
-	public int getFormX(int num) {
-		return level.getObjects().get(num).getPosX();
-	}
-	
-	public int getFormY(int num) {
-		return level.getObjects().get(num).getPosY();
-	}
-	
-	private void deplacerForme(int num) {
-		level.getObjects().get(num).deplacer();
-	}
-	
-	public int getFormNumber() {
-		return level.getObjects().size();
-	}
+	}*/
+
+	/*public Group getFirstForm() {
+		return level.getObjects().get(0).getForme();
+	}*/
 
 	@Override
 	public void run() {
+		int val = 0;
 		while(true) {
-			for(int i=0;i<getFormNumber();i++) {
-				deplacerForme(i);
-			}
+			//Iterator<Form> it = level.getObjects().iterator();
+			/*while(it.hasNext()){
+				it.next().getForme().setRotate(val);
+			}*/
+			g.setRotate(val);
+			val += 20;
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void deplacer() {
+
+
 	}
 }

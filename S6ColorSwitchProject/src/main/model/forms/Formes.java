@@ -5,10 +5,7 @@ package main.model.forms;
  * */
 public enum Formes{
 	ROUND1,
-	CARRE,
-	CROIXD,
-	CROIXG,
-	CHANGECOLOR,
+	RECTANGLE,
 	DEFAULT;
 	
 	/**
