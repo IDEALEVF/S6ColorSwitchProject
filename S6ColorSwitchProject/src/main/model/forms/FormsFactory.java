@@ -13,13 +13,6 @@ public class FormsFactory {
 			return new Carre(x, y, vitesse);//return new System.out.println("ici");
 		}else if(acomparer.equals("CROIXG")) {
 			return new CroixG(x, y, vitesse);//return new System.out.println("ici");
-<<<<<<< HEAD
-=======
-		}else if(acomparer.equals("CROIXD")) {
-			return new CroixD(x, y, vitesse);//return new System.out.println("ici");
-		}else if(acomparer.equals("CHANGECOLOR")) {
-			return new ChangeColor(x, y, vitesse);//return new System.out.println("ici");
->>>>>>> figure
 		}else {
 			return null;//DEFAULT
 		}

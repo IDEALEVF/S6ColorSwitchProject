@@ -5,19 +5,11 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import java.util.Vector;
 
-<<<<<<< HEAD
 import org.junit.jupiter.api.Test;
 
 import main.model.Loader;
 
 class testLoader {
-=======
-import org.junit.Test;
-
-import main.model.Loader;
-
-public class testLoader {
->>>>>>> figure
 	
 	String[] tab = {
 			"#####################################niveau de color switch###############################################",
