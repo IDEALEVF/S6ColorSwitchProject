@@ -2,6 +2,7 @@ package main.controler;
 
 import javafx.scene.Group;
 import main.model.Level;
+import main.model.Score;
 import main.view.Fenetre;
 
 public class Moteur implements Runnable{
@@ -15,8 +16,26 @@ public class Moteur implements Runnable{
 		t = new Thread(this);
 	}
 	
+	public Score getScore() {
+		return level.getScore();
+	}
+	
 	public void start() {
 		t.start();
+	}
+	
+	public synchronized void restart() {
+		t.resume();
+		/*synchronized(t) {
+			t.notify();
+		}*/
+	}
+	
+	public synchronized void stop() {
+		t.suspend();
+		/*synchronized(t) {
+			t.interrupt();
+		}*/
 	}
 
 	public Level getLevel() {
@@ -46,13 +65,15 @@ public class Moteur implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
-			for(int i=0;i<getFormNumber();i++) {
-				deplacerForme(i);
-			}
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			synchronized(t) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				for(int i=0;i<getFormNumber();i++) {
+					deplacerForme(i);
+				}
 			}
 		}
 	}
