@@ -1,8 +1,8 @@
 package tests;
 
-//import org.junit.Test;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
+
 
 class allTests {
 
@@ -18,6 +18,7 @@ class allTests {
 		testLevel t2 = new testLevel();
 		t2.testConstructorDefault();
 		t2.testConstructorLoader();
+		
 	}
 	
 	@Test

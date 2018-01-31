@@ -2,22 +2,19 @@ package main.model.forms;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import main.model.ColorSelected;
 
-/**
- * Classe pour modeliser un cercle quadricolore.
- * Le pattern est : tourne vers la droite
- * */
 public class Round1 extends Obstacles{
 
-	Round1(int posX, int posY, int width, int height, int speed, int rotate) {
+	Round1(int posX, int posY, int speed) {
 		super(posX, posY, speed);
 		this.forme = new Group();
 		Arc arc = new Arc();
-        arc.setRadiusX(width);
-        arc.setRadiusY(height);
+        arc.setRadiusX(20);
+        arc.setRadiusY(20);
         arc.setStartAngle(0);
         arc.setLength(89);
         arc.setFill(Color.TRANSPARENT);
@@ -26,8 +23,8 @@ public class Round1 extends Obstacles{
         arc.setType(ArcType.OPEN);//round, open, chord
         
         Arc arc2 = new Arc();
-        arc2.setRadiusX(width);
-        arc2.setRadiusY(height);
+        arc2.setRadiusX(20);
+        arc2.setRadiusY(20);
         arc2.setStartAngle(90);
         arc2.setLength(89);
         arc2.setFill(Color.TRANSPARENT);
@@ -36,8 +33,8 @@ public class Round1 extends Obstacles{
         arc2.setType(ArcType.OPEN);//round, open, chord
         
         Arc arc3 = new Arc();
-        arc3.setRadiusX(width);
-        arc3.setRadiusY(height);
+        arc3.setRadiusX(20);
+        arc3.setRadiusY(20);
         arc3.setStartAngle(180);
         arc3.setLength(89);
         arc3.setFill(Color.TRANSPARENT);
@@ -46,8 +43,8 @@ public class Round1 extends Obstacles{
         arc3.setType(ArcType.OPEN);//round, open, chord
         
         Arc arc4 = new Arc();
-        arc4.setRadiusX(width);
-        arc4.setRadiusY(height);
+        arc4.setRadiusX(20);
+        arc4.setRadiusY(20);
         arc4.setStartAngle(270);
         arc4.setLength(89);
         arc4.setFill(Color.TRANSPARENT);
@@ -60,7 +57,12 @@ public class Round1 extends Obstacles{
         forme.getChildren().add(arc3);
         forme.getChildren().add(arc4);
         
-        forme.setRotate(rotate);
+        //forme.setLayoutX(posX);
+        //forme.setLayoutY(posY);
+        //forme.setLayoutX(150);
+        //forme.setLayoutY(100);
+        
+        System.out.println(this);
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class Round1 extends Obstacles{
 		if(rotation > 360) {//la rotation reste modulo 360
 			rotation -= 360;
 		}
-		rotation += (4*speed);
+		rotation += 20;
 		forme.setRotate(rotation);
 	}
 

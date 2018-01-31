@@ -1,29 +1,25 @@
 package main.model;
 
+import java.util.Scanner;
 import java.util.Vector;
 
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 
 public class Level {
-	private final int TAILLE_ENTETE = 6;
+	private final int TAILLE_ENTETE = 5;
 	
-	private Score score;
+	private int score;
 	private Vector<Form> objects;
 	private String name;
 	private int number;
 	private Type type;
-	private int points;
 	
 	public Level() {
 		name = "niveau 1";
-		score = new Score(6);
-		score.add("Bob", 23);
-		score.add("Adrien", 230);
-		score.add("Anne", 140);
+		score = 0;
 		objects = new Vector<Form>();
 		number = 0;
-		points = 0;
 		type = Type.NORMAL;
 	}
 	
@@ -47,13 +43,11 @@ public class Level {
 		
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
+			System.out.println("parties[0] : "+parties[0]);
 			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),
-					Integer.parseInt(parties[3]),
-					Integer.parseInt(parties[4]),
-					Integer.parseInt(parties[5]),
-					Integer.parseInt(parties[6]));
+					Integer.parseInt(parties[3]));
 			if(o != null){
 				objects.add(o);//cree les objets
 			}
@@ -61,13 +55,13 @@ public class Level {
 		
 	}
 
-	public Score getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	/*public void setScore(int score) {
+	public void setScore(int score) {
 		this.score = score;
-	}*/
+	}
 
 	public Vector<Form> getObjects() {
 		return objects;
@@ -81,17 +75,16 @@ public class Level {
 		return number;
 	}
 
-	public int getPoints() {
-		return points;
-	}
-	
 	public Type getType() {
 		return type;
 	}
 
 	@Override
 	public String toString() {
-		return "Level [points=" + points + ", score=" + score + ", objects=" + objects + ", name=" + name + ", number=" + number + ", type="
+		return "Level [score=" + score + ", objects=" + objects + ", name=" + name + ", number=" + number + ", type="
 				+ type + "]";
 	}
+	
+	
+	
 }
