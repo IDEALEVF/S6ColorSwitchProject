@@ -18,7 +18,7 @@ avance toute seule mais elle DOIT traverser des obstacles colores forcant le jou
 -Rajouter des commentaires dans les classes pour ameliorer la javadoc et la lisibilite<br>
 -Rajouter des assertions dans le code pour en augmenter la securite<br>
 -Gerer le "lag de demarrage"<br>
-
+#Gerer les commandes de jeu - Pris
 #Gerer la balle et les collisions - Pris
 #Developper une classe pour gerer les musiques - Pris
 
