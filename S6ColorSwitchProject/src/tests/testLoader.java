@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import java.util.Vector;
 
-import org.junit.Test;
+//import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import main.model.Loader;
 
@@ -16,12 +17,13 @@ class testLoader {
 			"niveau 1",
 			"1",
 			"NORMAL",
+			"190 400 4 6 BLUE",
 			"##########################################################################################################",
-			"Round1 40 56 2"};
+			"Round1 300 300 10 10 2 0"};
 	
 	@Test
 	void testread() {
-		Vector<String> vect = Loader.read("src/ressources/niveauTest.txt");
+		Vector<String> vect = Loader.read("src/ressources/niveauTesting.txt");
 		Iterator<String> it = vect.iterator();
 		
 		for(int i=0;i<tab.length;i++) {
@@ -31,7 +33,7 @@ class testLoader {
 	
 	@Test
 	void testreadInTab() {
-		String[] tab2 = Loader.readInTab("src/ressources/niveauTest.txt");
+		String[] tab2 = Loader.readInTab("src/ressources/niveauTesting.txt");
 		
 		for(int i=0;i<tab.length;i++) {
 			assertTrue("read error", tab[i].equals(tab2[i]));

@@ -10,6 +10,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import javafx.scene.layout.VBox;
@@ -23,13 +24,7 @@ public class MenuItemNouvellePartie extends MenuItem{
 		this.m = m;
 		this.setText("Nouvelle Partie");
 		
-		this.setOnAction(new actionBouton());
-	}
-	
-	private class actionBouton implements EventHandler<ActionEvent>{
-        @Override
-        public void handle(ActionEvent t) {
-            System.out.println("Nouvelle partie");
-        }
+		this.addEventHandler(ActionEvent.ACTION,
+        		ControlerFactory.build(ActionEvent.ACTION, null, null));
 	}
 }

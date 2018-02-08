@@ -22,12 +22,12 @@ public class MenuFichier extends Menu{
 		this.getItems().add(new MenuItemQuitter());
 		this.getItems().add(new MenuItemScore(m));
 		
-		this.setOnAction(new actionMenu());
-		this.setOnShowing(new entreeMenu());
-		this.setOnHiding(new sortieMenu());
+		//this.setOnAction(new actionMenu());
+		//this.setOnShowing(new entreeMenu());
+		//this.setOnHiding(new sortieMenu());
 	}
 	
-	private class actionMenu implements EventHandler<ActionEvent>{
+	/*private class actionMenu implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent t) {
         	System.out.println("coucouMenu");
@@ -48,5 +48,5 @@ public class MenuFichier extends Menu{
 			m.restart();
 		}
         
-	}
+	}*/
 }

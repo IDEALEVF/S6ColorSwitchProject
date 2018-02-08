@@ -4,18 +4,18 @@ package main.model.forms;
  * Une fabrique a formes qui suit la logique du Design Pattern Factory
  * */
 public class FormsFactory {
-
-	public static Form build(String forme, int x, int y, int vitesse) {
+	
+	public static Form build(String forme, int x, int y, int width, int height, int vitesse, int rotate) {
 		String acomparer = forme.toUpperCase();
 		if(acomparer.equals("ROUND1")){
-			return new Round1(x , y, vitesse);//ROUND 1
+			return new Round1(x , y, width, height, vitesse, rotate);//ROUND1
+		}else if(acomparer.equals("ROUND2")) {
+			return new Round2(x , y, width, height, vitesse, rotate);//ROUND2
 		}else if(acomparer.equals("CARRE")) {
-			return new Carre(x, y, vitesse);//return new System.out.println("ici");
-		}else if(acomparer.equals("CROIXG")) {
-			return new CroixG(x, y, vitesse);//return new System.out.println("ici");
-		}else if (acomparer.equals("BALL")) {
-			return new Ball(x,y,vitesse);
-		}else{
+			return new Carre(x, y, vitesse);//CARRE
+		}else if(acomparer.equals("BALL")){
+			return new Ball(x, y, width, vitesse);//BALL
+		}else {
 			return null;//DEFAULT
 		}
 	}
@@ -24,5 +24,5 @@ public class FormsFactory {
 	public String toString() {
 		return "FormsFactory []";
 	}
-
+	
 }

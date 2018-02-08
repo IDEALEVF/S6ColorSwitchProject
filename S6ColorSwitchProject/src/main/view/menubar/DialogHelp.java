@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 public class DialogHelp extends Dialog<Scene>{
-	DialogHelp(){
+	public DialogHelp(){
 		this.setGraphic(new Label("Projet realise par PITROU Adrien, CALVO-FERNANDEZ Adelie et BARRECH Mehdi"));
 		this.setWidth(200);
 		this.setHeight(200);
 		this.setTitle("Ma boite");
 		this.show();
-		this.setOnHiding(new EventHandler<DialogEvent>() {
+		/*this.setOnHiding(new EventHandler<DialogEvent>() {
             @Override
             public void handle(final DialogEvent event) {
 				DialogHelp d = (DialogHelp)event.getSource();
@@ -29,6 +29,6 @@ public class DialogHelp extends Dialog<Scene>{
 				DialogHelp d = (DialogHelp)event.getSource();
 				d.close();
 			}
-        });
+        });*/
 	}
 }

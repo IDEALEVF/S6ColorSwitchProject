@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import javafx.scene.layout.VBox;
@@ -18,13 +19,11 @@ public class MenuItemNiveau extends MenuItem{
 		this.num = num;
 		this.setText("Niveau "+num);
 		
-		this.setOnAction(new actionBouton());
+		this.addEventHandler(ActionEvent.ACTION,
+        		ControlerFactory.build(ActionEvent.ACTION, null, m));
 	}
-
-	private class actionBouton implements EventHandler<ActionEvent>{
-	    @Override
-	    public void handle(ActionEvent t) {
-	        System.out.println("Changement de niveau : "+num);
-	    }
+	
+	public int getNum() {
+		return num;
 	}
 }

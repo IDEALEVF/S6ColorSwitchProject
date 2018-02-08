@@ -11,7 +11,7 @@ public class Round2 extends Round1{
 		if(rotation < 0) {//la rotation reste modulo 360
 			rotation += 360;
 		}
-		rotation -= 8;
+		rotation -= speed;
 		forme.setRotate(rotation);
 	}
 

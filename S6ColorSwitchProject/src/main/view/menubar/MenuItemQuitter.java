@@ -6,22 +6,18 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.VBox;
+import main.controler.ControlerFactory;
 
 public class MenuItemQuitter extends MenuItem{
 
+	@SuppressWarnings("unchecked") //le retour est correct mais il ne le sait pas
 	MenuItemQuitter(){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+q"));
 		this.setGraphic(new ImageView(new Image("save.png")));
 		this.setText("Quitter");
 		
-		this.setOnAction(new actionBouton());
+		this.addEventHandler(ActionEvent.ACTION,
+        		ControlerFactory.build(ActionEvent.ACTION, null, null));
 	}
 	
-	private class actionBouton implements EventHandler<ActionEvent>{
-        @Override
-        public void handle(ActionEvent t) {
-            System.exit(0);
-        }
-	}
 }

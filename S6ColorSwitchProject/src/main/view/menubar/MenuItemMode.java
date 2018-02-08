@@ -6,6 +6,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Type;
@@ -24,13 +25,11 @@ public class MenuItemMode extends MenuItem {
 		default:modeType = Type.NORMAL;
 		}
 		this.setText("Mode "+modeType.name());
-		this.setOnAction(new actionBouton());
+		this.addEventHandler(ActionEvent.ACTION,
+        		ControlerFactory.build(ActionEvent.ACTION, null, m));
 	}
 	
-	private class actionBouton implements EventHandler<ActionEvent>{
-        @Override
-        public void handle(ActionEvent t) {
-            System.out.println("Mode "+modeType.name());
-        }
+	public Type getType() {
+		return modeType;
 	}
 }

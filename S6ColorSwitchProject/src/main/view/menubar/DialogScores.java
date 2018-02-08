@@ -19,7 +19,7 @@ public class DialogScores extends Dialog{
 	private Moteur m;
 	private Score s;
 	
-	DialogScores(Moteur m){
+	public DialogScores(Moteur m){
 		//Background b = new Background(new BackgroundFill(Color.GRAY,null,null));
 		Border border = new Border(new BorderStroke(Color.RED,null,null,new BorderWidths(3)));
 		
