@@ -1,22 +1,18 @@
 package main.model.forms;
 
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 
 public class CroixG extends Obstacles{
 
-	CroixG(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	CroixG(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 
 		int size1 = 10;
-		int size2 = 150;
+		int size2 = 100;
 		int border=10;
 		int size3=2*size2-size1;
-
-		this.forme = new Group();
 
 		Line ligneDroite=new Line(size2,size2,size3,size2);
 		ligneDroite.setFill(ColorSelected.BLUE);
@@ -24,8 +20,8 @@ public class CroixG extends Obstacles{
 		ligneDroite.setStrokeWidth(border);
 
 		Line ligneGauche=new Line(size1,size2,size2,size2);
-		ligneGauche.setFill(Color.YELLOW);
-		ligneGauche.setStroke(Color.YELLOW);
+		ligneGauche.setFill(ColorSelected.YELLOW);
+		ligneGauche.setStroke(ColorSelected.YELLOW);
 		ligneGauche.setStrokeWidth(border);
 
 		Line ligneBas=new Line(size2,size2,size2,size3);

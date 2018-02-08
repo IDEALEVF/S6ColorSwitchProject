@@ -1,9 +1,6 @@
 package main.model.forms;
 
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.ArcType;
 import main.model.ColorSelected;
 
 /**
@@ -13,24 +10,23 @@ import main.model.ColorSelected;
 public class Ball extends Obstacles{
 	private int dirX;
 	private int dirY;
-	private final int LIMIT;
+	private final int MAXV;
 	private final int AMORTISSEMENT = 2;
 	
-	Ball(int posX, int posY, int width, int speed) {
-		super(posX, posY, speed);
-		this.forme = new Group();
+	Ball(int posX, int posY, int width, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 		this.dirX = 0;
 		this.dirY = 0;
-		this.LIMIT = speed;
+		this.MAXV = speed;
 		
-		Circle round = new Circle();
+		Circle circle = new Circle();
 		
-        round.setRadius(width);
-        round.setFill(ColorSelected.BLUE);
-        round.setStroke(ColorSelected.MENU);
-        round.setStrokeWidth(2);
+        circle.setRadius(width);
+        circle.setFill(ColorSelected.YELLOW);
+        circle.setStroke(ColorSelected.MENU);
+        circle.setStrokeWidth(1);
         
-        forme.getChildren().add(round);
+        forme.getChildren().add(circle);
 	}
 
 	@Override
@@ -41,16 +37,26 @@ public class Ball extends Obstacles{
 		this.getForme().setTranslateY(this.getPosY());
 	}
 	
-	public void gravityY(boolean gravityY){
-		if(gravityY) {
-			if(dirY > -LIMIT){
+	public void gravityY(int gravityY){
+		if(gravityY < 0) {//gravite vers le bas
+			if(dirY > -MAXV){
 				dirY -= AMORTISSEMENT;
 			}
-		}else {
-			if(dirY < LIMIT){
+		}else if(gravityY > 0) {//gravite vers le haut
+			if(dirY < MAXV){
+				dirY += AMORTISSEMENT;
+			}
+		}else{
+			if(dirY > 0){//arret de la gravite
+				dirY -= AMORTISSEMENT;
+			}else if(dirY < 0){
 				dirY += AMORTISSEMENT;
 			}
 		}
+	}
+	
+	public void maxY() {
+		dirY = -MAXV;
 	}
 
 	@Override

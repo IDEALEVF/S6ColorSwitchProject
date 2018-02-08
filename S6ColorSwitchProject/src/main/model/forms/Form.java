@@ -19,11 +19,12 @@ public abstract class Form implements ColorSelected{
 	protected Group forme;
 	protected int rotation;
 	
-	Form(int posX, int posY, int speed){
+	Form(int posX, int posY, int speed, int rotate){
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
-		this.rotation = 0;
+		this.rotation = rotate;
+		this.forme = new Group();
 	}
 	
 	public abstract void deplacer();

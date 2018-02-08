@@ -22,8 +22,8 @@ public class Level {
 	private int number;
 	private Type type;
 	private int points;
-	private boolean gravityX;
-	private boolean gravityY;
+	private int gravityX;
+	private int gravityY;
 	
 	/**
 	 * Constructeur par defaut
@@ -38,8 +38,8 @@ public class Level {
 		objects = new Vector<Form>();
 		number = 0;
 		points = 0;
-		gravityX = true;
-		gravityY = false;
+		gravityX = 0;//pas de gravite
+		gravityY = 0;//pas de gravite
 		type = Type.NORMAL;
 	}
 	
@@ -94,49 +94,52 @@ public class Level {
 	}*/
 	
 	/**
-	 * Inverse la gravite
-	 * */
-	public void reverseGravityY() {
-		if(gravityY) {
-			gravityY = false;
-		}else {
-			gravityY = true;
-		}
-	}
-	
-	/**
 	 * Fait que la balle soit attiree en bas
 	 * */
 	public void gravityDown() {
-		this.gravityY = true;
+		this.gravityY = -1;
+	}
+	
+	/**
+	 * Fait que la balle arrete d'etre attiree en x
+	 * */
+	public void gravityXStop() {
+		this.gravityX = 0;
+	}
+	
+	/**
+	 * Fait que la balle soit attiree a gauche
+	 * */
+	public void gravityYStop() {
+		this.gravityY = 0;
 	}
 	
 	/**
 	 * Fait que la balle soit attiree en haut
 	 * */
 	public void gravityUp() {
-		this.gravityY = false;
+		this.gravityY = 1;
 	}
 	
 	/**
 	 * Fait que la balle soit attiree a gauche
 	 * */
 	public void gravityLeft() {
-		this.gravityX = true;
+		this.gravityX = -1;
 	}
 	
 	/**
 	 * Fait que la balle soit attiree a droite
 	 * */
 	public void gravityRight() {
-		this.gravityX = false;
+		this.gravityX = 1;
 	}
 	
 	/**
 	 * Renvoie le sens de gravitation sur l'axe des X
 	 * @return gravityX
 	 * */
-	public boolean gravityX() {
+	public int gravityX() {
 		return gravityX;
 	}
 	
@@ -144,7 +147,7 @@ public class Level {
 	 * Renvoie le sens de gravitation sur l'axe des X
 	 * @return gravityX
 	 * */
-	public boolean gravityY() {
+	public int gravityY() {
 		return gravityY;
 	}
 

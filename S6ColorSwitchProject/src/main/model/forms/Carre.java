@@ -7,8 +7,8 @@ import javafx.scene.shape.Shape;
 
 public class Carre extends Obstacles{
 
-	Carre(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	Carre(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 		
 		int size1 = 10;
 		int size2 = 100;

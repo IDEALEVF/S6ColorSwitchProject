@@ -153,15 +153,15 @@ public class Fenetre extends Application {
      * Fait defiler l'ecran selon l'axe des Y
      * */
 	public void defilerEcranY() {
-		int DEFILEMENT = 6;
+		//int DEFILEMENT = level.getBall().getSpeed();
 		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
 			Form forme = level.getObjects().get(i);
-			forme.setPosY(forme.getPosY()+DEFILEMENT);
+			forme.setPosY(forme.getPosY()+level.getBall().getSpeed());
 			Node node = forme.getForme();
 	    	node.setTranslateY(forme.getPosY());
 		}
 		Form forme = level.getBall();
-		forme.setPosY(forme.getPosY()+DEFILEMENT);//bouge la balle
+		forme.setPosY(forme.getPosY()+level.getBall().getSpeed());//bouge la balle
 		Node node = forme.getForme();
     	node.setTranslateY(forme.getPosY());
 	}

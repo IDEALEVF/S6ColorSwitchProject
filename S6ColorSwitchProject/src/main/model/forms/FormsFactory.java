@@ -12,9 +12,23 @@ public class FormsFactory {
 		}else if(acomparer.equals("ROUND2")) {
 			return new Round2(x , y, width, height, vitesse, rotate);//ROUND2
 		}else if(acomparer.equals("CARRE")) {
-			return new Carre(x, y, vitesse);//CARRE
+			return new Carre(x, y, vitesse, rotate);//CARRE
 		}else if(acomparer.equals("BALL")){
-			return new Ball(x, y, width, vitesse);//BALL
+			return new Ball(x, y, width, vitesse, rotate);//BALL
+		}else if(acomparer.equals("CROIXG")){
+			return new CroixG(x, y, vitesse, rotate);//CROIXG
+		}else if(acomparer.equals("CROIXD")){
+			return new CroixD(x, y, vitesse, rotate);//CROIXD
+		}else if(acomparer.equals("CHANGECOLOR")){
+			return new ChangeColor(x, y, vitesse, rotate);//CHANGECOLOR
+		}else if(acomparer.equals("ETOILE")){
+			return new Etoile(x, y, vitesse, rotate);//POINT
+		}else if(acomparer.equals("POINT")){
+			return new Point(x, y, vitesse, rotate);//POINT
+		}else if(acomparer.equals("OBSTACLEROUND1")){
+			return new ObstacleRound1(x , y, width, height, vitesse, rotate);//OBSTACLEROUND1
+		}else if(acomparer.equals("LIGNEFIN")){
+			return new LigneFin(x , y, width, height, vitesse, rotate);//OBSTACLEROUND1
 		}else {
 			return null;//DEFAULT
 		}

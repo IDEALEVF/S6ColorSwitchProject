@@ -16,10 +16,6 @@ public class Moteur implements Runnable{
 		this.f = f;
 	}
 	
-	/*public Score getScore() {
-		return level.getScore();
-	}*/
-	
 	public void start() {
 		t.start();
 	}
@@ -37,83 +33,17 @@ public class Moteur implements Runnable{
 			t.interrupt();
 		}*/
 	}
-
-//	public Level getLevel() {
-//		return level;
-//	}
-//	
-//	public Group getForm(int num) {
-//		return level.getObjects().get(num).getForme();
-//	}
-//	
-//	public int getFormX(int num) {
-//		return level.getObjects().get(num).getPosX();
-//	}
-//	
-//	public int getFormY(int num) {
-//		return level.getObjects().get(num).getPosY();
-//	}
-//	
-//	public void setFormX(int num, int val) {
-//		level.getObjects().get(num).setPosX(val);
-//	}
-//	
-//	public void setFormY(int num, int val) {
-//		level.getObjects().get(num).setPosY(val);
-//	}
-//	
-//	private void deplacerForme(int num) {
-//		level.getObjects().get(num).deplacer();
-//	}
-//	
-//	public int getFormNumber() {
-//		return level.getObjects().size();
-//	}
-	
-//	public Node getBall() {
-//		return level.getBall().getForme();
-//	}
-//	
-//	public int getBallX() {
-//		return level.getBall().getPosX();
-//	}
-//	
-//	public int getBallY() {
-//		return level.getBall().getPosY();
-//	}
-//	
-//	public void gravityDown() {
-//		level.gravityDown();
-//	}
-//	
-//	public void gravityUp() {
-//		level.gravityUp();
-//	}
-//	
-//	public void gravityLeft() {
-//		level.gravityLeft();
-//	}
-//	
-//	public void gravityRight() {
-//		level.gravityRight();
-//	}
-//	
-//	public void setBallY(int val) {
-//		level.getBall().setPosY(val);
-//	}
 	
 	private void deplacerBall() {
 		if(f.getLevel().getBall().getPosY()<f.getHauteurFenetre()/4) {
 			f.defilerEcranY();
-		}else {
-			f.getLevel().getBall().deplacer();
-			f.getLevel().getBall().gravityY(f.getLevel().gravityY());//la balle tombe selon la gravite
 		}
-		
+		f.getLevel().getBall().deplacer();
+		f.getLevel().getBall().gravityY(f.getLevel().gravityY());//la balle tombe selon la gravite
 	}
 	
 	private boolean isPerdu() {
-		return f.getLevel().getBall().getPosY()>f.getHauteurFenetre();//en bas de l'ecran
+		return f.getLevel().getBall().getPosY()>f.getHauteurFenetre()-50;//en bas de l'ecran
 	}
 
 	@Override
@@ -132,7 +62,10 @@ public class Moteur implements Runnable{
 				}
 				deplacerBall();//deplace la balle ou fait defiler l'ecran
 				if(isPerdu()) {//teste la defaite
-					System.exit(0);
+					f.getLevel().gravityYStop();//arrete la balle
+					f.getLevel().getBall().gravityY(0);
+					break;
+					//System.exit(0);
 				}
 				for(int i=0;i<f.getLevel().getObjects().size();i++) {
 					f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme

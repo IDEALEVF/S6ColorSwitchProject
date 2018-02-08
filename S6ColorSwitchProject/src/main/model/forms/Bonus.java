@@ -2,8 +2,8 @@ package main.model.forms;
 
 public abstract class Bonus extends Form{
 
-	Bonus(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	Bonus(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 	}
 
 	@Override

@@ -13,10 +13,7 @@ import main.model.ColorSelected;
 public class Round1 extends Obstacles{
 
 	Round1(int posX, int posY, int width, int height, int speed, int rotate) {
-		super(posX, posY, speed);
-		this.forme = new Group();
-		System.out.println("rotate"+rotate);
-		this.rotation = rotate;
+		super(posX, posY, speed, rotate);
 		Arc arc = new Arc();
         arc.setRadiusX(width);
         arc.setRadiusY(height);

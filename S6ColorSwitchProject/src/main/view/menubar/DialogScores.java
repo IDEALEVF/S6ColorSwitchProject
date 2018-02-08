@@ -4,29 +4,27 @@ import java.util.Vector;
 
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import main.controler.Moteur;
+import main.model.Level;
 import main.model.Pair;
 import main.model.Score;
 
-public class DialogScores extends Dialog{
-	private Moteur m;
+public class DialogScores extends Dialog<Object>{
+	private Level level;
 	private Score s;
 	
-	public DialogScores(Moteur m){
+	public DialogScores(Level level){
 		//Background b = new Background(new BackgroundFill(Color.GRAY,null,null));
 		Border border = new Border(new BorderStroke(Color.RED,null,null,new BorderWidths(3)));
 		
 		this.setTitle("Table des scores");
-		this.m = m;
+		this.level = level;
 		GridPane gp = new GridPane();
-		s = m.getScore();
+		s = level.getScore();
 		Vector<Pair<String, Integer>> tab = s.getTab();
 		
 		for(int i=0;i<6;i++) {//ajout des scores
@@ -41,5 +39,9 @@ public class DialogScores extends Dialog{
 		
 		this.setGraphic(gp);
 		this.show();
+	}
+	
+	public Level getLevel() {
+		return level;
 	}
 }

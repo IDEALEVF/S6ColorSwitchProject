@@ -2,6 +2,7 @@ package main.controler;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import main.model.Level;
 import main.view.menubar.DialogHelp;
 import main.view.menubar.DialogScores;
 import main.view.menubar.MenuItemHelp;
@@ -14,9 +15,11 @@ import main.view.menubar.MenuItemVitesse;
 
 class ActionBouton implements EventHandler<ActionEvent>{
 	Moteur m;
+	Level l;
 	
-	ActionBouton(Moteur m){
+	ActionBouton(Moteur m, Level l){
 		this.m = m;
+		this.l = l;
 	}
 	
     @Override
@@ -28,7 +31,7 @@ class ActionBouton implements EventHandler<ActionEvent>{
 	    	System.out.println("Bonjour");
 	    	new DialogHelp();
     	}else if(t.getTarget().getClass().equals(MenuItemScore.class)) {//si l'appel vient de MenuItemScore
-	    	new DialogScores(m);
+	    	new DialogScores(l);
     	}else if(t.getTarget().getClass().equals(MenuItemNouvellePartie.class)) {//si l'appel vient de MenuItemNouvellePartie
     		System.out.println("Nouvelle partie");
     	}else if(t.getTarget().getClass().equals(MenuItemNiveau.class)) {//si l'appel vient de MenuItemNiveau
