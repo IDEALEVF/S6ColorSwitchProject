@@ -5,28 +5,32 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
-public class Carre  extends Obstacles{
+public class Carre extends Obstacles{
 
-	Carre(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	Carre(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
+		
+		int size1 = 10;
+		int size2 = 100;
+		
 		this.forme = new Group();
 
-		Line ligneHaut=new Line(10.0,10.0,210.0,10.0);
+		Line ligneHaut=new Line(size1,size1,size2,10.0);
 		ligneHaut.setFill(Color.BLUE);
 		ligneHaut.setStroke(Color.BLUE);
 		ligneHaut.setStrokeWidth(5);
 
-		Line ligneBas=new Line(10.0,210.0,210.0,210.0);
+		Line ligneBas=new Line(size1,size2,size2,size2);
 		ligneBas.setFill(Color.YELLOW);
 		ligneBas.setStroke(Color.YELLOW);
 		ligneBas.setStrokeWidth(5);
 
-		Line ligneGauche=new Line(10.0,10.0,10.0,210.0);
+		Line ligneGauche=new Line(size1,size1,size1,size2);
 		ligneGauche.setFill(Color.GREEN);
 		ligneGauche.setStroke(Color.GREEN);
 		ligneGauche.setStrokeWidth(5);
 
-		Line ligneDroite=new Line(210.0,10.0,210.0,210.0);
+		Line ligneDroite=new Line(size2,size1,size2,size2);
 		ligneDroite.setFill(Color.RED);
 		ligneDroite.setStroke(Color.RED);
 		ligneDroite.setStrokeWidth(5);
@@ -35,6 +39,7 @@ public class Carre  extends Obstacles{
 		Shape angle2=Shape.union(ligneDroite, ligneBas);
 		Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
+		
 
 		forme.getChildren().add(ligneHaut);
 		forme.getChildren().add(ligneBas);
@@ -44,19 +49,11 @@ public class Carre  extends Obstacles{
 
 	@Override
 	public void deplacer() {
-		int val = 0;
-		while(true) {
-			forme.setRotate(val);
-			val += 20;
-
+		if(rotation > 360) {//la rotation reste modulo 360
+			rotation -= 360;
 		}
-
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
+		rotation += 2;
+		forme.setRotate(rotation);
 	}
 
 }
