@@ -13,6 +13,7 @@ public class ZMenuBar extends MenuBar{
 	BorderPane root;
 	Moteur m;
 
+
 	public ZMenuBar(BorderPane root, Moteur m){
 		this.root = root;
 
@@ -20,6 +21,7 @@ public class ZMenuBar extends MenuBar{
 		this.getMenus().add(new MenuModes(m));
 		this.getMenus().add(new MenuHelp(m));
 		this.getMenus().add(new MenuParametre(m));
+
 		Background b = new Background(new BackgroundFill(ColorSelected.MENU,null,null));
 		this.setBackground(b);
 		//this.setOnMouseClicked(ControlerFactory.build(MouseEvent.MOUSE_CLICKED, null, null));

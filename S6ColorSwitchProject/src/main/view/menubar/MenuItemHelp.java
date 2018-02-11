@@ -2,8 +2,10 @@ package main.view.menubar;
 
 
 
+
 import java.io.File;
 import java.net.URL;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +21,7 @@ public class MenuItemHelp extends MenuItem {
 	MenuItemHelp(){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+h"));
 		this.setGraphic(new ImageView(new Image("help.png")));
+
 		//final URL imageURL = getClass().getResource("help.png");
 		//final Image image = new Image(imageURL.toString());
 		//ImageView imageView = new ImageView();
@@ -26,6 +29,7 @@ public class MenuItemHelp extends MenuItem {
         //final ImageView imageView = new ImageView(imageURL);
 		//Image im=new Image("help.png");
 		//this.setGraphic(imageView);
+
 		this.setText("Help");
 		this.addEventHandler(DialogEvent.DIALOG_SHOWING,
         		ControlerFactory.build(DialogEvent.DIALOG_SHOWING, null, null));

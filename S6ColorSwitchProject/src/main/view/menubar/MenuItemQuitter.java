@@ -13,7 +13,9 @@ public class MenuItemQuitter extends MenuItem{
 	@SuppressWarnings("unchecked") //le retour est correct mais il ne le sait pas
 	MenuItemQuitter(){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+q"));
-		//this.setGraphic(new ImageView(new Image("save.png")));
+
+		this.setGraphic(new ImageView(new Image("save.png")));
+
 		this.setText("Quitter");
 		
 		this.addEventHandler(ActionEvent.ACTION,

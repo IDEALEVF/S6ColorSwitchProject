@@ -4,7 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Vector;
 
+
 import org.junit.Test;
+
 
 import main.model.QuickSort;
 import main.model.Pair;
@@ -24,7 +26,9 @@ class testQuickSort{
 		tab.add(new Pair<String, Integer>("Manon", 9));
 
 
+
 		afficher(tab);
+
 
 		tab2.add(new Pair<String, Integer>("Lyse", 1));
 		tab2.add(new Pair<String, Integer>("Bob", 3));
@@ -33,6 +37,7 @@ class testQuickSort{
 		tab2.add(new Pair<String, Integer>("Manon", 9));
 		tab2.add(new Pair<String, Integer>("Bob", 16));
 		tab2.add(new Pair<String, Integer>("Bob", 56));
+
 
 		afficher(tab2);
 
@@ -44,6 +49,7 @@ class testQuickSort{
 
 		assertTrue("Tri incorrect : "+tab, iddentiques(tab,tab2));
 	}
+
 
 	public boolean iddentiques(Vector<Pair<String, Integer>> tab,Vector<Pair<String, Integer>> tab2 ) {
 		for(int i=0;i<tab.size();i++) {

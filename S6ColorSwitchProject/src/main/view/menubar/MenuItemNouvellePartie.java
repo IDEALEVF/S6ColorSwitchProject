@@ -20,7 +20,8 @@ public class MenuItemNouvellePartie extends MenuItem{
 
 	MenuItemNouvellePartie(Moteur m){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+x"));
-		//this.setGraphic(new ImageView(new Image("save.png")));
+
+		this.setGraphic(new ImageView(new Image("save.png")));
 		this.m = m;
 		this.setText("Nouvelle Partie");
 

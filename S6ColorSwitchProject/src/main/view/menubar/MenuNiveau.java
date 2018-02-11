@@ -10,10 +10,12 @@ import main.controler.Moteur;
 public class MenuNiveau extends Menu{
 	Moteur m;
 
+	
 	MenuNiveau(Moteur m){
 		this.m = m;
 		this.setText("Niveau");
-		//this.setGraphic(new ImageView(new Image("lv.png")));
+		this.setGraphic(new ImageView(new Image("lv.png")));
+
 		for(int i = 1; i< 6; i++) {//ajout des niveaux
 			this.getItems().add(new MenuItemNiveau(m, i));
 		}
