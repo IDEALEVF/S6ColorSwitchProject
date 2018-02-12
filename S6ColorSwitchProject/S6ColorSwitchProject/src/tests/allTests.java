@@ -1,8 +1,12 @@
 package tests;
 
+
+import org.junit.Test;
+
 //import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
+
+
 
 class allTests {
 
@@ -18,18 +22,18 @@ class allTests {
 		t2.testConstructorDefault();
 		t2.testConstructorLoader();
 	}
-	
+
 	@Test
 	void testLoader() {
 		testLoader t3 = new testLoader();
 		t3.testread();
 		t3.testreadInTab();
 	}
-	
+
 	@Test
 	void testType() {
 		testType t4 = new testType();
 		t4.testEnumType();
-		
+
 	}
 }

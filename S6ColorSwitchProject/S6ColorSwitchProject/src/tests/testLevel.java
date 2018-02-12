@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import main.model.Level;
 import main.model.Score;
@@ -10,7 +10,7 @@ import main.model.Type;
 import main.view.Fenetre;
 
 class testLevel {
-	
+
 	@Test
 	void testConstructorDefault() {
 		Level l = new Level();
@@ -21,7 +21,7 @@ class testLevel {
 				l.getNumber() == 0 &&
 				l.getScore().getClass().equals(Score.class));
 	}
-	
+
 	@Test
 	void testConstructorLoader() {
 		Level l = new Level(new Fenetre2(), "niveauTesting");
@@ -37,10 +37,11 @@ class testLevel {
 	private class Fenetre2 extends Fenetre{//mox
 		Fenetre2(){}
 	} 
-	
+
 	/*class LevelTest extends Level{
 		LevelTest(){
-			
+
+
 		}
 	}*/
 }

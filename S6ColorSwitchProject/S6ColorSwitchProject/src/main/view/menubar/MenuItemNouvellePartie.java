@@ -21,10 +21,11 @@ public class MenuItemNouvellePartie extends MenuItem{
 
 	MenuItemNouvellePartie(Level l){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+x"));
+
 		this.setGraphic(new ImageView(new Image("save.png")));
 		this.l = l;
 		this.setText("Nouvelle Partie");
-		
+
 		this.addEventHandler(ActionEvent.ACTION,
         		ControlerFactory.build(ActionEvent.ACTION, l, null));
 	}

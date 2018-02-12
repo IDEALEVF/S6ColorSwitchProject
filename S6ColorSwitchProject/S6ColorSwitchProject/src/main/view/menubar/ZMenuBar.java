@@ -13,13 +13,14 @@ import javafx.scene.layout.BorderPane;
 public class ZMenuBar extends MenuBar{
 	BorderPane root;
 	Moteur m;
-    
-	public ZMenuBar(BorderPane root, Moteur m, Level l){
+
+	public ZMenuBar(BorderPane root, Moteur m){
 		this.root = root;
-		
-		this.getMenus().add(new MenuFichier(m, l));
-		this.getMenus().add(new MenuModes(l));
-		this.getMenus().add(new MenuHelp(m, l));
+		this.getMenus().add(new MenuFichier(m));
+		this.getMenus().add(new MenuModes(m));
+		this.getMenus().add(new MenuHelp(m));
+		this.getMenus().add(new MenuParametre(m));
+
 		Background b = new Background(new BackgroundFill(ColorSelected.MENU,null,null));
 		this.setBackground(b);
 		//this.setOnMouseClicked(ControlerFactory.build(MouseEvent.MOUSE_CLICKED, null, null));

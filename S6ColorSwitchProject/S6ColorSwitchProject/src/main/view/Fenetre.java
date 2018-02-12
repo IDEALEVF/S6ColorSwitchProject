@@ -1,8 +1,13 @@
 package main.view;
 
+
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.image.Image;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -10,6 +15,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.controler.ControlerFactory;
@@ -20,8 +27,7 @@ import main.model.forms.Form;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
-import javafx.scene.shape.Circle;
- 
+
 /**
  * Classe qui se charge de la vitrine de l'application.
  * @author PITROU Adrien
@@ -40,6 +46,7 @@ public class Fenetre extends Application {
         launch(args);
     }
     
+
     /**
      * Retourne la hauteur de la fenetre
      * @return HAUTEUR_FENETRE
@@ -47,7 +54,7 @@ public class Fenetre extends Application {
     public int getHauteurFenetre() {
     	return HAUTEUR_FENETRE;
     }
-    
+
     /**
      * Renvoie les composants de la fenetre
      * */
@@ -61,10 +68,42 @@ public class Fenetre extends Application {
      * */
     public int getLargeurFenetre() {
     	return LARGEUR_FENETRE;
+
     }
-    
+
     public Level getLevel() {
     	return level;
+    }
+
+    /**
+     * Place la forme d'indice num du moteur aux coordonnees x et y de cette forme
+     * @param components Le panneau dans lequel ajouter la forme
+     * @param m le moteur de jeu qui contient l'objet Level et les formes
+     * @param num le numero de la forme a ajouter
+     * */
+    private void placerForme(Pane components, Moteur m, int num) {
+    	Form forme = level.getObjects().get(num);
+    	Node node = forme.getForme();
+        node.setTranslateX(forme.getPosX());
+        node.setTranslateY(forme.getPosY());
+        components.getChildren().add(node);//formeG
+    }
+
+    /**
+     * Place la balle du moteur aux coordonnees x et y de cette forme
+     * @param components Le panneau dans lequel ajouter la balle
+     * @param m le moteur de jeu qui contient l'objet Level et les formes
+     * @param num le numero de la forme a ajouter
+     * */
+    private void placerBalle(Pane components, Moteur m) {
+    	//Node node = m.getBall();
+    	Form balle = level.getBall();
+    	Node node = balle.getForme();
+    	node.setTranslateX(balle.getPosX());
+        node.setTranslateY(balle.getPosY());
+        components.getChildren().add(node);//ajout de la balle dans le canevas
+
+
     }
     
     /**
@@ -101,7 +140,7 @@ public class Fenetre extends Application {
     public void start(Stage primaryStage) {
     	this.level = new Level(this, "niveauTest");
     	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
-    	
+
     	//parametres de l'objet Stage
     	primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
     	primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {//fermeture
@@ -110,7 +149,7 @@ public class Fenetre extends Application {
 				System.exit(0);
 			}
         });
-    	
+
         //composants
     	components = new Pane();//boite contenant les formes du jeu
 		components.setBackground(b);//fond
@@ -125,7 +164,7 @@ public class Fenetre extends Application {
         	cm.show(components, e.getScreenX(), e.getScreenY());
         	}
         });
-        
+
         //objet root
         root = new BorderPane();
         root.setCenter(components);

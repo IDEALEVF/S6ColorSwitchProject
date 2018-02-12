@@ -5,11 +5,14 @@ import javafx.event.EventType;
 import main.model.Level;
 
 public class ControlerFactory {
-	
+
 	@SuppressWarnings("unchecked") //le type de retour est correct mais il ne le sait pas.
 	public static <T> EventHandler<? super T> build(EventType<? super T> type, Level level, Moteur m) {
 		//System.out.println(type.getName());
 		switch(type.getName()) {
+
+		case "KEY_TYPED":return (EventHandler<? super T>) new EcouteurToucheClique(level);
+
 		case "KEY_PRESSED":return (EventHandler<? super T>) new EcouteurToucheEnfoncee(level);
 		case "KEY_RELEASED":return (EventHandler<? super T>) new EcouteurToucheRelachee(level);
 		case "MOUSE_CLICKED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m, level);

@@ -11,17 +11,19 @@ import main.view.menubar.MenuItemNiveau;
 import main.view.menubar.MenuItemNouvellePartie;
 import main.view.menubar.MenuItemQuitter;
 import main.view.menubar.MenuItemScore;
+import main.view.menubar.MenuItemSon;
+
 import main.view.menubar.MenuItemVitesse;
 
 class ActionBouton implements EventHandler<ActionEvent>{
 	Moteur m;
 	Level l;
-	
+
 	ActionBouton(Moteur m, Level l){
 		this.m = m;
 		this.l = l;
 	}
-	
+
     @Override
     public void handle(ActionEvent t) {
     	if(t.getTarget().getClass().equals(MenuItemVitesse.class)) {//si l'appel vient de MenuItemVitesse
@@ -46,6 +48,10 @@ class ActionBouton implements EventHandler<ActionEvent>{
     		System.out.println("Mode "+obj.getType().name());
     	}else if(t.getTarget().getClass().equals(MenuItemQuitter.class)){//si l'appel vient de MenuItemQuitter
     		System.exit(0);
+
+    	}else if(t.getTarget().getClass().equals(MenuItemSon.class)) {//si l'appel vient de MenuItemHelp
+    		((MenuItemSon) t.getTarget()).changerSon();
+
     	}else {//action par defaut
     		System.out.println("fait l'action par defaut");
     		m.stop();
