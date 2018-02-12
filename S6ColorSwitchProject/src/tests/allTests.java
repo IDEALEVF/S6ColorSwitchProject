@@ -10,7 +10,6 @@ class allTests {
 	void testFormsFactory() {
 		testFormsFactory t1 = new testFormsFactory();
 		t1.testbuild();
-		
 	}
 
 	@Test

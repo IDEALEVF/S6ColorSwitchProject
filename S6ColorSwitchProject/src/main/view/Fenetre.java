@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.controler.ControlerFactory;
@@ -19,6 +20,7 @@ import main.model.forms.Form;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
+import javafx.scene.shape.Circle;
  
 /**
  * Classe qui se charge de la vitrine de l'application.
@@ -32,6 +34,7 @@ public class Fenetre extends Application {
 	private final int LARGEUR_FENETRE = 400;
 	private Moteur m;
 	private Level level;
+	private Pane components;
 	
     public static void main(String[] args) {
         launch(args);
@@ -43,6 +46,13 @@ public class Fenetre extends Application {
      * */
     public int getHauteurFenetre() {
     	return HAUTEUR_FENETRE;
+    }
+    
+    /**
+     * Renvoie les composants de la fenetre
+     * */
+    public Pane getComponents() {
+    	return components;
     }
     
     /**
@@ -89,7 +99,7 @@ public class Fenetre extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-    	this.level = new Level("src/ressources/niveauTest.txt");
+    	this.level = new Level(this, "niveauTest");
     	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
     	
     	//parametres de l'objet Stage
@@ -102,12 +112,12 @@ public class Fenetre extends Application {
         });
     	
         //composants
-        Pane components = new Pane();//boite contenant les formes du jeu
+    	components = new Pane();//boite contenant les formes du jeu
 		components.setBackground(b);//fond
 
 		//Menus
 		m = new Moteur(this);
-        ZMenuBar menuBar = new ZMenuBar(root, m);//la barre de menu
+        ZMenuBar menuBar = new ZMenuBar(root, m, level);//la barre de menu
         ContextualMenu cm = new ContextualMenu(m);
         components.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
         	@Override public void handle(MouseEvent e) {
@@ -116,14 +126,6 @@ public class Fenetre extends Application {
         	}
         });
         
-		//placement des formes
-        for(int i=0;i<level.getObjects().size();i++) {//place les formes
-        	 placerForme(components, m, i);
-        }
-        
-        //placement de la balle
-        placerBalle(components,m);
-        
         //objet root
         root = new BorderPane();
         root.setCenter(components);
@@ -131,22 +133,83 @@ public class Fenetre extends Application {
         primaryStage.setScene(new Scene(root, LARGEUR_FENETRE, HAUTEUR_FENETRE));
         root.setPrefSize(LARGEUR_FENETRE, HAUTEUR_FENETRE);
         
+        //nouvellePartie(components, "niveauTest");
+        //menu();
+        
         //ecouteur de touche
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, 
-        		ControlerFactory.build(KeyEvent.KEY_PRESSED, level, null));
-        primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, 
-        		ControlerFactory.build(KeyEvent.KEY_RELEASED, level, null));
+        		ControlerFactory.build(KeyEvent.KEY_PRESSED, level));
+        //primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, 
+        //		ControlerFactory.build(KeyEvent.KEY_RELEASED, level));
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, 
-        		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, null, m));
+        		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m));
         
         //primaryStage.setResizable(false);
         primaryStage.show();
         
-        //synchronise sinon le show() lance un nouveau thread et le moteur n'a pas 
-        //le temps de charger le jeu que la fenetre se raffraichit deja
-        synchronized(Thread.currentThread()){
-        	m.start();
+        m.start();
+    }
+    
+    /**
+     * Nouvelle parite
+     * */
+    public void nouvellePartie() {
+    	components.getChildren().removeAll(components.getChildren());
+    	
+    	//placement des formes
+        for(int i=0;i<level.getObjects().size();i++) {//place les formes
+        	 placerForme(components, m, i);
         }
+        
+        //placement de la balle
+        placerBalle(components,m);
+        
+      //synchronise sinon le show() lance un nouveau thread et le moteur n'a pas 
+        //le temps de charger le jeu que la fenetre se raffraichit deja
+        //synchronized(Thread.currentThread()){
+        m.restart();
+        //}
+    }
+    
+    
+    /**
+     * Menu
+     * */
+    /*public void menu() {
+    	//m.stop();
+    	//Pane aremplacer = new Pane();
+    	System.out.println("nbre : "+components.getChildren().size());
+    	System.out.println("comp : "+components.getChildren());
+    	components.getChildren().removeAll(components.getChildren());
+    	
+    	Circle bouton = new Circle();
+        bouton.setFill(Color.BLUE);
+        bouton.setRadius(20);
+        bouton.setTranslateX(100);
+        bouton.setTranslateY(200);
+        bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+        		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
+        //aremplacer.getChildren().add(bouton);
+        //components = aremplacer;
+        components.getChildren().add(bouton);
+        //assuprimer.getChildren().remove(1);
+        //assuprimer.getChildren().add(aremplacer);
+        //components = aremplacer;
+    }*/
+    
+    public void asupprimer() {
+    	System.out.println("nbre : "+components.getChildren().size());
+    	System.out.println("comp : "+components.getChildren());
+    	//components.getChildren().removeAll(components.getChildren());
+    	
+    	Circle bouton = new Circle();
+        bouton.setFill(Color.BLUE);
+        bouton.setRadius(20);
+        bouton.setTranslateX(100);
+        bouton.setTranslateY(200);
+        bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+        		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
+        //components.getChildren().add(bouton);
     }
 
     /**

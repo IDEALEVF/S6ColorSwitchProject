@@ -1,6 +1,5 @@
 package main.model.forms;
 
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -10,7 +9,7 @@ import main.model.ColorSelected;
  * Classe pour modeliser un cercle quadricolore.
  * Le pattern est : tourne vers la droite
  * */
-public class Round1 extends Obstacles{
+class Round1 extends Obstacles{
 
 	Round1(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

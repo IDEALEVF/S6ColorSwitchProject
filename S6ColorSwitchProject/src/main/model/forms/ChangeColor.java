@@ -5,7 +5,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import main.model.ColorSelected;
 
-public class ChangeColor extends Bonus{
+class ChangeColor extends Bonus{
 
 	public ChangeColor(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

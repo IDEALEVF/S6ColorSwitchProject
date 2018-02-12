@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import main.model.Level;
 import main.model.Score;
 import main.model.Type;
+import main.view.Fenetre;
 
 class testLevel {
 	
@@ -23,7 +24,7 @@ class testLevel {
 	
 	@Test
 	void testConstructorLoader() {
-		Level l = new Level("src/ressources/niveauTesting.txt");
+		Level l = new Level(new Fenetre2(), "niveauTesting");
 		assertTrue("Default constructor loader name", l.getName().equals("niveau 1"));
 		assertTrue("Default constructor loader points",l.getPoints() == 0);
 		assertTrue("Default constructor loader score",l.getScore().getClass().equals(Score.class));
@@ -33,7 +34,9 @@ class testLevel {
 		assertTrue("Default constructor loader type",l.getType() == Type.NORMAL);
 	}
 	
-	
+	private class Fenetre2 extends Fenetre{//mox
+		Fenetre2(){}
+	} 
 	
 	/*class LevelTest extends Level{
 		LevelTest(){

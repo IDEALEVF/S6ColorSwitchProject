@@ -6,14 +6,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
+import main.model.Level;
 
 public class MenuItemScore extends MenuItem{
-	Moteur m;
 	
-	MenuItemScore(Moteur m){
-		this.m = m;
+	MenuItemScore(Level l){
 		this.setText("Score");
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, null, m));
+        		ControlerFactory.build(ActionEvent.ACTION,  l, null));
 	}
 }

@@ -23,7 +23,7 @@ class testLoader {
 	
 	@Test
 	void testread() {
-		Vector<String> vect = Loader.read("src/ressources/niveauTesting.txt");
+		Vector<String> vect = Loader.read("src/ressources/niveaux/niveauTesting.txt");
 		Iterator<String> it = vect.iterator();
 		
 		for(int i=0;i<tab.length;i++) {
@@ -33,7 +33,7 @@ class testLoader {
 	
 	@Test
 	void testreadInTab() {
-		String[] tab2 = Loader.readInTab("src/ressources/niveauTesting.txt");
+		String[] tab2 = Loader.readInTab("src/ressources/niveaux/niveauTesting.txt");
 		
 		for(int i=0;i<tab.length;i++) {
 			assertTrue("read error", tab[i].equals(tab2[i]));

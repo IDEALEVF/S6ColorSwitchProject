@@ -1,6 +1,6 @@
 package main.model.forms;
 
-public abstract class Obstacles extends Form{
+abstract class Obstacles extends Form{
 
 	Obstacles(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

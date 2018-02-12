@@ -2,7 +2,7 @@ package main.model.forms;
 
 import javafx.scene.Group;
 
-public class Point extends Obstacles{
+class Point extends Obstacles{
 
 	public Point(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

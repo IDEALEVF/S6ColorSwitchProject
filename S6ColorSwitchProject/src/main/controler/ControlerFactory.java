@@ -12,8 +12,8 @@ public class ControlerFactory {
 		switch(type.getName()) {
 		case "KEY_PRESSED":return (EventHandler<? super T>) new EcouteurToucheEnfoncee(level);
 		case "KEY_RELEASED":return (EventHandler<? super T>) new EcouteurToucheRelachee(level);
-		case "MOUSE_CLICKED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m);
-		//case "MOUSE_RELEASED":return (EventHandler<? super T>) new ActionVide();
+		case "MOUSE_CLICKED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m, level);
+		case "MOUSE_RELEASED":return (EventHandler<? super T>) new ActionNouvellePartie(level);
 		case "ACTION": return (EventHandler<? super T>) new ActionBouton(m, level);
 		case "WINDOW_SHOWING":return (EventHandler<? super T>) new EcouteurFenetreOuverte(m);
 		case "WINDOW_HIDING":return (EventHandler<? super T>) new EcouteurFenetreFermee(m);
@@ -24,5 +24,13 @@ public class ControlerFactory {
 		//case "MOUSE_EXITED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m);
 		default: throw new IllegalArgumentException("type incorrect");
 		}
+	}
+	
+	public static <T> EventHandler<? super T> build(EventType<? super T> type, Level level) {
+		return build(type, level, null);
+	}
+	
+	public static <T> EventHandler<? super T> build(EventType<? super T> type, Moteur m) {
+		return build(type, null, m);
 	}
 }

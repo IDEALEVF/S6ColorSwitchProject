@@ -34,9 +34,13 @@ class ActionBouton implements EventHandler<ActionEvent>{
 	    	new DialogScores(l);
     	}else if(t.getTarget().getClass().equals(MenuItemNouvellePartie.class)) {//si l'appel vient de MenuItemNouvellePartie
     		System.out.println("Nouvelle partie");
+    		l.nouvellePartie("niveau"+l.getNumber());
+    		l.update();
     	}else if(t.getTarget().getClass().equals(MenuItemNiveau.class)) {//si l'appel vient de MenuItemNiveau
     		MenuItemNiveau obj = (MenuItemNiveau) t.getTarget();
     		System.out.println("Changement de niveau : "+obj.getNum());
+    		l.nouvellePartie("niveau"+obj.getNum());
+    		l.update();
     	}else if(t.getTarget().getClass().equals(MenuItemMode.class)) {//si l'appel vient de MenuItemMode
     		MenuItemMode obj = (MenuItemMode) t.getTarget();
     		System.out.println("Mode "+obj.getType().name());
