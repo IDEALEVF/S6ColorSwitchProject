@@ -1,6 +1,6 @@
 package main.model.forms;
 
-public class CroixD extends CroixG{
+class CroixD extends CroixG{
 
 	public CroixD(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

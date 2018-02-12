@@ -1,8 +1,6 @@
 package main.model.forms;
 
-import javafx.scene.Group;
-
-public class ObstacleRound1 extends Obstacles{
+class ObstacleRound1 extends Obstacles{
 	private final Form part1;
 	private final Form part2;
 	private final Form part3;

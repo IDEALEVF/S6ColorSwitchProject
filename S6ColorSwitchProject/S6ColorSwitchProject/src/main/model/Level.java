@@ -5,6 +5,7 @@ import java.util.Vector;
 import main.model.forms.Ball;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
+import main.view.Fenetre;
 
 /**
  * Classe qui se prend en charge tout les objets et parametres d'un niveau :
@@ -16,14 +17,15 @@ import main.model.forms.FormsFactory;
 public class Level {
 	private final int TAILLE_ENTETE = 6;
 	private Score score;
-	private Vector<Form> objects;
+	private Vector<Form> objects;//les obstacles du niveau
 	private Ball ball;
 	private String name;
 	private int number;
 	private Type type;
 	private int points;
-	private int gravityX;
-	private int gravityY;
+	private int gravityX, gravityY;//sens de gravite
+	private Fenetre fenetre;//reference vers la vue
+	private int coordinateX, coordinateY;//distance de la balle a l'origine
 	
 	/**
 	 * Constructeur par defaut
@@ -32,7 +34,7 @@ public class Level {
 		name = "niveau 1";
 		score = new Score(6);
 		ball = null;
-		score.add("Bob", 23);
+		score.add("Bob", 23);//assuprimer
 		score.add("Adrien", 230);
 		score.add("Anne", 140);
 		objects = new Vector<Form>();
@@ -41,6 +43,7 @@ public class Level {
 		gravityX = 0;//pas de gravite
 		gravityY = 0;//pas de gravite
 		type = Type.NORMAL;
+		setCoordinateX(setCoordinateY(0));
 	}
 	
 	/**
@@ -49,9 +52,33 @@ public class Level {
 	 * Le format d'enregistrement doit etre de la forme :
 	 * forme x y width height vitesse rotate
 	 * */
-	public Level(String path){
+	public Level(Fenetre fenetre, String path){
 		this();
-		String[] lignes = Loader.readInTab(path);//lit les informations contenues dans le fichier
+		assert(fenetre != null);
+		assert(path != null);
+		
+		this.fenetre = fenetre;
+		nouvellePartie(path);
+	}//Level
+
+	/**
+	 * Retourne le score
+	 * @return score
+	 * */
+	public Score getScore() {
+		return score;
+	}
+	
+	/**
+	 * Nouvelle Partie
+	 * @param path le fichier a ouvrir
+	 * */
+	public void nouvellePartie(String path) {
+		assert(path != null);
+		
+		String[] lignes = Loader.readInTab("src/ressources/niveaux/"+path+".txt");//lit les informations contenues dans le fichier
+		objects.clear();//nettoyage des objets precedents
+		gravityX = gravityY = 0;//suppression de la gravite
 		
 		if(lignes.length < TAILLE_ENTETE) {//genere une erreur si l'entete est superieure a lignes
 			throw new IllegalStateException("Erreur de taille.");
@@ -68,6 +95,9 @@ public class Level {
 		
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
+			if(parties.length < 7) {//si on a une ligne incorrecte, on l' ignore
+				continue;
+			}
 			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),
@@ -79,25 +109,20 @@ public class Level {
 				objects.add(o);//cree les objets
 			}
 		}//for
-	}//Level
-
-	/**
-	 * Retourne le score
-	 * @return score
-	 * */
-	public Score getScore() {
-		return score;
 	}
-
-	/*public void setScore(int score) {
-		this.score = score;
-	}*/
+	
+	/**
+	 * Met la vue a jour
+	 * */
+	public void update() {
+		fenetre.nouvellePartie();
+	}
 	
 	/**
 	 * Fait que la balle soit attiree en bas
 	 * */
 	public void gravityDown() {
-		this.gravityY = -1;
+		this.gravityY = 1;
 	}
 	
 	/**
@@ -118,7 +143,7 @@ public class Level {
 	 * Fait que la balle soit attiree en haut
 	 * */
 	public void gravityUp() {
-		this.gravityY = 1;
+		this.gravityY = -1;
 	}
 	
 	/**
@@ -203,5 +228,22 @@ public class Level {
 	public String toString() {
 		return "Level [points=" + points + ", score=" + score + ", objects=" + objects + ", name=" + name + ", number=" + number + ", type="
 				+ type + "]";
+	}
+
+	public int getCoordinateY() {
+		return coordinateY;
+	}
+
+	public int setCoordinateY(int coordinateY) {
+		this.coordinateY = coordinateY;
+		return coordinateY;
+	}
+
+	public int getCoordinateX() {
+		return coordinateX;
+	}
+
+	public void setCoordinateX(int coordinateX) {
+		this.coordinateX = coordinateX;
 	}
 }

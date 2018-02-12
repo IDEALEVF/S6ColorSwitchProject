@@ -13,19 +13,20 @@ import javafx.scene.shape.Rectangle;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
+import main.model.Level;
 import javafx.scene.layout.VBox;
 
 public class MenuItemNouvellePartie extends MenuItem{
-	Moteur m;
+	Level l;
 
-	MenuItemNouvellePartie(Moteur m){
+	MenuItemNouvellePartie(Level l){
 		this.setAccelerator(KeyCombination.keyCombination("Ctrl+x"));
 
 		this.setGraphic(new ImageView(new Image("save.png")));
-		this.m = m;
+		this.l = l;
 		this.setText("Nouvelle Partie");
 
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, null, null));
+        		ControlerFactory.build(ActionEvent.ACTION, l, null));
 	}
 }

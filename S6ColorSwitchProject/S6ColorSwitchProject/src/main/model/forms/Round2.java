@@ -1,6 +1,6 @@
 package main.model.forms;
 
-public class Round2 extends Round1{
+class Round2 extends Round1{
 
 	Round2(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);

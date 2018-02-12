@@ -16,7 +16,7 @@ class EcouteurToucheEnfoncee implements EventHandler<KeyEvent>{
         String touche = evt.getText();
         if(touche.equals("n")){
         	l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
-        	//l.gravityDown();
+        	l.gravityDown();
         }
     }
 }

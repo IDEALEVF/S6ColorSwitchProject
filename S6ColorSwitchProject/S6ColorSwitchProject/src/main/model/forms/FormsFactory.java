@@ -29,6 +29,8 @@ public class FormsFactory {
 			return new ObstacleRound1(x , y, width, height, vitesse, rotate);//OBSTACLEROUND1
 		}else if(acomparer.equals("LIGNEFIN")){
 			return new LigneFin(x , y, width, height, vitesse, rotate);//OBSTACLEROUND1
+		}else if(acomparer.equals("MESSAGECOLORSWITCH")){
+			return new MessageColorSwitch(x , y, width, height, vitesse, rotate);//MESSAGECOLORSWITCH
 		}else {
 			return null;//DEFAULT
 		}

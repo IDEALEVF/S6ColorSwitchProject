@@ -7,7 +7,7 @@ import main.model.ColorSelected;
  * Classe pour modeliser un cercle quadricolore.
  * Le pattern est : tourne vers la droite
  * */
-public class LigneFin extends Bonus{
+class LigneFin extends Bonus{
 
 	LigneFin(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, speed, rotate);

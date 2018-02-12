@@ -15,5 +15,7 @@ public interface ColorSelected{
 	
 	Color MENU = Color.rgb(90,90,90);
 
-	Color FONT = Color.rgb(70,70,70);
+	Color FONT = Color.rgb(90,90,90);
+	
+	Color WHITE = Color.rgb(240,240,240);
 }

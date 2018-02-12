@@ -13,10 +13,7 @@ class EcouteurToucheRelachee implements EventHandler<KeyEvent>{
 	
     @Override
     public void handle(KeyEvent evt) {
-        String touche = evt.getText();
-        if(touche.equals("n")){
-        	l.gravityUp();
-        }
+        
     }
 }
 

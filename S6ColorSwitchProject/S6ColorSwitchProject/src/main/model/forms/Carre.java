@@ -3,9 +3,8 @@ package main.model.forms;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 
-public class Carre extends Obstacles{
+class Carre extends Obstacles{
 
 	Carre(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);
@@ -35,9 +34,9 @@ public class Carre extends Obstacles{
 		ligneDroite.setStroke(Color.RED);
 		ligneDroite.setStrokeWidth(5);
 
-		Shape angle1=Shape.union(ligneGauche, ligneHaut);
-		Shape angle2=Shape.union(ligneDroite, ligneBas);
-		Shape carre=Shape.union(angle1, angle2);
+		//Shape angle1=Shape.union(ligneGauche, ligneHaut);
+		//Shape angle2=Shape.union(ligneDroite, ligneBas);
+		//Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
 		
 

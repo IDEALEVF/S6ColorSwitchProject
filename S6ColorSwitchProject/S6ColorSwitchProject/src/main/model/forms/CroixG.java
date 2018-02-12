@@ -1,10 +1,9 @@
 package main.model.forms;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import main.model.ColorSelected;
 
-public class CroixG extends Obstacles{
+class CroixG extends Obstacles{
 
 	CroixG(int posX, int posY, int speed, int rotate) {
 		super(posX, posY, speed, rotate);
