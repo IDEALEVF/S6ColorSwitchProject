@@ -1,7 +1,6 @@
 package main.model.forms;
 
 import javafx.scene.shape.Rectangle;
-import main.model.ColorSelected;
 
 /**
  * Classe pour modeliser un cercle quadricolore.
@@ -12,12 +11,34 @@ class LigneFin extends Bonus{
 	LigneFin(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, speed, rotate);
 		
-		Rectangle ligne = new Rectangle();
-		ligne.setFill(ColorSelected.PURPLE);
-		ligne.setHeight(3);
-		ligne.setWidth(width);
-        
-        forme.getChildren().add(ligne);
+		int TAILLE = 4;
+		
+		for(int i=0; i<width/TAILLE; i++) {//fait i lignes de largeur TAILLE
+			Rectangle r1 = new Rectangle();
+			Rectangle r2 = new Rectangle();
+			
+			r1.setWidth(TAILLE);
+			r1.setHeight(TAILLE);
+			r2.setWidth(TAILLE);
+			r2.setHeight(TAILLE);
+			
+			r1.setFill(WHITE);
+			r2.setFill(WHITE);
+			
+			if(i%2 == 0){//fait des lignes decalees selon la parite de i
+				r1.setTranslateX(i*TAILLE);
+				
+				r2.setTranslateX(i*TAILLE);
+				r2.setTranslateY(2*TAILLE);
+			}else {
+				r1.setTranslateX(i*TAILLE);
+				r1.setTranslateY(TAILLE);
+				
+				r2.setTranslateX(i*TAILLE);
+				r2.setTranslateY(3*TAILLE);
+			}
+			forme.getChildren().addAll(r1, r2);
+		}
         
         forme.setRotate(rotate);
 	}
