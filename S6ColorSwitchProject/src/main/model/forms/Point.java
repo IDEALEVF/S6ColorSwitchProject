@@ -4,10 +4,9 @@ import javafx.scene.Group;
 
 public class Point extends Obstacles{
 
-	public Point(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	public Point(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 		this.forme = new Group();
-		
 	}
 
 	@Override

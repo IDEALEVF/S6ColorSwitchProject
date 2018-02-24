@@ -1,15 +1,14 @@
 package main.model.forms;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import main.model.ColorSelected;
 
-public class ChangeColor extends Obstacles{
+public class ChangeColor extends Bonus{
 
-	public ChangeColor(int posX, int posY, int speed) {
-		super(posX, posY, speed);
+	public ChangeColor(int posX, int posY, int speed, int rotate) {
+		super(posX, posY, speed, rotate);
 		this.forme = new Group();
 		Arc arc = new Arc();
 		arc.setFill(ColorSelected.ROSE);
@@ -20,7 +19,7 @@ public class ChangeColor extends Obstacles{
         arc.setStroke(ColorSelected.ROSE);
         //arc.setStrokeWidth(5);
         arc.setType(ArcType.ROUND);//round, open, chord
-        
+
         Arc arc2 = new Arc();
 		arc2.setFill(ColorSelected.BLUE);
         arc2.setRadiusX(20);
@@ -30,7 +29,7 @@ public class ChangeColor extends Obstacles{
         arc2.setStroke(ColorSelected.BLUE);
        // arc2.setStrokeWidth(5);
         arc2.setType(ArcType.ROUND);//round, open, chord
-        
+
         Arc arc3 = new Arc();
 		arc3.setFill(ColorSelected.PURPLE);
         arc3.setRadiusX(20);
@@ -40,7 +39,7 @@ public class ChangeColor extends Obstacles{
         arc3.setStroke(ColorSelected.PURPLE);
         //arc3.setStrokeWidth(5);
         arc3.setType(ArcType.ROUND);//round, open, chord
-        
+
         Arc arc4 = new Arc();
 		arc4.setFill(ColorSelected.YELLOW);
         arc4.setRadiusX(20);
@@ -50,7 +49,7 @@ public class ChangeColor extends Obstacles{
         arc4.setStroke(ColorSelected.YELLOW);
         //arc4.setStrokeWidth(5);
         arc4.setType(ArcType.ROUND);//round, open, chord
-        
+
         forme.getChildren().add(arc);
         forme.getChildren().add(arc2);
         forme.getChildren().add(arc3);
@@ -59,14 +58,7 @@ public class ChangeColor extends Obstacles{
 
 	@Override
 	public void deplacer() {
-		if(rotation > 360 ) {//la rotation reste modulo 360
-			rotation -= 360;
-		}else if(rotation<-360){
-			rotation += 360;
-		}
-		rotation += 15;
-		forme.setRotate(rotation);
-		
+		//ne bouge pas
 	}
 
 }
