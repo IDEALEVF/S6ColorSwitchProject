@@ -16,10 +16,10 @@ class EcouteurSourisSortMenu implements EventHandler<Event> {
 
 	@Override
 	public void handle(Event evt) {
-		Platform.runLater(() -> {
+		//if(!l.isPerdu()) {
+			l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
+			l.gravityDown();
 			m.restart();
-		});
-		l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
-		l.gravityDown();
+		//}
 	}
 }

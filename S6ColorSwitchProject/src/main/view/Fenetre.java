@@ -126,7 +126,9 @@ public class Fenetre extends Application implements Observer{
     	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
 		components.setBackground(b);//fond
     	
-    	this.level = new Level(this, "niveauTest");
+		
+    	this.level = new Level(this);
+    	menu();
 
     	//parametres de l'objet Stage
     	primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
@@ -163,12 +165,10 @@ public class Fenetre extends Application implements Observer{
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m));
         
+        m.start();
+        
         primaryStage.setResizable(false);
         primaryStage.show();
-        
-        menu();
-        
-        m.start();
     }
     
     /**
@@ -198,7 +198,8 @@ public class Fenetre extends Application implements Observer{
      * Nouvelle parite
      * */
     public void nouvellePartie() {
-    	m.cancel();//arrete le moteur
+    	//m.cancel();//arrete le moteur pour eviter les bugs
+    	
     	components.getChildren().removeAll(components.getChildren());//enleve les formes actuelles
     	
     	//placement des formes
@@ -210,7 +211,6 @@ public class Fenetre extends Application implements Observer{
         
         //placement de la balle
         //placerBalle();
-        m.restart();
     }
 
     /**
@@ -265,8 +265,9 @@ public class Fenetre extends Application implements Observer{
     	System.out.println("comp : "+components.getChildren());
     	clearForms();
     	
-    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 10,
-    			getHauteurFenetre()/2 - 10,100 , 100, 3, 0);
+    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 25,
+    			getHauteurFenetre()/2 - 25,150 , 150, 3, 0);
+    	level.getObjects().addElement(forme);
         //bouton.setFill(ColorSelected.BLUE);
         //bouton.setRadius(20);
     	Group bouton = forme.getForme();
@@ -278,12 +279,17 @@ public class Fenetre extends Application implements Observer{
         //components = aremplacer;
         Platform.runLater(() -> {
         	components.getChildren().add(bouton);
+        	restart();
         });
         
         //assuprimer.getChildren().remove(1);
         //assuprimer.getChildren().add(aremplacer);
         //components = aremplacer;
     }
+
+	public void restart() {
+		m.restart();
+	}
 }
 
 

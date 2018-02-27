@@ -12,6 +12,8 @@ public class Ball extends Obstacles{
 	private int dirY;
 	private final int MAXV;
 	private final int AMORTISSEMENT = 2;
+	private int latence = 0;//temps de latence avant que la balle ne soit attiree par la gravite
+	//private final int LIMITE = 3;
 	
 	Ball(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
@@ -23,7 +25,7 @@ public class Ball extends Obstacles{
 		
         circle.setRadius(width);
         circle.setFill(ColorSelected.YELLOW);
-        circle.setStroke(ColorSelected.MENU);
+        circle.setStroke(ColorSelected.YELLOW);
         circle.setStrokeWidth(1);
         
         forme.getChildren().add(circle);
@@ -38,7 +40,9 @@ public class Ball extends Obstacles{
 	}
 	
 	public void gravityY(int gravityY){
-		if(gravityY < 0) {//gravite vers le bas
+		if(latence > 0) {
+			latence --;
+		}else if(gravityY < 0) {//gravite vers le bas
 			if(dirY > -MAXV){
 				dirY -= AMORTISSEMENT;
 			}
@@ -56,7 +60,8 @@ public class Ball extends Obstacles{
 	}
 	
 	public void maxY() {
-		dirY = -MAXV;
+		dirY = -(MAXV);
+		latence = 3;
 	}
 
 	@Override

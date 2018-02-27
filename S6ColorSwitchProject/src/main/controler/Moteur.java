@@ -61,21 +61,18 @@ public class Moteur extends Service<Object>{
 			while(true) {
 				synchronized(this) {
 					Thread.sleep(50);
-					deplacerBall();//deplace la balle ou fait defiler l'ecran
-					if(isPerdu()) {//teste la defaite
-						System.out.println("perdu");
-						f.getLevel().gravityYStop();//arrete la balle
-						f.getLevel().getBall().gravityY(0);
+					for(int i=0;i<f.getLevel().getObjects().size();i++) {//a jouer aussi pour le menu
+						f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme
+					}
+					if(isPerdu() && !f.getLevel().isPerdu()) {//teste la defaite
+						f.getLevel().perdu();//fait perdre le niveau
 						f.menu();
-						break;
+						return f;
 					}else {
-						for(int i=0;i<f.getLevel().getObjects().size();i++) {
-							f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme
-						}
+						deplacerBall();//deplace la balle ou fait defiler l'ecran
 					}//else
 				}//synchronized
 			}//while
-			return f;
 		}//call
     }//MaTask
 	

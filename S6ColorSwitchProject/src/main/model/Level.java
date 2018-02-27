@@ -30,6 +30,7 @@ public class Level{
 	private Fenetre fenetre;//reference vers la vue
 	private int coordinateX, coordinateY;//distance de la balle a l'origine
 	Observable obs = new Observable();
+	private boolean perdu;
 	
 	/**
 	 * Constructeur par defaut
@@ -49,8 +50,23 @@ public class Level{
 		gravityY = 0;//pas de gravite
 		type = Type.NORMAL;
 		setCoordinateX(setCoordinateY(0));
+		perdu = false;
 		
 	}
+	
+	/**
+	 * Charge un niveau sauvegarde sous forme de fichier texte de chemin
+	 * absolu passe en parametres
+	 * Le format d'enregistrement doit etre de la forme :
+	 * forme x y width height vitesse rotate
+	 * */
+	public Level(Fenetre fenetre){
+		this();
+		assert(fenetre != null);
+		
+		this.fenetre = fenetre;
+		obs.addObserver(fenetre);
+	}//Level
 	
 	/**
 	 * Charge un niveau sauvegarde sous forme de fichier texte de chemin
@@ -88,6 +104,7 @@ public class Level{
 		fenetre.clearForms();
 		objectsPossible.clear();//nettoyage des objets possibles precedents
 		gravityX = gravityY = 0;//suppression de la gravite
+		perdu = false;
 		
 		if(lignes.length < TAILLE_ENTETE) {//genere une erreur si l'entete est superieure a lignes
 			throw new IllegalStateException("Erreur de taille.");
@@ -120,6 +137,18 @@ public class Level{
 		}//for
 		repartirObjets();
 	}
+	
+	public boolean isPerdu() {
+		return perdu;
+	}
+	
+	public void perdu() {
+		System.out.println("perdu");
+		perdu = true;
+		ball.gravityY(0);
+		//ball.setPosY(ball.getPosY()-10);
+		gravityYStop();
+	}
 
 	/**
 	 * Met la vue a jour
@@ -129,6 +158,7 @@ public class Level{
 		Platform.runLater(() -> {
 			fenetre.placerBalle();
 		});
+		fenetre.restart();
 	}
 	
 	/**
@@ -340,12 +370,15 @@ public class Level{
 	 * */
 	private void ajouterNouvellesFormes() {
 		System.out.println("Ajout de nouvelles formes");
-		final short NB_FORMES = 1;
+		final short NB_FORMES = 3;
+		int taillePre = 0;
 		
-		for(short i=0;i<NB_FORMES;i++) {
+		for(short i=1;i<=NB_FORMES;i++) {
 			System.out.println("boucle "+i);
-			int alea =  (int) (Math.random() * objectsPossible.size() -1);
+			int alea =  (int) (Math.random() * (objectsPossible.size()));
 			Form forme = objectsPossible.get(alea);
+			forme.setPosY(forme.getPosY() - taillePre);
+			taillePre = forme.getWidth();
 			objects.addElement((Form) forme.clone());
 		}
 	}

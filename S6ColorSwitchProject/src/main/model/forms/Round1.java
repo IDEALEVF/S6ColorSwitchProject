@@ -13,7 +13,7 @@ class Round1 extends Obstacles{
 
 	Round1(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
-		int WIDTH = 5;
+		int WIDTH = 8;
 		Arc arc = new Arc();
         arc.setRadiusX(width/2);
         arc.setRadiusY(height/2);

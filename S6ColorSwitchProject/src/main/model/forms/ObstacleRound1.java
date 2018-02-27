@@ -7,9 +7,9 @@ class ObstacleRound1 extends Obstacles{
 	
 	ObstacleRound1(int posX, int posY, int width, int height, int speed, int rotate){
 		super(posX, posY, width, height, speed, rotate);
-		part1 = FormsFactory.build("ROUND1", posX, posY, width+28, height+28, speed, rotate);
-		part2 = FormsFactory.build("ROUND2", posX, posY, width+14, height+14, speed, rotate);
-		part3 = FormsFactory.build("ROUND1", posX, posY, width, height, speed, rotate);
+		part1 = FormsFactory.build("ROUND1", posX, posY, width, height, speed, rotate);
+		part2 = FormsFactory.build("ROUND2", posX, posY, width-20, height-20, speed, rotate);
+		part3 = FormsFactory.build("ROUND1", posX, posY, width-40, height-40, speed, rotate);
 		
 		this.forme.getChildren().add(part1.getForme());
 		this.forme.getChildren().add(part2.getForme());

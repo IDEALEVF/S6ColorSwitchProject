@@ -2,12 +2,14 @@
 niveau 4
 1
 ENDLESS
-190 400 4 10 BLUE
+190 400 6 9 BLUE
 ##########################################################################################################
-Round1 300 300 10 10 1 0
-CarreDeRonds 190 150 100 100 3 45
-ChangeColor 190 20 45 45 3 0 
-MessageColorSwitch 190 400 200 200 3 0 
+CarreDeRonds 135 100 120 120 3 45
+ChangeColor 190 20 12 12 3 0 
+MessageColorSwitch 170 450 100 100 3 0 
 Doigt 170 420 100 100 0 0
-LigneFin 0 -310 400 50 3 0
+
+RondDeRonds 190 -310 120 120 3 0
+ObstacleRound1 190 -310 150 150 3 45
+Carre 130 -310 200 200 3 0
 

@@ -13,8 +13,6 @@ class EcouteurSourisSurMenu implements EventHandler<Event> {
 
 	@Override
 	public void handle(Event evt) {
-		Platform.runLater(() -> {
-			m.cancel();
-		});
+		m.cancel();
 	}
 }
