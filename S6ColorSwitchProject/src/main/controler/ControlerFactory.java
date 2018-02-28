@@ -12,7 +12,6 @@ public class ControlerFactory {
 		switch(type.getName()) {
 
 		case "KEY_TYPED":return (EventHandler<? super T>) new EcouteurToucheClique(level);
-
 		case "KEY_PRESSED":return (EventHandler<? super T>) new EcouteurToucheEnfoncee(level);
 		//case "KEY_RELEASED":return (EventHandler<? super T>) new EcouteurToucheRelachee(level);
 		case "MOUSE_CLICKED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m, level);

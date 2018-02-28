@@ -2,6 +2,7 @@ package main.controler;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import main.model.Collision;
 import main.view.Fenetre;
 
 /**
@@ -64,7 +65,11 @@ public class Moteur extends Service<Object>{
 					for(int i=0;i<f.getLevel().getObjects().size();i++) {//a jouer aussi pour le menu
 						f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme
 					}
-					if(isPerdu() && !f.getLevel().isPerdu()) {//teste la defaite
+					Collision col=new Collision(f.getLevel().getBall(),f.getLevel().getObjects());
+					if(col.isCol()) {
+						f.getLevel().getBall().exploser(f.getLevel().getExplo());
+					}
+					if((isPerdu() && !f.getLevel().isPerdu())) {//teste la defaite
 						f.getLevel().perdu();//fait perdre le niveau
 						f.menu();
 						return f;

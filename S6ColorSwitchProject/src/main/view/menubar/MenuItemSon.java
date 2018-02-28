@@ -1,5 +1,6 @@
 package main.view.menubar;
 
+import java.io.File;
 import java.net.URL;
 
 import javafx.event.ActionEvent;
@@ -15,15 +16,18 @@ import main.model.Level;
 public class MenuItemSon extends MenuItem implements Action{
 	Moteur m;
 	private boolean son=true;
-	/*final URL musicURL = getClass().getResource("jump.wav");
+	final File file = new File("src/ressources/jump.wav");
+    final Media media = new Media(file.toURI().toString());
+    final MediaPlayer mediaPlayer = new MediaPlayer(media);
+	/*final URL musicURL = getClass().getResource("music.mp3");
 	final  Media media = new Media(musicURL.toExternalForm());
 	final MediaPlayer mediaPlayer = new MediaPlayer(media);*/
-	Image imon=new Image("son_on.png");
-	int large=(int) imon.getHeight();
-	ImageView iv=new ImageView(imon);
-	Image imoff=new Image("son_off.png");
-	int large2=(int) imoff.getHeight();
-	ImageView iv2=new ImageView(imoff);
+	final Image imon=new Image("son_on.png");
+	final int large=(int) imon.getHeight();
+	final ImageView iv=new ImageView(imon);
+	final Image imoff=new Image("son_off.png");
+	final int large2=(int) imoff.getHeight();
+	final ImageView iv2=new ImageView(imoff);
 	MenuItemSon(Moteur m){
 
 		iv.setFitHeight(large/2);
@@ -33,8 +37,9 @@ public class MenuItemSon extends MenuItem implements Action{
 		this.setGraphic(iv);
 		this.m = m;
 		this.setText("Son");
-		//mediaPlayer.setOnRepeat(null);
-		//mediaPlayer.play();
+		System.out.println(media);
+		mediaPlayer.setOnRepeat(null);
+		mediaPlayer.play();
 		this.addEventHandler(ActionEvent.ACTION,
         		ControlerFactory.build(ActionEvent.ACTION, null, null));
 	}
@@ -45,11 +50,11 @@ public class MenuItemSon extends MenuItem implements Action{
 			//couper
 			this.setGraphic(iv2);
 			son=false;
-			//mediaPlayer.stop();
+			mediaPlayer.stop();
 		}
 		else{
 			//allumer
-	        //mediaPlayer.play();
+	        mediaPlayer.play();
 			this.setGraphic(iv);
 			son=true;
 		}
@@ -57,6 +62,7 @@ public class MenuItemSon extends MenuItem implements Action{
 
 	@Override
 	public void action(Level level) {
+		System.out.println("son menu");
 		this.changerSon();
 	}
 }

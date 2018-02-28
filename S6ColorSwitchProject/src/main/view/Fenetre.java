@@ -21,12 +21,14 @@ import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Level;
+import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.image.Image;
 
 /**
  * Classe qui se charge de la vitrine de l'application.
@@ -160,10 +162,16 @@ public class Fenetre extends Application implements Observer{
         //ecouteur de touche
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, 
         		ControlerFactory.build(KeyEvent.KEY_PRESSED, level));
+        primaryStage.addEventHandler(KeyEvent.KEY_TYPED, 
+        		ControlerFactory.build(KeyEvent.KEY_TYPED, level));
         //primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, 
         //		ControlerFactory.build(KeyEvent.KEY_RELEASED, level));
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m));
+        
+        Image icon=new Image("icon.png");
+
+        primaryStage.getIcons().setAll(icon);
         
         m.start();
         
@@ -181,7 +189,7 @@ public class Fenetre extends Application implements Observer{
     	
     	return forme.getPosX() < getLargeurFenetre() + 200
 				&& forme.getPosX() > - 200
-				&& forme.getPosY() < getHauteurFenetre() - 50//+ 200
+				&& forme.getPosY() < getHauteurFenetre() +100//+ 200
 				&& forme.getPosY() > - 200;
     }
     
@@ -238,6 +246,9 @@ public class Fenetre extends Application implements Observer{
 		//System.out.println("J'observe bien !!!");
 		Platform.runLater(() -> {
 			placerForme((Form)obj);
+			Explosion ex=new Explosion();
+	        components.getChildren().add(ex.getForme());
+	        level.setExplo(ex);
 		});
 	}
 

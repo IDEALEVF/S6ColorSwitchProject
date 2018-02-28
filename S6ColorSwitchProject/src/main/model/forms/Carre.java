@@ -3,6 +3,8 @@ package main.model.forms;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
+import main.model.ColorSelected;
 
 class Carre extends Obstacles{
 
@@ -10,33 +12,33 @@ class Carre extends Obstacles{
 		super(posX, posY, width, height, speed, rotate);
 		
 		int size1 = 10;
-		int size2 = 100;
+		int size2 = 200;
 		
-		this.forme = new Group();
+		//this.forme = new Group();
 
-		Line ligneHaut=new Line(size1,size1,size2,10.0);
-		ligneHaut.setFill(Color.BLUE);
-		ligneHaut.setStroke(Color.BLUE);
+		Line ligneHaut=new Line(size1,size1,size2,size1);
+		ligneHaut.setFill(ColorSelected.BLUE);
+		ligneHaut.setStroke(ColorSelected.BLUE);
 		ligneHaut.setStrokeWidth(5);
 
 		Line ligneBas=new Line(size1,size2,size2,size2);
-		ligneBas.setFill(Color.YELLOW);
-		ligneBas.setStroke(Color.YELLOW);
+		ligneBas.setFill(ColorSelected.PURPLE);
+		ligneBas.setStroke(ColorSelected.PURPLE);
 		ligneBas.setStrokeWidth(5);
 
 		Line ligneGauche=new Line(size1,size1,size1,size2);
-		ligneGauche.setFill(Color.GREEN);
-		ligneGauche.setStroke(Color.GREEN);
+		ligneGauche.setFill(ColorSelected.ROSE);
+		ligneGauche.setStroke(ColorSelected.ROSE);
 		ligneGauche.setStrokeWidth(5);
 
 		Line ligneDroite=new Line(size2,size1,size2,size2);
-		ligneDroite.setFill(Color.RED);
-		ligneDroite.setStroke(Color.RED);
+		ligneDroite.setFill(ColorSelected.YELLOW);
+		ligneDroite.setStroke(ColorSelected.YELLOW);
 		ligneDroite.setStrokeWidth(5);
 
-		//Shape angle1=Shape.union(ligneGauche, ligneHaut);
-		//Shape angle2=Shape.union(ligneDroite, ligneBas);
-		//Shape carre=Shape.union(angle1, angle2);
+		Shape angle1=Shape.union(ligneGauche, ligneHaut);
+		Shape angle2=Shape.union(ligneDroite, ligneBas);
+		Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
 		
 

@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import main.model.ColorSelected;
 
 /**
@@ -15,7 +16,7 @@ import main.model.ColorSelected;
  * @since 20/01/2018
  * @version 1.0
  * */
-public abstract class Form implements ColorSelected, Cloneable{
+public abstract class Form extends Parent implements ColorSelected, Cloneable{
 	protected int posX;
 	protected int posY;
 	protected int width;

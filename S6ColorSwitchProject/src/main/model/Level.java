@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javafx.application.Platform;
 import main.model.forms.Ball;
+import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 import main.view.Fenetre;
@@ -31,6 +32,15 @@ public class Level{
 	private int coordinateX, coordinateY;//distance de la balle a l'origine
 	Observable obs = new Observable();
 	private boolean perdu;
+	private Explosion explo;
+
+	public Explosion getExplo() {
+		return explo;
+	}
+
+	public void setExplo(Explosion explo) {
+		this.explo = explo;
+	}
 	
 	/**
 	 * Constructeur par defaut
@@ -377,7 +387,7 @@ public class Level{
 			System.out.println("boucle "+i);
 			int alea =  (int) (Math.random() * (objectsPossible.size()));
 			Form forme = objectsPossible.get(alea);
-			forme.setPosY(forme.getPosY() - taillePre);
+			forme.setPosY(forme.getPosY() - taillePre - 60);
 			taillePre = forme.getWidth();
 			objects.addElement((Form) forme.clone());
 		}

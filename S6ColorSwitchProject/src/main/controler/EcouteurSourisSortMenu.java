@@ -1,6 +1,7 @@
 package main.controler;
 
 import javafx.event.EventHandler;
+import javafx.util.Duration;
 import main.model.Level;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -20,6 +21,5 @@ class EcouteurSourisSortMenu implements EventHandler<Event> {
 			l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
 			l.gravityDown();
 			m.restart();
-		//}
 	}
 }
