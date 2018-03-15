@@ -24,9 +24,10 @@ public class FormsFactory {
 		case "MESSAGECOLORSWITCH" :return new MessageColorSwitch(x , y, width, height, vitesse, rotate);//MESSAGECOLORSWITCH
 		case "DOIGT" :return new Doigt(x , y, width, height, vitesse, rotate);//DOIGT
 		case "CARREDERONDS" :return new CarreDeRonds(x , y, width, height, vitesse, rotate);//DOIGT
-		case "RONDDERONDS" :return new RondDeRonds(x , y, width, height, vitesse, rotate);//DOIGT
-		case "RONDDERONDSACCELERE" :return new RondDeRondsAccelere(x , y, width, height, vitesse, rotate);//DOIGT
-		case "BOUTONJOUER" :return new BoutonJouer(x , y, width, height, vitesse, rotate);//DOIGT
+		case "RONDDERONDS" :return new RondDeRonds(x , y, width, height, vitesse, rotate);//ROND DE RONDS
+		case "RONDDERONDSACCELERE" :return new RondDeRondsAccelere(x , y, width, height, vitesse, rotate);//ROND DE RONDS QUI ACCELERE
+		case "BOUTONJOUER" :return new BoutonJouer(x , y, width, height, vitesse, rotate);//BOUTON JOUER
+		case "LIGNE" :return new Ligne(x , y, width, height, vitesse, rotate);//LIGNE
 		default:throw new FormeInexistanteException();
 		}
 	}

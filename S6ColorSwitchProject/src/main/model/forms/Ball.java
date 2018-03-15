@@ -43,8 +43,8 @@ public class Ball extends Obstacles{
 	public void deplacer() {
 		this.setPosX(this.getPosX() + dirX);//change la position selon le vecteur directeur
 		this.setPosY(this.getPosY() + dirY);
-		this.getForme().setTranslateX(this.getPosX());//fait la translation
-		this.getForme().setTranslateY(this.getPosY());
+		this.getForme().setLayoutX(this.getPosX());//fait la translation
+		this.getForme().setLayoutY(this.getPosY());
 	}
 	
 	public void exploser(Explosion e){

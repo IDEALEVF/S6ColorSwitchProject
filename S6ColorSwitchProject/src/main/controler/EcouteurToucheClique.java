@@ -15,8 +15,10 @@ public class EcouteurToucheClique implements EventHandler<KeyEvent>{
 	final File file=new File("src/ressources/jump.wav");
 	final  Media media = new Media(file.toURI().toString());
 	final MediaPlayer mediaPlayer = new MediaPlayer(media);
+	
 	EcouteurToucheClique(Level l){
 		this.l = l;
+		mediaPlayer.setOnRepeat(null);
 	}
 
     @Override
@@ -24,13 +26,11 @@ public class EcouteurToucheClique implements EventHandler<KeyEvent>{
         String touche = evt.getCharacter();
        
         if(touche.equals("n") || touche.equals("N")){
-        	//l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
-        	//l.gravityDown();
-        	mediaPlayer.setOnRepeat(null);
-        	mediaPlayer.play();
-        	System.out.print(mediaPlayer.getStatus());
+        	mediaPlayer.seek(Duration.ZERO);
+        	mediaPlayer.play();//joue un son
+        	//System.out.print(mediaPlayer.getStatus());
         }
-        mediaPlayer.seek(Duration.ZERO);
-        System.out.print(mediaPlayer.getStatus());
+       
+        //System.out.print(mediaPlayer.getStatus());
     }
 }

@@ -7,16 +7,21 @@ import javafx.scene.paint.Color;
 import main.model.forms.Ball;
 import main.model.forms.Form;
 
-public class Collision<Obstacles> {
-	Ball balle;
-	private Vector<Form> formes;
+public class Collision {
+	//;
+	//private ;
+	private Level l;
 
-	public Collision( Ball b, Vector<Form> f) {
-		balle=b;
-		formes=f;
+	public Collision( Level l) {
+		//balle=b;
+		//formes=f;
+		this.l= l;
 	}
 
 	public boolean isCol(){
+		Ball balle = l.getBall();
+		Vector<Form> formes = l.getObjects();
+		
 		for (Form it : formes){
 			Node ob=it.getForme();
 			Node bal=balle.getForme();
@@ -24,10 +29,10 @@ public class Collision<Obstacles> {
             	if (ob.getBoundsInParent().intersects(bal.getBoundsInParent())) {
                     //((Node)(it.getForme().getChildren().get(0)));
             		if(balle.getCouleur()!=ColorSelected.MENU){
-            			balle.setCouleur(ColorSelected.MENU);
+            			//balle.setCouleur(ColorSelected.MENU);
             		}
             		else{
-            			balle.setCouleur(ColorSelected.BLUE);
+            			//balle.setCouleur(ColorSelected.BLUE);
             		}
                 	System.out.println("collision réussie");//collision
                 	return true;

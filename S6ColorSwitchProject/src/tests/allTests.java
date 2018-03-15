@@ -34,6 +34,5 @@ class allTests {
 	void testType() {
 		testType t4 = new testType();
 		t4.testEnumType();
-
 	}
 }

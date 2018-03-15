@@ -9,6 +9,7 @@ import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 import main.view.Fenetre;
+import javafx.scene.Group;
 
 /**
  * Classe qui se prend en charge tout les objets et parametres d'un niveau :
@@ -33,6 +34,10 @@ public class Level{
 	Observable obs = new Observable();
 	private boolean perdu;
 	private Explosion explo;
+	private double scaleX = 0;
+	private double scaleY = 0;
+	private double transX = 0;
+	private double transY = 0;
 
 	public Explosion getExplo() {
 		return explo;
@@ -85,12 +90,9 @@ public class Level{
 	 * forme x y width height vitesse rotate
 	 * */
 	public Level(Fenetre fenetre, String path){
-		this();
-		assert(fenetre != null);
+		this(fenetre);
 		assert(path != null);
 		
-		this.fenetre = fenetre;
-		obs.addObserver(fenetre);
 		nouvellePartie(path);
 	}//Level
 
@@ -131,9 +133,14 @@ public class Level{
 		
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
-			if(parties.length < 7) {//si on a une ligne incorrecte, on l' ignore
+			if(parties.length < 7 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
 				continue;
 			}
+			parties[1] = convertirPourcentage(parties[1], fenetre.getLargeurFenetre());
+			parties[2] = convertirPourcentage(parties[2], fenetre.getHauteurFenetre());
+			parties[3] = convertirPourcentage(parties[3], fenetre.getLargeurFenetre());
+			parties[4] = convertirPourcentage(parties[4], fenetre.getHauteurFenetre());
+			
 			Form o = FormsFactory.build(parties[0],
 					Integer.parseInt(parties[1]),
 					Integer.parseInt(parties[2]),
@@ -146,8 +153,25 @@ public class Level{
 			}
 		}//for
 		repartirObjets();
+		retaillerObjets();
 	}
 	
+	/**
+	 * Fait la conversion des nombres en pourcentages en vrais nombres
+	 * @return String mot le nombre debarrasse de son %
+	 * */
+	private String convertirPourcentage(String mot, int tailleFenetre) {
+		if(mot.endsWith("%")){//convertit les valeurs relatives
+			mot = ""+(int)(tailleFenetre * 
+					(Double.parseDouble(mot.substring(0, mot.length()-1))/100));
+		}
+		return mot;
+	}
+	
+	/**
+	 * Teste si le niveau est perdu ou non
+	 * @return true si le niveau est perdu et false sinon
+	 * */
 	public boolean isPerdu() {
 		return perdu;
 	}
@@ -291,25 +315,66 @@ public class Level{
 				+ type + "]";
 	}
 
+	/**
+	 * Renvoie la coordonnee Y du Level
+	 * @return coordinateY
+	 * */
 	public int getCoordinateY() {
 		return coordinateY;
 	}
 
+	/**
+	 * Change la coordonnee Y du Level et recalcule les objets qui doivent ou non s'y trouver
+	 * @return coordinateY
+	 * */
 	public int setCoordinateY(int coordinateY) {
 		this.coordinateY = coordinateY;
 		recalculerObjets();
 		return coordinateY;
 	}
 
+	/**
+	 * Renvoie la coordonnee X du Level
+	 * @return coordinateX
+	 * */
 	public int getCoordinateX() {
 		return coordinateX;
 	}
 
+	/**
+	 * Change la coordonnee X du Level et recalcule les objets qui doivent ou non s'y trouver
+	 * @return coordinateX
+	 * */
 	public int setCoordinateX(int coordinateX) {
 		this.coordinateX = coordinateX;
 		recalculerObjets();
 		return coordinateX;
 	}
+	
+	/**
+	 * Retaille les objets du Level d'apres le ratio tailleCourante / TAILLE_DE_BASE
+	 * */
+	public void retaillerObjets() {
+		scaleX = fenetre.getWidth() / fenetre.getLargeurFenetre();
+		scaleY = fenetre.getHeight() / fenetre.getHauteurFenetre();
+		transX = (fenetre.getWidth() - fenetre.getLargeurFenetre()) / 2;
+		transY = (fenetre.getHeight() - fenetre.getHauteurFenetre()) / 2;
+		
+		for(Form forme : objects) {
+			Group g = forme.getForme();
+			g.setTranslateX(transX);
+			g.setTranslateY(transY);
+			g.setScaleX(scaleX);
+			g.setScaleY(scaleY);
+		}//for
+		if(ball != null) {
+			Group g = ball.getForme();
+			g.setTranslateX(transX);
+			g.setTranslateY(transY);
+			g.setScaleX(scaleX);
+			g.setScaleY(scaleY);
+		}//if
+	}//retaillerObjets
 	
 	/**
 	 * Recalcule les objets qui doivent etre ou non presents dans la fenetres afin
@@ -334,6 +399,9 @@ public class Level{
 				}
 			}
 		}//for
+		if(fenetre != null) {
+			retaillerObjets();
+		}
 	}//recalculerObjets
 	
 	/**
@@ -380,16 +448,23 @@ public class Level{
 	 * */
 	private void ajouterNouvellesFormes() {
 		System.out.println("Ajout de nouvelles formes");
-		final short NB_FORMES = 3;
-		int taillePre = 0;
+		final short NB_FORMES = 4;
+		int taillePre = -200;//la limite a ne pas depasser
 		
 		for(short i=1;i<=NB_FORMES;i++) {
+			System.out.println("taille pre ="+taillePre);
 			System.out.println("boucle "+i);
 			int alea =  (int) (Math.random() * (objectsPossible.size()));
 			Form forme = objectsPossible.get(alea);
-			forme.setPosY(forme.getPosY() - taillePre - 60);
-			taillePre = forme.getWidth();
+			taillePre -= (forme.getHeight() + (fenetre.getHauteurFenetre() / 4));
+			forme.setPosY(taillePre);
 			objects.addElement((Form) forme.clone());
+			
+			//changecouleur entre les formes
+			Form changecouleur = FormsFactory.build("CHANGECOLOR", forme.getPosX(),
+					forme.getPosY() + (fenetre.getHauteurFenetre() / 4) ,
+					12, 12, 3, 0);
+			objects.addElement(changecouleur);
 		}
 	}
 }

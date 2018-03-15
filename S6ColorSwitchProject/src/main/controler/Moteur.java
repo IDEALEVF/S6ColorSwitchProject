@@ -18,10 +18,16 @@ import main.view.Fenetre;
 public class Moteur extends Service<Object>{
 	Fenetre f;
 	Task<Object> t;
+	Collision col;
 	
+	/**
+	 * Constructeur du moteur.
+	 * @param Fenetre f la fenetre avec qui communiquer
+	 * */
 	public Moteur(Fenetre f) {
 		assert(f != null);
 		
+		col=new Collision(f.getLevel());
 		this.f = f;
 	}
 	
@@ -42,6 +48,11 @@ public class Moteur extends Service<Object>{
 	 * Renvoie true si le niveau est perdu
 	 * */
 	public boolean isPerdu() {
+		assert(f.getLevel() != null);
+		
+		if(f.getLevel().getBall() == null) {//pour le menu principal -> pas de balle
+			return false;
+		}
 		return f.getLevel().getBall().getPosY()>f.getHauteurFenetre()-50;//en bas de l'ecran
 	}
 
@@ -65,10 +76,9 @@ public class Moteur extends Service<Object>{
 					for(int i=0;i<f.getLevel().getObjects().size();i++) {//a jouer aussi pour le menu
 						f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme
 					}
-					Collision col=new Collision(f.getLevel().getBall(),f.getLevel().getObjects());
-					if(col.isCol()) {
-						f.getLevel().getBall().exploser(f.getLevel().getExplo());
-					}
+					//if(col.isCol()) {
+						//f.getLevel().getBall().exploser(f.getLevel().getExplo());
+					//}
 					if((isPerdu() && !f.getLevel().isPerdu())) {//teste la defaite
 						f.getLevel().perdu();//fait perdre le niveau
 						f.menu();

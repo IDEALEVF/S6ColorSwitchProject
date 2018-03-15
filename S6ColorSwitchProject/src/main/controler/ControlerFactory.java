@@ -16,6 +16,7 @@ public class ControlerFactory {
 		//case "KEY_RELEASED":return (EventHandler<? super T>) new EcouteurToucheRelachee(level);
 		case "MOUSE_CLICKED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m, level);
 		case "MOUSE_RELEASED":return (EventHandler<? super T>) new ActionNouvellePartie(level);
+		//case "MOUSE_RELEASED":return (EventHandler<? super T>) new EcouteurFenetreRetaillee(level);
 		case "ACTION": return (EventHandler<? super T>) new ActionBouton(m, level);
 		case "WINDOW_SHOWING":return (EventHandler<? super T>) new EcouteurFenetreOuverte(m);
 		case "WINDOW_HIDING":return (EventHandler<? super T>) new EcouteurFenetreFermee(m);
@@ -23,6 +24,7 @@ public class ControlerFactory {
 		//case "EVENT_SHOWING":return (EventHandler<? super T>) new EcouteurMenuOuvert(m);
 		//case "EVENT_HIDING":return (EventHandler<? super T>) new EcouteurMenuFerme(m);
 		case "MOUSE_ENTERED":return (EventHandler<? super T>) new EcouteurSourisSurMenu(m);
+		case "WINDOWS_":return (EventHandler<? super T>) new EcouteurSourisSurMenu(m);
 		//case "MOUSE_EXITED":return (EventHandler<? super T>) new EcouteurSourisSortMenu(m);
 		default: throw new IllegalArgumentException("type incorrect");
 		}

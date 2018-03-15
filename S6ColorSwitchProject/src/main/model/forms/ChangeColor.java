@@ -12,8 +12,8 @@ class ChangeColor extends Bonus{
 		this.forme = new Group();
 		Arc arc = new Arc();
 		arc.setFill(ColorSelected.ROSE);
-        arc.setRadiusX(20);
-        arc.setRadiusY(20);
+        arc.setRadiusX(width);
+        arc.setRadiusY(width);
         arc.setStartAngle(0);
         arc.setLength(89);
         arc.setStroke(ColorSelected.ROSE);
@@ -22,8 +22,8 @@ class ChangeColor extends Bonus{
 
         Arc arc2 = new Arc();
 		arc2.setFill(ColorSelected.BLUE);
-        arc2.setRadiusX(20);
-        arc2.setRadiusY(20);
+        arc2.setRadiusX(width);
+        arc2.setRadiusY(width);
         arc2.setStartAngle(90);
         arc2.setLength(89);
         arc2.setStroke(ColorSelected.BLUE);
@@ -32,8 +32,8 @@ class ChangeColor extends Bonus{
 
         Arc arc3 = new Arc();
 		arc3.setFill(ColorSelected.PURPLE);
-        arc3.setRadiusX(20);
-        arc3.setRadiusY(20);
+        arc3.setRadiusX(width);
+        arc3.setRadiusY(width);
         arc3.setStartAngle(180);
         arc3.setLength(89);
         arc3.setStroke(ColorSelected.PURPLE);
@@ -42,8 +42,8 @@ class ChangeColor extends Bonus{
 
         Arc arc4 = new Arc();
 		arc4.setFill(ColorSelected.YELLOW);
-        arc4.setRadiusX(20);
-        arc4.setRadiusY(20);
+        arc4.setRadiusX(width);
+        arc4.setRadiusY(width);
         arc4.setStartAngle(270);
         arc4.setLength(89);
         arc4.setStroke(ColorSelected.YELLOW);

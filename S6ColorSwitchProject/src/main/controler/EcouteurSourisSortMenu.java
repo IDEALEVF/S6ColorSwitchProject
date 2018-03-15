@@ -18,8 +18,10 @@ class EcouteurSourisSortMenu implements EventHandler<Event> {
 	@Override
 	public void handle(Event evt) {
 		//if(!l.isPerdu()) {
+		if(l.getBall() != null) {
 			l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
 			l.gravityDown();
-			m.restart();
+		}
+		m.restart();
 	}
 }

@@ -8,13 +8,6 @@ public class Doigt extends Form{
 	public Doigt(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
 
-		/*Polygon etoile = new Polygon();
-		etoile.getPoints().addAll(100d,100d,200d,50d,400d,100d,200d,150d);
-		etoile.setFill(BLUE);
-		etoile.setStrokeWidth(3);
-		etoile.setStroke(BLACK);*/
-		//int posX=-50;
-        //int posY=-50;
         double s1X = 50;
         double s1Y = 20;
 
@@ -68,18 +61,6 @@ public class Doigt extends Form{
         doigt.setStrokeLineJoin(StrokeLineJoin.ROUND);
         doigt.setStroke(WHITE);
 		//etoile.setStrokeLineCap(StrokeLineCap.ROUND);
-      /*  Shape angle1=Shape.union(l1, l2);
-		Shape angle2=Shape.union(l3, l4);
-		Shape angle3=Shape.union(angle1, angle2);
-		Shape etoile=Shape.union(angle3, l5);
-		etoile.setFill(PURPLE);
-		forme.getChildren().add(etoile);
-        Group g =new Group();
-		g.getChildren().add(l1);
-		g.getChildren().add(l2);
-		g.getChildren().add(l3);
-		g.getChildren().add(l4);
-		g.getChildren().add(l5);*/
 		forme.setRotate(180);
 		ajouterForme(doigt);
 	}

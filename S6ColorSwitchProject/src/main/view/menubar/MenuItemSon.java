@@ -16,7 +16,7 @@ import main.model.Level;
 public class MenuItemSon extends MenuItem implements Action{
 	Moteur m;
 	private boolean son=true;
-	final File file = new File("src/ressources/jump.wav");
+	final File file = new File("src/ressources/music.wav");
     final Media media = new Media(file.toURI().toString());
     final MediaPlayer mediaPlayer = new MediaPlayer(media);
 	/*final URL musicURL = getClass().getResource("music.mp3");

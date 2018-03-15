@@ -36,7 +36,9 @@ class testLevel {
 	
 	private class Fenetre2 extends Fenetre{//mox
 		Fenetre2(){}
-	} 
+	}
+	
+	
 
 	/*class LevelTest extends Level{
 		LevelTest(){

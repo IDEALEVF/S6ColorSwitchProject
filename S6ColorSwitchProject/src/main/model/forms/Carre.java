@@ -11,30 +11,30 @@ class Carre extends Obstacles{
 	Carre(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
 		
-		int size1 = 10;
-		int size2 = 200;
+		double size1 = -(width / 2);
+		double size2 = (width / 2);
 		
 		//this.forme = new Group();
 
 		Line ligneHaut=new Line(size1,size1,size2,size1);
 		ligneHaut.setFill(ColorSelected.BLUE);
 		ligneHaut.setStroke(ColorSelected.BLUE);
-		ligneHaut.setStrokeWidth(5);
+		ligneHaut.setStrokeWidth(10);
 
 		Line ligneBas=new Line(size1,size2,size2,size2);
 		ligneBas.setFill(ColorSelected.PURPLE);
 		ligneBas.setStroke(ColorSelected.PURPLE);
-		ligneBas.setStrokeWidth(5);
+		ligneBas.setStrokeWidth(10);
 
 		Line ligneGauche=new Line(size1,size1,size1,size2);
 		ligneGauche.setFill(ColorSelected.ROSE);
 		ligneGauche.setStroke(ColorSelected.ROSE);
-		ligneGauche.setStrokeWidth(5);
+		ligneGauche.setStrokeWidth(10);
 
 		Line ligneDroite=new Line(size2,size1,size2,size2);
 		ligneDroite.setFill(ColorSelected.YELLOW);
 		ligneDroite.setStroke(ColorSelected.YELLOW);
-		ligneDroite.setStrokeWidth(5);
+		ligneDroite.setStrokeWidth(10);
 
 		Shape angle1=Shape.union(ligneGauche, ligneHaut);
 		Shape angle2=Shape.union(ligneDroite, ligneBas);

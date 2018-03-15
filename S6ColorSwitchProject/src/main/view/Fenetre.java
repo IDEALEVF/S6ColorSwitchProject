@@ -1,6 +1,5 @@
 package main.view;
 
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,7 +26,6 @@ import main.model.forms.FormsFactory;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
-import javafx.scene.shape.Circle;
 import javafx.scene.image.Image;
 
 /**
@@ -49,7 +47,7 @@ public class Fenetre extends Application implements Observer{
     }
 
     /**
-     * Retourne la hauteur de la fenetre
+     * Retourne la hauteur de base de la fenetre
      * @return HAUTEUR_FENETRE
      * */
     public int getHauteurFenetre() {
@@ -64,14 +62,33 @@ public class Fenetre extends Application implements Observer{
     }
     
     /**
-     * Retourne la largeur de la fenetre
+     * Retourne la largeur de base de la fenetre
      * @return LARGEUR_FENETRE
      * */
     public int getLargeurFenetre() {
     	return LARGEUR_FENETRE;
-
+    }
+    
+    /**
+     * Renvoie la largeur courante de root
+     * @return hauteur courante de root
+     * */
+    public double getWidth() {
+    	return root.getWidth();
+    }
+    
+    /**
+     * Renvoie la hauteur courante de root
+     * @return hauteur courante de root
+     * */
+    public double getHeight() {
+    	return root.getHeight();
     }
 
+    /**
+     * Renvoie la reference vers l' objet Level
+     * @return Level level
+     * */
     public Level getLevel() {
     	return level;
     }
@@ -98,9 +115,13 @@ public class Fenetre extends Application implements Observer{
      * */
     public void placerForme(Form forme) {
     	Node node = forme.getForme();
-        node.setTranslateX(forme.getPosX());
-        node.setTranslateY(forme.getPosY());
+    	//Node node = forme.getForme();
+        //node.setTranslateX(forme.getPosX());
+        //node.setTranslateY(forme.getPosY());
+        node.setLayoutX(forme.getPosX());
+        node.setLayoutY(forme.getPosY());
         components.getChildren().add(node);//formeG
+    	
     }
 
     /**
@@ -115,8 +136,8 @@ public class Fenetre extends Application implements Observer{
     	System.out.println("balle placee en x="+balle.getPosX()+
     			" y="+balle.getPosY() + " balle="+balle);
     	Node node = balle.getForme();
-    	node.setTranslateX(balle.getPosX());
-        node.setTranslateY(balle.getPosY());
+    	//node.setLayoutX(balle.getPosX());
+        //node.setLayoutY(balle.getPosY());
         components.getChildren().add(node);//ajout de la balle dans le canevas
     }
     
@@ -128,7 +149,7 @@ public class Fenetre extends Application implements Observer{
     	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
 		components.setBackground(b);//fond
     	
-		
+		//preparation du menu principal
     	this.level = new Level(this);
     	menu();
 
@@ -168,14 +189,22 @@ public class Fenetre extends Application implements Observer{
         //		ControlerFactory.build(KeyEvent.KEY_RELEASED, level));
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m));
+        //primaryStage.addEventHandler(MouseEvent.MOUSE_RELEASED, 
+        //		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
+        primaryStage.widthProperty().addListener((obs, oldValue, newValue) -> {
+            level.retaillerObjets();
+        });
+        primaryStage.heightProperty().addListener((obs, oldValue, newValue) -> {
+        	level.retaillerObjets();
+        });
         
+        //icone de jeu
         Image icon=new Image("icon.png");
-
-        primaryStage.getIcons().setAll(icon);
+        primaryStage.getIcons().add(icon);
         
         m.start();
         
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
     
@@ -216,9 +245,6 @@ public class Fenetre extends Application implements Observer{
         		placerForme(forme);
         	}
         }
-        
-        //placement de la balle
-        //placerBalle();
     }
 
     /**
@@ -230,13 +256,12 @@ public class Fenetre extends Application implements Observer{
 		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
 			Form forme = level.getObjects().get(i);
 			forme.setPosY(forme.getPosY()+level.getBall().getSpeed());
-			Node node = forme.getForme();
-	    	node.setTranslateY(forme.getPosY());
+			forme.getForme().setLayoutY(forme.getPosY());
 		}
 		Form balle = level.getBall();
 		balle.setPosY(balle.getPosY()+level.getBall().getSpeed());//bouge la balle
 		Node node = balle.getForme();
-    	node.setTranslateY(balle.getPosY());
+    	node.setLayoutY(balle.getPosY());
     	
     	level.setCoordinateY(level.getCoordinateY()+level.getBall().getSpeed());//modifie les coordonnees
 	}
@@ -246,9 +271,9 @@ public class Fenetre extends Application implements Observer{
 		//System.out.println("J'observe bien !!!");
 		Platform.runLater(() -> {
 			placerForme((Form)obj);
-			Explosion ex=new Explosion();
-	        components.getChildren().add(ex.getForme());
-	        level.setExplo(ex);
+//			Explosion ex=new Explosion();
+//	        components.getChildren().add(ex.getForme());
+//	        level.setExplo(ex);
 		});
 	}
 
@@ -259,7 +284,9 @@ public class Fenetre extends Application implements Observer{
 		});
 	}
 
-
+	/**
+	 * Efface les formes presentes dans la fenetre
+	 * */
 	public void clearForms() {
 		Platform.runLater(() -> {
 			components.getChildren().clear();
@@ -271,19 +298,16 @@ public class Fenetre extends Application implements Observer{
      * */
     public void menu() {
     	//m.stop();
-    	//Pane aremplacer = new Pane();
-    	System.out.println("nbre : "+components.getChildren().size());
-    	System.out.println("comp : "+components.getChildren());
     	clearForms();
     	
-    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 25,
-    			getHauteurFenetre()/2 - 25,150 , 150, 3, 0);
+    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 75,
+    			getHauteurFenetre()/2 - 75,150 , 150, 3, 0);
     	level.getObjects().addElement(forme);
         //bouton.setFill(ColorSelected.BLUE);
         //bouton.setRadius(20);
     	Group bouton = forme.getForme();
-        bouton.setTranslateX(getLargeurFenetre()/2 - 10);
-        bouton.setTranslateY(getHauteurFenetre()/2 - 10);
+        bouton.setLayoutX(getLargeurFenetre()/2 - 10);
+        bouton.setLayoutY(getHauteurFenetre()/2 - 10);
         bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
         //aremplacer.getChildren().add(bouton);
