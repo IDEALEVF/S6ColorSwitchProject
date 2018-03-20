@@ -40,7 +40,7 @@ public class Collision {
 			//pas collision
 			else{
 
-				System.out.println("pas collision");
+				//System.out.println("pas collision");
 			}
 		}
 		return false;
@@ -57,9 +57,8 @@ public class Collision {
 			//on récupère les shapes de it
 			listeShape=it.getShape();
 			bal1=balle.getShape().get(0);
-			System.out.println(it.getClass());
+			//System.out.println(it.getClass());
 			try {
-
 				if (!it.equals(balle) && !it.getClass().equals(Class.forName("main.model.forms.Etoile")) && !it.getClass().equals(Class.forName("main.model.forms.ChangeColor")) && !it.getClass().equals(Class.forName("main.model.forms.Road"))) {//pas la balle, le doigt, l'étoile et le changecouleur
 					//si collision
 					if(inter(listeShape,bal1)){

@@ -39,7 +39,7 @@ public class Level{
 	private Fenetre fenetre;//reference vers la vue
 	private int coordinateX, coordinateY;//distance de la balle a l'origine
 	Observable obs = new Observable();
-	private boolean perdu;
+	//private boolean perdu;
 	private Explosion explo;
 	private double scaleX = 0;
 	private double scaleY = 0;
@@ -80,7 +80,7 @@ public class Level{
 		gravityY = 0;//pas de gravite
 		type = Type.NORMAL;
 		setCoordinateX(setCoordinateY(0));
-		perdu = false;
+		//perdu = false;
 		colorPossible = new Vector<Color>();
 		colorIterator = 0;
 	}
@@ -132,7 +132,7 @@ public class Level{
 		fenetre.clearForms();
 		objectsPossible.clear();//nettoyage des objets possibles precedents
 		gravityX = gravityY = 0;//suppression de la gravite
-		perdu = false;
+		//perdu = false;
 		chrome = null;
 		ball = null;
 		colorIterator = 0;
@@ -168,7 +168,7 @@ public class Level{
 					chrome = (Chrome) FormsFactory.build("CHROME", 50, 50,
 							30, 30, 3, 45);//cercle chromatique
 					chrome.createChrome(colorPossible);
-					fenetre.addChrome(chrome.getForme());
+					fenetre.update(obs, chrome);
 					continue;
 				}
 				if(parties.length < 1 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
@@ -210,8 +210,11 @@ public class Level{
 				}//if
 			}//if
 		}//for
-		repartirObjets();
-		retaillerObjets();
+		repartirObjets();//choisit les objets a ajouter dans la fenetre
+		retaillerObjets();//met a l'echelle
+		recalculerObjets();//choisit ou non de les ajouter au thread java fx
+		fenetre.update(obs, ball);//ajout de la balle dans les niveaux
+		fenetre.restart();//lance le moteur
 	}
 
 	/**
@@ -230,14 +233,15 @@ public class Level{
 	 * Teste si le niveau est perdu ou non
 	 * @return true si le niveau est perdu et false sinon
 	 * */
-	public boolean isPerdu() {
-		return perdu;
-	}
+//	public boolean isPerdu() {
+//		return perdu;
+//	}
 	
 	public void perdu() {
 		System.out.println("perdu");
-		perdu = true;
-		ball.gravityY(0);
+		//perdu = true;
+		//ball.gravityY(0);
+		ball = null;
 		//ball.setPosY(ball.getPosY()-10);
 		gravityYStop();
 	}
@@ -245,14 +249,14 @@ public class Level{
 	/**
 	 * Met la vue a jour
 	 * */
-	public void update() {
-		recalculerObjets();
-		Platform.runLater(() -> {
-			fenetre.placerBalle();
-		});
-		fenetre.restart();
-	}
-	
+//	public void update() {
+//		recalculerObjets();
+////		Platform.runLater(() -> {
+////			fenetre.placerBalle();
+////		});
+//		fenetre.restart();
+//	}
+//	
 	/**
 	 * Fait que la balle soit attiree en bas
 	 * */
@@ -467,7 +471,7 @@ public class Level{
 	 * */
 	private boolean isObjectsEnding() {
 		for(Form forme : objects) {
-			if(forme.getPosY() < -200) {//faux si il y a des objets non-visibles au dessus
+			if(forme.getPosY() < -100) {//faux si il y a des objets non-visibles au dessus
 				return false;
 			}
 		}
@@ -507,7 +511,7 @@ public class Level{
 	private void ajouterNouvellesFormes() {
 		System.out.println("Ajout de nouvelles formes");
 		final short NB_FORMES = 1;
-		int taillePre = -200;//la limite a ne pas depasser
+		int taillePre = -100;//la limite a ne pas depasser
 		
 		for(short i=1;i<=NB_FORMES;i++) {
 			System.out.println("taille pre ="+taillePre);

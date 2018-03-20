@@ -18,9 +18,9 @@ import main.view.Fenetre;
  * @since 23/02/18
  * */
 public class Moteur extends Service<Object>{
-	Fenetre f;
-	Task<Object> t;
-	Collision col;
+	private Fenetre f;
+	private Task<Object> t;
+	private Collision col;
 	
 	/**
 	 * Constructeur du moteur.
@@ -119,13 +119,14 @@ public class Moteur extends Service<Object>{
 						if(l.getBall() == null) {//si on est dans les menus, inutile de deplacer la balle
 							continue;
 						}
-//						if(col.isCol()) {
-//							f.getLevel().perdu();//fait perdre le niveau
-//							f.menu();
-//							return f;
-//							//f.getLevel().getBall().exploser(f.getLevel().getExplo());
-//						}
-						if((isPerdu() && !f.getLevel().isPerdu())) {//teste la defaite
+						if(col.isCol()) {
+							f.getLevel().getBall().exploser(f.getLevel().getExplo());
+							Thread.sleep(3000);
+							f.getLevel().perdu();//fait perdre le niveau
+							f.menu();
+							return f;
+						}
+						if(isPerdu()) {//teste la defaite
 							f.getLevel().perdu();//fait perdre le niveau
 							f.menu();
 							return f;

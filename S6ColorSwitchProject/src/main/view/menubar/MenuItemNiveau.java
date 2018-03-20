@@ -29,6 +29,6 @@ public class MenuItemNiveau extends MenuItem implements Action{
 	public void action(Level level) {
 		System.out.println("Changement de niveau : "+this.getNum());
 		level.nouvellePartie("niveau"+this.getNum());
-		level.update();
+		//level.update();
 	}
 }

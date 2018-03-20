@@ -34,6 +34,6 @@ public class MenuItemNouvellePartie extends MenuItem implements Action{
 	public void action(Level level) {
 		System.out.println("Nouvelle partie");
 		l.nouvellePartie("niveau"+l.getNumber());
-		l.update();
+		//l.update();
 	}
 }

@@ -127,7 +127,6 @@ public class Fenetre extends Application implements Observer{
         node.setLayoutX(forme.getPosX());
         node.setLayoutY(forme.getPosY());
         components.getChildren().add(node);//formeG
-    	
     }
 
     /**
@@ -136,16 +135,16 @@ public class Fenetre extends Application implements Observer{
      * @param m le moteur de jeu qui contient l'objet Level et les formes
      * @param num le numero de la forme a ajouter
      * */
-    public void placerBalle() {
-    	//Node node = m.getBall();
-    	Form balle = level.getBall();
-    	System.out.println("balle placee en x="+balle.getPosX()+
-    			" y="+balle.getPosY() + " balle="+balle);
-    	Group node = balle.getForme();
-    	//node.setLayoutX(balle.getPosX());
-        //node.setLayoutY(balle.getPosY());
-        ajouterForme(node);//ajout de la balle dans le canevas
-    }
+//    public void placerBalle() {
+//    	//Node node = m.getBall();
+//    	Form balle = level.getBall();
+//    	System.out.println("balle placee en x="+balle.getPosX()+
+//    			" y="+balle.getPosY() + " balle="+balle);
+//    	Group node = balle.getForme();
+//    	//node.setLayoutX(balle.getPosX());
+//        //node.setLayoutY(balle.getPosY());
+//        ajouterForme(node);//ajout de la balle dans le canevas
+//    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -158,7 +157,6 @@ public class Fenetre extends Application implements Observer{
     	
 		//preparation du menu principal
     	this.level = new Level(this);
-    	menu();
 
     	//parametres de l'objet Stage
     	primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
@@ -210,6 +208,7 @@ public class Fenetre extends Application implements Observer{
         primaryStage.getIcons().add(icon);
         
         //m.start();
+        menu();
         
         //primaryStage.setResizable(false);
         primaryStage.show();
@@ -311,9 +310,6 @@ public class Fenetre extends Application implements Observer{
 	public void update(Observable arg0, Object obj) {
 		Platform.runLater(() -> {
 			placerForme((Form)obj);
-//			Explosion ex=new Explosion();
-//	        components.getChildren().add(ex.getForme());
-//	        level.setExplo(ex);
 		});
 	}
 
@@ -350,10 +346,28 @@ public class Fenetre extends Application implements Observer{
         bouton.setLayoutY(getHauteurFenetre()/2 - 10);
         bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
+        		
+//        Form deco1 = (Form)FormsFactory.build("Etoile", getLargeurFenetre()/4,
+//    			getHauteurFenetre()/4,20 , 20, 5, 0);
+//        level.getObjects().addElement(deco1);
+//        placerForme(deco1);
+//        
+//        Form deco2 = (Form)FormsFactory.build("Changecolor", 3*getLargeurFenetre()/4,
+//        		3*getHauteurFenetre()/4,20 , 20, 3, 0);
+//        level.getObjects().addElement(deco2);
+//        placerForme(deco2);
+//        
+//        Form deco3 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
+//        		getHauteurFenetre()/4,20 , 20, 3, 0);
+//        level.getObjects().addElement(deco3);
+//        placerForme(deco3);
         //aremplacer.getChildren().add(bouton);
         //components = aremplacer;
         Platform.runLater(() -> {
         	ajouterForme(score.getForme());
+//        	ajouterForme(deco1.getForme());
+//        	ajouterForme(deco2.getForme());
+//        	ajouterForme(deco3.getForme());
         	ajouterForme(bouton);
         	restart();
         });
@@ -371,11 +385,11 @@ public class Fenetre extends Application implements Observer{
 		m.restart();
 	}
 
-	public void addChrome(Group chrome) {
-		Platform.runLater(() -> {
-        	components.getChildren().add(chrome);
-        });
-	}
+//	public void addChrome(Group chrome) {
+//		Platform.runLater(() -> {
+//        	components.getChildren().add(chrome);
+//        });
+//	}
 
 	public void updateScore(int score) {
 		this.score.updateScore(score);

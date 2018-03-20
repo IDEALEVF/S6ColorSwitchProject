@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import main.controler.ControlerFactory;
@@ -37,6 +38,7 @@ public class MenuItemSon extends MenuItem implements Action{
 		this.setGraphic(iv);
 		this.m = m;
 		this.setText("Son");
+		this.setAccelerator(KeyCombination.keyCombination("w"));
 		System.out.println(media);
 		mediaPlayer.setOnRepeat(null);
 		mediaPlayer.play();

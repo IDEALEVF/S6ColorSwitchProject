@@ -15,6 +15,6 @@ class ActionNouvellePartie implements EventHandler<MouseEvent>{
     public void handle(MouseEvent t) {
         System.out.println("action np");
         level.nouvellePartie("niveau4");
-        level.update();
+        //level.update();
     }
 }

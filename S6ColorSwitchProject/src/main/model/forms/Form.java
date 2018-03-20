@@ -60,7 +60,7 @@ public abstract class Form extends ColorSelected implements Cloneable{
 //
 //      }
 //      return listShape;
-		System.out.println("-----getShape-----");
+		//System.out.println("-----getShape-----");
 		return getShapeGroup(forme);
   }
 
@@ -69,7 +69,7 @@ public abstract class Form extends ColorSelected implements Cloneable{
       ArrayList<Shape> listShape=new ArrayList<Shape>();
       //int taille=f1.getChildren().size();
       for(Node noeud : f1.getChildren()){
-      	System.out.println("for : "+noeud);
+      	//System.out.println("for : "+noeud);
           //listShape.add((Shape) forme.getChildren().get(i));
 
           if((Shape.class).isAssignableFrom(noeud.getClass())){
