@@ -1,6 +1,7 @@
 package main.model.forms;
 
 import javafx.scene.shape.Rectangle;
+import main.model.Level;
 
 /**
  * Classe pour modeliser un cercle quadricolore.
@@ -52,5 +53,11 @@ class LigneFin extends Bonus{
 	public String toString() {
 		return "LigneFin [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed="
 				+ speed + ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		level.gagne();
+		return false;
 	}
 }

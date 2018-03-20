@@ -58,33 +58,31 @@ public class Collision {
 			listeShape=it.getShape();
 			bal1=balle.getShape().get(0);
 			//System.out.println(it.getClass());
-			try {
-				if (!it.equals(balle) && !it.getClass().equals(Class.forName("main.model.forms.Etoile")) && !it.getClass().equals(Class.forName("main.model.forms.ChangeColor")) && !it.getClass().equals(Class.forName("main.model.forms.Road"))) {//pas la balle, le doigt, l'étoile et le changecouleur
-					//si collision
-					if(inter(listeShape,bal1)){
-						balle.setCouleur(ColorSelected.couleuralea());
-						return true;
-					}
-
-				} else if(it.getClass().equals(Class.forName("main.model.forms.Etoile"))){
-					//si collision avec etoile
-					if(inter(listeShape,bal1)){
-						System.out.println("score +1");
-					}
-				}
-				else if(it.getClass().equals(Class.forName("main.model.forms.ChangeColor"))){
-					//si collision avec changecolor
-					if(inter(listeShape,bal1)){
-						System.out.println("change couleur");
-						balle.setCouleur(ColorSelected.couleuralea());
-					}
-				}
-				else{
-					System.out.println("balle ou doigt ou road");    //no collision -same block
-				}
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				if (!it.equals(balle) && !it.getClass().equals(Class.forName("main.model.forms.Etoile")) && !it.getClass().equals(Class.forName("main.model.forms.ChangeColor")) && !it.getClass().equals(Class.forName("main.model.forms.Road"))) {//pas la balle, le doigt, l'étoile et le changecouleur
+//					//si collision
+//					if(inter(listeShape,bal1)){
+//						balle.setCouleur(ColorSelected.couleuralea());
+//						return true;
+//					}
+//
+//				} else if(it.getClass().equals(Class.forName("main.model.forms.Etoile"))){
+//					//si collision avec etoile
+//					if(inter(listeShape,bal1)){
+//						System.out.println("score +1");
+//					}
+//				}
+//				else if(it.getClass().equals(Class.forName("main.model.forms.ChangeColor"))){
+//					//si collision avec changecolor
+//					if(inter(listeShape,bal1)){
+//						System.out.println("change couleur");
+//						balle.setCouleur(ColorSelected.couleuralea());
+//					}
+//				}
+//				else{
+//					System.out.println("balle ou doigt ou road");    //no collision -same block
+//				}
+			if(inter(listeShape,bal1)){
+				return it.doCollision(l);
 			}
 		}
 

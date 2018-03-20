@@ -2,6 +2,7 @@ package main.model.forms;
 
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
+import main.model.Level;
 
 public class Doigt extends Form{
 
@@ -78,5 +79,11 @@ public class Doigt extends Form{
 	public String toString() {
 		return "Doigt [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed=" + speed
 				+ ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		level.gravityYStop();//le doigt arrete la balle
+		return false;
 	}
 }

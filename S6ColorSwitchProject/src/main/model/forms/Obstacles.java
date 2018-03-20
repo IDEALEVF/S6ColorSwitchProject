@@ -1,6 +1,8 @@
 package main.model.forms;
 
 import javafx.scene.Group;
+import main.model.ColorSelected;
+import main.model.Level;
 
 abstract class Obstacles extends Form{
 
@@ -17,6 +19,12 @@ abstract class Obstacles extends Form{
 	
 	protected void addStar(int x, int y) {
 		ajouterForme(FormsFactory.build("Etoile", x, y, 20, 20, 0, 0).getForme());
+	}
+	
+	@Override
+	public boolean doCollision(Level level) {
+		level.getBall().setCouleur(ColorSelected.couleuralea());
+		return true;
 	}
 
 	@Override

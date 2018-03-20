@@ -5,8 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
 import main.model.ColorSelected;
+import main.model.Level;
 
-class Etoile extends Obstacles{
+class Etoile extends Bonus{
 
 	public Etoile(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
@@ -78,6 +79,13 @@ class Etoile extends Obstacles{
 	public String toString() {
 		return "Etoile [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed="
 				+ speed + ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		System.out.println("score +1");
+		level.addPoints(1);
+		return false;
 	}
 	
 	

@@ -98,20 +98,6 @@ public class Fenetre extends Application implements Observer{
     public Level getLevel() {
     	return level;
     }
-
-    /**
-     * Place la forme d'indice num du moteur aux coordonnees x et y de cette forme
-     * @param components Le panneau dans lequel ajouter la forme
-     * @param m le moteur de jeu qui contient l'objet Level et les formes
-     * @param num le numero de la forme a ajouter
-     * */
-    /*public void placerForme(int num) {
-    	Form forme = level.getObjects().get(num);
-    	Node node = forme.getForme();
-        node.setTranslateX(forme.getPosX());
-        node.setTranslateY(forme.getPosY());
-        components.getChildren().add(node);//formeG
-    }*/
     
     /**
      * Place la forme d'indice num du moteur aux coordonnees x et y de cette forme
@@ -121,30 +107,10 @@ public class Fenetre extends Application implements Observer{
      * */
     public void placerForme(Form forme) {
     	Node node = forme.getForme();
-    	//Node node = forme.getForme();
-        //node.setTranslateX(forme.getPosX());
-        //node.setTranslateY(forme.getPosY());
         node.setLayoutX(forme.getPosX());
         node.setLayoutY(forme.getPosY());
         components.getChildren().add(node);//formeG
     }
-
-    /**
-     * Place la balle du moteur aux coordonnees x et y de cette forme
-     * @param components Le panneau dans lequel ajouter la balle
-     * @param m le moteur de jeu qui contient l'objet Level et les formes
-     * @param num le numero de la forme a ajouter
-     * */
-//    public void placerBalle() {
-//    	//Node node = m.getBall();
-//    	Form balle = level.getBall();
-//    	System.out.println("balle placee en x="+balle.getPosX()+
-//    			" y="+balle.getPosY() + " balle="+balle);
-//    	Group node = balle.getForme();
-//    	//node.setLayoutX(balle.getPosX());
-//        //node.setLayoutY(balle.getPosY());
-//        ajouterForme(node);//ajout de la balle dans le canevas
-//    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -364,6 +330,7 @@ public class Fenetre extends Application implements Observer{
         //aremplacer.getChildren().add(bouton);
         //components = aremplacer;
         Platform.runLater(() -> {
+        	score.updateScore(level.getPoints());
         	ajouterForme(score.getForme());
 //        	ajouterForme(deco1.getForme());
 //        	ajouterForme(deco2.getForme());

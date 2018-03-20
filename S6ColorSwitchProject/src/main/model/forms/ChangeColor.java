@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import main.model.ColorSelected;
+import main.model.Level;
 
 class ChangeColor extends Bonus{
 
@@ -65,6 +66,13 @@ class ChangeColor extends Bonus{
 	public String toString() {
 		return "ChangeColor [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed="
 				+ speed + ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		System.out.println("change couleur");
+		level.getBall().setCouleur(ColorSelected.couleuralea());
+		return false;
 	}
 
 }

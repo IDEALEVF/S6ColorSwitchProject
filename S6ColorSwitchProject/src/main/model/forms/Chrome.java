@@ -7,6 +7,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
+import main.model.Level;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -74,5 +75,10 @@ public class Chrome extends Form{
 		
 	 	forme.getChildren().add(aTourner);
 	 	forme.getChildren().add(triangle);
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		return false;//jamais de collision
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
+import main.model.Level;
 
 class MessageColorSwitch extends Form{
 	
@@ -77,6 +78,11 @@ class MessageColorSwitch extends Form{
 	public String toString() {
 		return "MessageColorSwitch [parties=" + parties + ", posX=" + posX + ", posY=" + posY + ", width=" + width
 				+ ", height=" + height + ", speed=" + speed + ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		return false;// jamais de collisions
 	}
 	
 }

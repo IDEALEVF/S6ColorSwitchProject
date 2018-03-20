@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import main.model.Level;
 
 public class Explosion extends Form {
 	private Rectangle r1;
@@ -132,6 +133,11 @@ public class Explosion extends Form {
 	@Override
 	public void deplacer() {
 		//ne se deplace pas
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		return false;//jamais de collisions
 	}
 }
 

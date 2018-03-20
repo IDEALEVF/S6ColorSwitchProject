@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
+import main.model.Level;
 
 /**
  * Classe abstraite qui represente un des objets manipule par le jeu
@@ -41,31 +42,10 @@ public abstract class Form extends ColorSelected implements Cloneable{
 	public abstract void deplacer();
 	
 	public ArrayList<Shape> getShape(){
-//      ArrayList<Shape> listShape=new ArrayList<Shape>();
-//      //int taille=this.getForme().getChildren().size();
-//      Group f1 = null;
-//      for(Node noeud : forme.getChildren()){
-//          //listShape.add((Shape) forme.getChildren().get(i));
-//
-//          System.out.println("getShape");
-//          if((Shape.class).isAssignableFrom(noeud.getClass())){
-//              System.out.println("shapeshape "+noeud);
-//              listShape.add((Shape) noeud);
-//          }else{
-//          	f1=(Group) noeud;
-//              System.out.println("passhape "+noeud.getClass()+"   "+Shape.class);
-//              noeud.getClip();
-//              listShape.addAll(getShapeGroup(f1));
-//          }
-//
-//      }
-//      return listShape;
-		//System.out.println("-----getShape-----");
 		return getShapeGroup(forme);
-  }
+	}
 
-
-  private ArrayList<Shape> getShapeGroup(Group f1){
+	private ArrayList<Shape> getShapeGroup(Group f1){
       ArrayList<Shape> listShape=new ArrayList<Shape>();
       //int taille=f1.getChildren().size();
       for(Node noeud : f1.getChildren()){
@@ -82,7 +62,9 @@ public abstract class Form extends ColorSelected implements Cloneable{
 
       }
       return listShape;
-  }
+	}
+	
+	public abstract boolean doCollision(Level level);
 	
 	public Group getForme() {
 		return forme;

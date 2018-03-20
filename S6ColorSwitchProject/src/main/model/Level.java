@@ -53,14 +53,6 @@ public class Level{
 //	public Doigt getDoi() {
 //		return doi;
 //	}
-
-	public Explosion getExplo() {
-		return explo;
-	}
-
-	public void setExplo(Explosion explo) {
-		this.explo = explo;
-	}
 	
 	/**
 	 * Constructeur par defaut
@@ -111,6 +103,14 @@ public class Level{
 		
 		nouvellePartie(path);
 	}//Level
+	
+	public Explosion getExplo() {
+		return explo;
+	}
+
+	public void setExplo(Explosion explo) {
+		this.explo = explo;
+	}
 
 	/**
 	 * Retourne le score
@@ -585,5 +585,13 @@ public class Level{
 
 	public Chrome getChrome() {
 		return chrome;
+	}
+
+	public void addPoints(int i) {
+		points += i;
+	}
+
+	public void gagne() {
+		fenetre.menu();
 	}
 }

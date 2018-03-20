@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.StrokeLineJoin;
+import main.model.Level;
 import main.model.Pair;
 
 public class Road extends Form{
@@ -25,5 +26,10 @@ public class Road extends Form{
 	@Override
 	public void deplacer() {
 		//ne se deplace pas
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		return false;//jamais de collisions
 	}
 }
