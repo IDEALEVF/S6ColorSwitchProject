@@ -3,6 +3,8 @@ package main.controler;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import main.model.Collision;
+import main.model.Level;
+import main.model.Type;
 import main.view.Fenetre;
 
 /**
@@ -37,11 +39,41 @@ public class Moteur extends Service<Object>{
 	private void deplacerBall() {
 		assert(f.getLevel() != null);
 		
-		if(f.getLevel().getBall().getPosY()<f.getHauteurFenetre()*2/5) {
-			f.defilerEcranY();
+		Level l = f.getLevel();
+		
+		if(l.getBall() == null ) {
+			return;
 		}
-		f.getLevel().getBall().deplacer();
-		f.getLevel().getBall().gravityY(f.getLevel().gravityY());//la balle tombe selon la gravite
+		
+		if(l.getType() == Type.AUTOMATIQUE) {
+			if( l.getBall().getPosY()<f.getHauteurFenetre()*1/5) {//defilement vers le haut
+				f.defilerEcranY(false);
+			}
+			if( l.getBall().getPosY()>f.getHauteurFenetre()*4/5) {//defilement vers le bas
+				f.defilerEcranY(true);
+			}
+			if( l.getBall().getPosX()<f.getLargeurFenetre()*1/5) {//defilement vers la gauche
+				f.defilerEcranX(true);
+			}
+			if( l.getBall().getPosX()>f.getLargeurFenetre()*4/5) {//defilement vers la droite
+				f.defilerEcranX(false);
+			}
+		}else if(l.getType() == Type.INVERSE){
+			if( l.getBall().getPosY()>f.getHauteurFenetre()*3/5) {//defilement vers le haut
+				f.defilerEcranY(true);
+			}
+		}else {
+			if( l.getBall().getPosY()<f.getHauteurFenetre()*2/5) {//defilement vers le haut
+				f.defilerEcranY(false);
+			}
+		}
+		
+		if(l.getType() == Type.AUTOMATIQUE) {//mode automatique -> deplacement automatique
+			l.getBall().deplacer();
+		}else {
+			l.getBall().deplacer();
+			l.getBall().gravityY(l.gravityY());//la balle tombe selon la gravite
+		}
 	}
 	
 	/**
@@ -50,10 +82,16 @@ public class Moteur extends Service<Object>{
 	public boolean isPerdu() {
 		assert(f.getLevel() != null);
 		
-		if(f.getLevel().getBall() == null) {//pour le menu principal -> pas de balle
+		Level l = f.getLevel();
+		
+		if(l.getBall() == null) {//pour le menu principal -> pas de balle
 			return false;
 		}
-		return f.getLevel().getBall().getPosY()>f.getHauteurFenetre()-50;//en bas de l'ecran
+		if(l.getType() == Type.INVERSE) {
+			return l.getBall().getPosY()<50;//en haut de l'ecran
+		}else {
+			return l.getBall().getPosY()>f.getHauteurFenetre()-50;//en bas de l'ecran
+		}
 	}
 
     @Override
@@ -69,25 +107,40 @@ public class Moteur extends Service<Object>{
 
 		@Override
 		protected Object call() throws Exception {
-			System.out.println("call");
-			while(true) {
-				synchronized(this) {
-					Thread.sleep(50);
-					for(int i=0;i<f.getLevel().getObjects().size();i++) {//a jouer aussi pour le menu
-						f.getLevel().getObjects().get(i).deplacer();//deplace chaque forme
-					}
-					//if(col.isCol()) {
-						//f.getLevel().getBall().exploser(f.getLevel().getExplo());
-					//}
-					if((isPerdu() && !f.getLevel().isPerdu())) {//teste la defaite
-						f.getLevel().perdu();//fait perdre le niveau
-						f.menu();
-						return f;
-					}else {
-						deplacerBall();//deplace la balle ou fait defiler l'ecran
-					}//else
-				}//synchronized
-			}//while
+			try {
+				System.out.println("call");
+				while(true) {
+					synchronized(this) {
+						Thread.sleep(50);
+						Level l = f.getLevel();
+						for(int i=0;i<l.getObjects().size();i++) {//a jouer aussi pour le menu
+							l.getObjects().get(i).deplacer();//deplace chaque forme
+						}
+						if(l.getBall() == null) {//si on est dans les menus, inutile de deplacer la balle
+							continue;
+						}
+//						if(col.isCol()) {
+//							f.getLevel().perdu();//fait perdre le niveau
+//							f.menu();
+//							return f;
+//							//f.getLevel().getBall().exploser(f.getLevel().getExplo());
+//						}
+						if((isPerdu() && !f.getLevel().isPerdu())) {//teste la defaite
+							f.getLevel().perdu();//fait perdre le niveau
+							f.menu();
+							return f;
+						}else {
+							deplacerBall();//deplace la balle ou fait defiler l'ecran
+						}//else
+					}//synchronized
+				}//while
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+			}
+//			catch(Exception e){//try
+//				e.printStackTrace();
+//			}
+			return null;
 		}//call
     }//MaTask
 	

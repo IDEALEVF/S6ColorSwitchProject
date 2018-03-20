@@ -28,6 +28,9 @@ public class FormsFactory {
 		case "RONDDERONDSACCELERE" :return new RondDeRondsAccelere(x , y, width, height, vitesse, rotate);//ROND DE RONDS QUI ACCELERE
 		case "BOUTONJOUER" :return new BoutonJouer(x , y, width, height, vitesse, rotate);//BOUTON JOUER
 		case "LIGNE" :return new Ligne(x , y, width, height, vitesse, rotate);//LIGNE
+		case "ROAD" :return new Road(x , y, width, height, vitesse, rotate);//ROAD
+		case "CHROME" :return new Chrome(x , y, width, height, vitesse, rotate);//CHROME
+		case "MESSAGESCORE" :return new MessageScore(x , y, width, height, vitesse, rotate);//MESSAGE SCORE
 		default:throw new FormeInexistanteException();
 		}
 	}

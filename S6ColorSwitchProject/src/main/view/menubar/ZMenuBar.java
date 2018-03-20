@@ -17,7 +17,7 @@ public class ZMenuBar extends MenuBar{
 	public ZMenuBar(BorderPane root, Moteur m, Level level){
 		this.root = root;
 		this.getMenus().add(new MenuFichier(m, level));
-		this.getMenus().add(new MenuModes(level));
+		this.getMenus().add(new MenuNiveau(level));
 		this.getMenus().add(new MenuHelp(m, level));
 		this.getMenus().add(new MenuParametre(m));
 

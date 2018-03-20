@@ -2,6 +2,7 @@ package main.view;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,13 +21,17 @@ import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Level;
+import main.model.Type;
+import main.model.forms.Ball;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
+import main.model.forms.MessageScore;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 /**
  * Classe qui se charge de la vitrine de l'application.
@@ -41,8 +46,9 @@ public class Fenetre extends Application implements Observer{
 	private Moteur m;
 	private Level level;
 	private Pane components;
-	
-    public static void main(String[] args) {
+	private MessageScore score;
+
+	public static void main(String[] args) {
         launch(args);
     }
 
@@ -135,14 +141,15 @@ public class Fenetre extends Application implements Observer{
     	Form balle = level.getBall();
     	System.out.println("balle placee en x="+balle.getPosX()+
     			" y="+balle.getPosY() + " balle="+balle);
-    	Node node = balle.getForme();
+    	Group node = balle.getForme();
     	//node.setLayoutX(balle.getPosX());
         //node.setLayoutY(balle.getPosY());
-        components.getChildren().add(node);//ajout de la balle dans le canevas
+        ajouterForme(node);//ajout de la balle dans le canevas
     }
     
     @Override
     public void start(Stage primaryStage) {
+    	score = (MessageScore) FormsFactory.build("MessageScore",30, 30, 30, 30, 3, 0);
     	
     	//composants
     	components = new Pane();//boite contenant les formes du jeu
@@ -202,7 +209,7 @@ public class Fenetre extends Application implements Observer{
         Image icon=new Image("icon.png");
         primaryStage.getIcons().add(icon);
         
-        m.start();
+        //m.start();
         
         //primaryStage.setResizable(false);
         primaryStage.show();
@@ -218,7 +225,7 @@ public class Fenetre extends Application implements Observer{
     	
     	return forme.getPosX() < getLargeurFenetre() + 200
 				&& forme.getPosX() > - 200
-				&& forme.getPosY() < getHauteurFenetre() +100//+ 200
+				&& forme.getPosY() < getHauteurFenetre() +400//pour la barre horizontale
 				&& forme.getPosY() > - 200;
     }
     
@@ -235,7 +242,6 @@ public class Fenetre extends Application implements Observer{
      * Nouvelle parite
      * */
     public void nouvellePartie() {
-    	//m.cancel();//arrete le moteur pour eviter les bugs
     	
     	components.getChildren().removeAll(components.getChildren());//enleve les formes actuelles
     	
@@ -245,30 +251,64 @@ public class Fenetre extends Application implements Observer{
         		placerForme(forme);
         	}
         }
+        
+        //placerBalle();
     }
 
     /**
      * Fait defiler l'ecran selon l'axe des Y
+     * @param boolean haut la direction du defilement
      * */
-	public void defilerEcranY() {
-		//int DEFILEMENT = level.getBall().getSpeed();
+	public void defilerEcranY(boolean haut) {
+		int defilement = level.getBall().getSpeed();
+		if(haut) {//inversion de direction
+			defilement = -defilement;
+		}
 		
 		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
 			Form forme = level.getObjects().get(i);
-			forme.setPosY(forme.getPosY()+level.getBall().getSpeed());
+			forme.setPosY(forme.getPosY()+defilement);
 			forme.getForme().setLayoutY(forme.getPosY());
 		}
-		Form balle = level.getBall();
-		balle.setPosY(balle.getPosY()+level.getBall().getSpeed());//bouge la balle
-		Node node = balle.getForme();
-    	node.setLayoutY(balle.getPosY());
+		Ball balle = level.getBall();
+		balle.setPosY(balle.getPosY()+defilement);//bouge la balle
+		balle.getForme().setLayoutY(balle.getPosY());
+		
+		if(level.getType() == Type.AUTOMATIQUE) {//repercute le defilement pour le path
+			balle.repercuterDefilementY(defilement);
+		}
     	
-    	level.setCoordinateY(level.getCoordinateY()+level.getBall().getSpeed());//modifie les coordonnees
+    	level.setCoordinateY(level.getCoordinateY()+defilement);//modifie les coordonnees
+	}
+	
+	/**
+     * Fait defiler l'ecran selon l'axe des X
+     * @param boolean gauche la direction du defilement
+     * */
+	public void defilerEcranX(boolean gauche) {
+		int defilement = level.getBall().getSpeed();
+		if(!gauche) {//inversion de direction
+			defilement = -defilement;
+		}
+		
+		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
+			Form forme = level.getObjects().get(i);
+			forme.setPosX(forme.getPosX()+defilement);
+			forme.getForme().setLayoutX(forme.getPosX());
+		}
+		Ball balle = level.getBall();
+		balle.setPosX(balle.getPosX()+defilement);//bouge la balle
+		balle.getForme().setLayoutX(balle.getPosX());
+    	
+		if(level.getType() == Type.AUTOMATIQUE) {//repercute le defilement pour le path
+			balle.repercuterDefilementX(defilement);
+		}
+		
+    	level.setCoordinateX(level.getCoordinateX()+defilement);//modifie les coordonnees
 	}
 	
 	@Override
 	public void update(Observable arg0, Object obj) {
-		//System.out.println("J'observe bien !!!");
 		Platform.runLater(() -> {
 			placerForme((Form)obj);
 //			Explosion ex=new Explosion();
@@ -313,7 +353,8 @@ public class Fenetre extends Application implements Observer{
         //aremplacer.getChildren().add(bouton);
         //components = aremplacer;
         Platform.runLater(() -> {
-        	components.getChildren().add(bouton);
+        	ajouterForme(score.getForme());
+        	ajouterForme(bouton);
         	restart();
         });
         
@@ -322,8 +363,22 @@ public class Fenetre extends Application implements Observer{
         //components = aremplacer;
     }
 
+	private void ajouterForme(Group forme) {
+		components.getChildren().add(forme);
+	}
+
 	public void restart() {
 		m.restart();
+	}
+
+	public void addChrome(Group chrome) {
+		Platform.runLater(() -> {
+        	components.getChildren().add(chrome);
+        });
+	}
+
+	public void updateScore(int score) {
+		this.score.updateScore(score);
 	}
 }
 

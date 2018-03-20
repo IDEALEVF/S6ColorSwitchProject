@@ -3,6 +3,7 @@ package main.controler;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import main.model.Level;
+import main.model.Type;
 
 class EcouteurToucheEnfoncee implements EventHandler<KeyEvent>{
 	private Level l;
@@ -16,8 +17,25 @@ class EcouteurToucheEnfoncee implements EventHandler<KeyEvent>{
         String touche = evt.getText();
        
         if(touche.equals("n")){
-        	l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
-        	l.gravityDown();
+        	if(l.getType() == Type.AUTOMATIQUE) {
+        		l.getBall().start();
+        		l.getBall().setCouleur(l.getNextColor());//change la couleur de la balle
+        		l.getChrome().rotateChromeLeft();
+        	}else {
+        		l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
+            	l.gravityDown();
+        	}
+        }
+        
+        if(touche.equals("b")) {
+        	if(l.getType() == Type.AUTOMATIQUE) {
+        		l.getBall().start();
+        		l.getBall().setCouleur(l.getPreviewsColor());//change la couleur de la balle
+        		l.getChrome().rotateChromeRight();
+        	}else {
+        		l.getBall().maxY();//donne l'impression de "donner un coup dans la balle"
+            	l.gravityDown();
+        	}
         }
     }
 }

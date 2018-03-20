@@ -9,6 +9,7 @@ public class MenuParametre extends Menu{
 		this.m = m;
 		this.setText("Paramètres");
 		this.getItems().add(new MenuItemSon(m));
+		this.getItems().add(new MenuItemCouleur(m));
 	}
 
 }

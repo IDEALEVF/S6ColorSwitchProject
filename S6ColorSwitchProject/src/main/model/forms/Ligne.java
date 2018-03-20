@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
-public class Ligne extends Form{
+public class Ligne extends Obstacles{
 	
 	private Color[] colorPossible;
 	private static short compteurCouleur;
@@ -28,7 +28,7 @@ public class Ligne extends Form{
                     part1.setWidth(TAILLE_RECTANGLE);
                     part1.setHeight(height);
                     part1.setLayoutX(posPart);
-                    part1.setLayoutY(posY);
+                    part1.setLayoutY(posY-(2*height));
                     part1.setFill(getNextColor());
                     
                     posPart += TAILLE_RECTANGLE;

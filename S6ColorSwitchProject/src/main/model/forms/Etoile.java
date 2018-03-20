@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 //import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
+import main.model.ColorSelected;
 
 class Etoile extends Obstacles{
 
@@ -17,55 +18,48 @@ class Etoile extends Obstacles{
 		etoile.setStroke(BLACK);*/
 		//int posX=-50;
         //int posY=-50;
-        double s1X =  25;
+        double s1X =  0;
 
-        double s1Y = 0;
+        double s1Y = -28;
 
-        double s2X = 43;
+        double s2X = 18;
 
-        double s2Y = 50;
+        double s2Y = 25;
 
         //Line l1=new Line(s1X, s1Y, s2X, s2Y);
 
-        double s3X = 0;
+        double s3X = -25;
 
-        double s3Y = 17;
+        double s3Y = -8;
 
         //Line l2=new Line(s2X, s2Y, s3X, s3Y);
 
-        double s4X = 50;
+        double s4X = 25;
 
-        double s4Y = 17;
+        double s4Y = -8;
 
         //Line l3=new Line(s3X, s3Y, s4X, s4Y);
 
-        double s5X = 7;
+        double s5X = -18;
 
-        double s5Y = 50;
+        double s5Y = 25;
 
         //Line l4=new Line(s4X, s4Y, s5X, s5Y);
 
         //Line l5=new Line(s5X, s5Y, s1X, s1Y);
         Polygon etoile = new Polygon();
 		etoile.getPoints().addAll(s1X,s1Y,s2X,s2Y,s3X,s3Y,s4X,s4Y,s5X,s5Y);
-		etoile.setFill(Color.GREY);
+		etoile.setFill(WHITE);
 		etoile.setStrokeWidth(3);
 		etoile.setStrokeLineJoin(StrokeLineJoin.ROUND);
-		etoile.setStroke(Color.GREY);
-		//etoile.setStrokeLineCap(StrokeLineCap.ROUND);
-      /*  Shape angle1=Shape.union(l1, l2);
-		Shape angle2=Shape.union(l3, l4);
-		Shape angle3=Shape.union(angle1, angle2);
-		Shape etoile=Shape.union(angle3, l5);
-		etoile.setFill(PURPLE);
-		forme.getChildren().add(etoile);
-        Group g =new Group();
-		g.getChildren().add(l1);
-		g.getChildren().add(l2);
-		g.getChildren().add(l3);
-		g.getChildren().add(l4);
-		g.getChildren().add(l5);*/
-		forme.getChildren().add(etoile);
+		etoile.setStroke(WHITE);
+		
+//		etoile.setLayoutX(-25);
+//		etoile.setLayoutY(-25);
+		etoile.setScaleX((double)width/50);
+		etoile.setScaleY((double)height/50);
+		
+		ajouterForme(etoile);
 	}
 
 	@Override

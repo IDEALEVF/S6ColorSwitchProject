@@ -9,6 +9,8 @@ public class BoutonJouer extends ObstacleRound1{
 	BoutonJouer(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
 		
+		forme.getChildren().remove(1);//suppression de l'etoile
+		
 		double s1X =  0;
 	    double s1Y = 0;
 	    double s2X = 20;

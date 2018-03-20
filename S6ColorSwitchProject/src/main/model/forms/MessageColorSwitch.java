@@ -1,12 +1,10 @@
 package main.model.forms;
 
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import main.model.ColorSelected;
 
 class MessageColorSwitch extends Form{
 	
@@ -20,7 +18,7 @@ class MessageColorSwitch extends Form{
 		
 		Label labC = new Label("C");
 		labC.setFont(new Font(PARTY/2));
-		labC.setTextFill(ColorSelected.BLUE);
+		labC.setTextFill(BLUE);
 		labC.setPrefWidth(PARTX);
 		labC.setPrefHeight(PARTY);
 		
@@ -34,7 +32,7 @@ class MessageColorSwitch extends Form{
 		labL.setPrefWidth(PARTX);
 		labL.setPrefHeight(PARTY);
 		labL.setFont(new Font(PARTY/2));
-		labL.setTextFill(ColorSelected.BLUE);
+		labL.setTextFill(BLUE);
 		
 		Round1 round2 = new Round1(0, 0, PARTX, PARTX, speed, rotate);
 		round2.getForme().setTranslateX(3*PARTX);
@@ -46,25 +44,25 @@ class MessageColorSwitch extends Form{
 		labR.setPrefWidth(PARTX);
 		labR.setPrefHeight(PARTY);
 		labR.setFont(new Font(PARTY/2));
-		labR.setTextFill(ColorSelected.BLUE);
+		labR.setTextFill(BLUE);
 		
 		Label labSwitch = new Label("Switch");
 		//labSwitch.setTranslateX(PARTX);
 		labSwitch.setTranslateY(PARTY);
 		labSwitch.setFont(new Font(PARTY/2));
-		labSwitch.setTextFill(ColorSelected.BLUE);
+		labSwitch.setTextFill(BLUE);
 		labSwitch.setPrefWidth(width);
 		labSwitch.setPrefHeight(PARTY);
 		
 		parties.add(round1);
 		parties.add(round2);
 		
-		this.forme.getChildren().add(labC);
-		this.forme.getChildren().add(round1.getForme());
-		this.forme.getChildren().add(labL);
-		this.forme.getChildren().add(round2.getForme());
-		this.forme.getChildren().add(labR);
-		this.forme.getChildren().add(labSwitch);
+		ajouterForme(labC);
+		ajouterForme(round1.getForme());
+		ajouterForme(labL);
+		ajouterForme(round2.getForme());
+		ajouterForme(labR);
+		ajouterForme(labSwitch);
 	}
 
 	@Override

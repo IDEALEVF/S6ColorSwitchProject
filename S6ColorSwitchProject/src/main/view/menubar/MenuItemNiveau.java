@@ -12,9 +12,10 @@ public class MenuItemNiveau extends MenuItem implements Action{
 	MenuItemNiveau(Level l, int num){
 		this.num = num;
 		this.setText("Niveau "+num);
-		if(num == 1) {//assuprimer
-			this.setAccelerator(KeyCombination.keyCombination("Ctrl+b"));
-		}
+//		if(num == 1) {//assuprimer
+//			this.setAccelerator(KeyCombination.keyCombination("Ctrl+b"));
+//		}
+		this.setAccelerator(KeyCombination.keyCombination("Ctrl+"+(char)('a' + num)));
 		
 		this.addEventHandler(ActionEvent.ACTION,
         		ControlerFactory.build(ActionEvent.ACTION, l));

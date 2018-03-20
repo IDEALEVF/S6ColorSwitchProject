@@ -1,10 +1,13 @@
 package main.model.forms;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
+import javafx.scene.control.Label;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 
 /**
@@ -16,7 +19,7 @@ import main.model.ColorSelected;
  * @since 20/01/2018
  * @version 1.0
  * */
-public abstract class Form extends Parent implements ColorSelected, Cloneable{
+public abstract class Form extends ColorSelected implements Cloneable{
 	protected int posX;
 	protected int posY;
 	protected int width;
@@ -36,6 +39,50 @@ public abstract class Form extends Parent implements ColorSelected, Cloneable{
 	}
 	
 	public abstract void deplacer();
+	
+	public ArrayList<Shape> getShape(){
+//      ArrayList<Shape> listShape=new ArrayList<Shape>();
+//      //int taille=this.getForme().getChildren().size();
+//      Group f1 = null;
+//      for(Node noeud : forme.getChildren()){
+//          //listShape.add((Shape) forme.getChildren().get(i));
+//
+//          System.out.println("getShape");
+//          if((Shape.class).isAssignableFrom(noeud.getClass())){
+//              System.out.println("shapeshape "+noeud);
+//              listShape.add((Shape) noeud);
+//          }else{
+//          	f1=(Group) noeud;
+//              System.out.println("passhape "+noeud.getClass()+"   "+Shape.class);
+//              noeud.getClip();
+//              listShape.addAll(getShapeGroup(f1));
+//          }
+//
+//      }
+//      return listShape;
+		System.out.println("-----getShape-----");
+		return getShapeGroup(forme);
+  }
+
+
+  private ArrayList<Shape> getShapeGroup(Group f1){
+      ArrayList<Shape> listShape=new ArrayList<Shape>();
+      //int taille=f1.getChildren().size();
+      for(Node noeud : f1.getChildren()){
+      	System.out.println("for : "+noeud);
+          //listShape.add((Shape) forme.getChildren().get(i));
+
+          if((Shape.class).isAssignableFrom(noeud.getClass())){
+              listShape.add((Shape) (noeud));
+          }else if((Label.class).isAssignableFrom(noeud.getClass())) {
+          	continue;
+          }else{
+              listShape.addAll(getShapeGroup((Group)noeud));
+          }
+
+      }
+      return listShape;
+  }
 	
 	public Group getForme() {
 		return forme;

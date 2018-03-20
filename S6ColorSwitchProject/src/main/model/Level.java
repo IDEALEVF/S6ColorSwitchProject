@@ -5,11 +5,18 @@ import java.util.Vector;
 
 import javafx.application.Platform;
 import main.model.forms.Ball;
+import main.model.forms.Chrome;
+import main.model.forms.Doigt;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
+import main.model.forms.Road;
 import main.view.Fenetre;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Polygon;
 
 /**
  * Classe qui se prend en charge tout les objets et parametres d'un niveau :
@@ -38,6 +45,14 @@ public class Level{
 	private double scaleY = 0;
 	private double transX = 0;
 	private double transY = 0;
+	private Vector<Color> colorPossible;
+	private static short colorIterator;
+	private Chrome chrome;
+//	private Doigt doi;
+//
+//	public Doigt getDoi() {
+//		return doi;
+//	}
 
 	public Explosion getExplo() {
 		return explo;
@@ -66,7 +81,8 @@ public class Level{
 		type = Type.NORMAL;
 		setCoordinateX(setCoordinateY(0));
 		perdu = false;
-		
+		colorPossible = new Vector<Color>();
+		colorIterator = 0;
 	}
 	
 	/**
@@ -117,6 +133,10 @@ public class Level{
 		objectsPossible.clear();//nettoyage des objets possibles precedents
 		gravityX = gravityY = 0;//suppression de la gravite
 		perdu = false;
+		chrome = null;
+		ball = null;
+		colorIterator = 0;
+		colorPossible.clear();//pour acqueillir de nouvelles couleurs
 		
 		if(lignes.length < TAILLE_ENTETE) {//genere une erreur si l'entete est superieure a lignes
 			throw new IllegalStateException("Erreur de taille.");
@@ -131,31 +151,69 @@ public class Level{
 				Integer.parseInt(infosBalle[1]), Integer.parseInt(infosBalle[2]), 
 				0, Integer.parseInt(infosBalle[3]), 0);//creation de la balle
 		
+		boolean entete = false;//pour le mode AUTOMATIQUE
+		boolean couleurs = false;
+		if(type == Type.AUTOMATIQUE) {
+			ball.addPoint(ball.getPosX(),ball.getPosY());//position de depart
+			entete = true;
+			couleurs = true;
+		}
+		
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
-			if(parties.length < 7 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
-				continue;
-			}
-			parties[1] = convertirPourcentage(parties[1], fenetre.getLargeurFenetre());
-			parties[2] = convertirPourcentage(parties[2], fenetre.getHauteurFenetre());
-			parties[3] = convertirPourcentage(parties[3], fenetre.getLargeurFenetre());
-			parties[4] = convertirPourcentage(parties[4], fenetre.getHauteurFenetre());
-			
-			Form o = FormsFactory.build(parties[0],
-					Integer.parseInt(parties[1]),
-					Integer.parseInt(parties[2]),
-					Integer.parseInt(parties[3]),
-					Integer.parseInt(parties[4]),
-					Integer.parseInt(parties[5]),
-					Integer.parseInt(parties[6]));
-			if(o != null){
-				objectsPossible.add(o);//cree les objets
-			}
+			if(couleurs) {
+				if(parties[0].charAt(0) == '=') {//fin de recuperation des couleurs
+					couleurs = false;
+					ball.setCouleur(colorPossible.get(0));//couleur de depart
+					chrome = (Chrome) FormsFactory.build("CHROME", 50, 50,
+							30, 30, 3, 45);//cercle chromatique
+					chrome.createChrome(colorPossible);
+					fenetre.addChrome(chrome.getForme());
+					continue;
+				}
+				if(parties.length < 1 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
+					continue;
+				}
+				//ajout des couleurs possibles pour le niveau
+				ajouterCouleur(parties[0]);
+			}else if(entete) {//fait l'entete pour le mode AUTOMATIQUE
+				if(parties[0].charAt(0) == '=') {//fin d'entete
+					entete = false;
+					Road road = new Road(0, 0, 30, 30, 4, 4);
+					road.createRoad(ball.getPoints());
+					objects.add(road);
+					continue;
+				}
+				if(parties.length < 2 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
+					continue;
+				}
+				//nouveau point pour le chemin de la balle
+				ball.addPoint(Integer.parseInt(parties[0]),Integer.parseInt(parties[1]));
+			}else {
+				if(parties.length < 7 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
+					continue;
+				}
+				parties[1] = convertirPourcentage(parties[1], fenetre.getLargeurFenetre());
+				parties[2] = convertirPourcentage(parties[2], fenetre.getHauteurFenetre());
+				parties[3] = convertirPourcentage(parties[3], fenetre.getLargeurFenetre());
+				parties[4] = convertirPourcentage(parties[4], fenetre.getHauteurFenetre());
+				
+				Form o = FormsFactory.build(parties[0],
+						Integer.parseInt(parties[1]),
+						Integer.parseInt(parties[2]),
+						Integer.parseInt(parties[3]),
+						Integer.parseInt(parties[4]),
+						Integer.parseInt(parties[5]),
+						Integer.parseInt(parties[6]));
+				if(o != null){
+					objectsPossible.add(o);//cree les objets
+				}//if
+			}//if
 		}//for
 		repartirObjets();
 		retaillerObjets();
 	}
-	
+
 	/**
 	 * Fait la conversion des nombres en pourcentages en vrais nombres
 	 * @return String mot le nombre debarrasse de son %
@@ -448,7 +506,7 @@ public class Level{
 	 * */
 	private void ajouterNouvellesFormes() {
 		System.out.println("Ajout de nouvelles formes");
-		final short NB_FORMES = 4;
+		final short NB_FORMES = 1;
 		int taillePre = -200;//la limite a ne pas depasser
 		
 		for(short i=1;i<=NB_FORMES;i++) {
@@ -466,5 +524,62 @@ public class Level{
 					12, 12, 3, 0);
 			objects.addElement(changecouleur);
 		}
+	}
+	
+	/**
+	 * Ajoute une couleur a la liste des couleurs possibles pour le mode AUTOMATIQUE
+	 * @param le nom de la couleur a ajouter
+	 * */
+	private void ajouterCouleur(String couleur) {
+		assert(couleur != null);
+		
+		String coul = couleur.toUpperCase();
+		
+		/*switch(coul) {
+		case "BLUE": colorPossible.add(ColorSelected.BLUE);
+		case "ROSE": colorPossible.add(ColorSelected.ROSE);
+		case "PURPLE": colorPossible.add(ColorSelected.PURPLE);
+		case "YELLOW": colorPossible.add(ColorSelected.YELLOW);
+		default : throw new IllegalArgumentException("Mauvaise couleur : "+couleur);
+		}*/
+		if(coul.equals("BLUE")) {
+			colorPossible.add(ColorSelected.BLUE);
+		}else if(coul.equals("ROSE")) {
+			colorPossible.add(ColorSelected.ROSE);
+		}else if(coul.equals("PURPLE")) {
+			colorPossible.add(ColorSelected.PURPLE);
+		}else if(coul.equals("YELLOW")) {
+			colorPossible.add(ColorSelected.YELLOW);
+		}else {
+			throw new IllegalArgumentException("Mauvaise couleur : "+couleur);
+		}
+	}
+
+	/**
+	 * Renvoie la prochaine couleurPossible
+	 * @return Color couleurPossible la prochaine couleur
+	 * */
+	public Color getNextColor() {
+		colorIterator ++;
+		if(colorIterator >= colorPossible.size()) {
+			colorIterator = 0;
+		}
+		return colorPossible.get(colorIterator);
+	}
+	
+	/**
+	 * Renvoie la precedente couleurPossible
+	 * @return Color couleurPossible la precedente couleur
+	 * */
+	public Color getPreviewsColor() {
+		colorIterator --;
+		if(colorIterator < 0) {
+			colorIterator = (short) (colorPossible.size() - 1);
+		}
+		return colorPossible.get(colorIterator);
+	}
+
+	public Chrome getChrome() {
+		return chrome;
 	}
 }

@@ -60,6 +60,10 @@ public class Doigt extends Form{
         doigt.setStrokeWidth(3);
         doigt.setStrokeLineJoin(StrokeLineJoin.ROUND);
         doigt.setStroke(WHITE);
+        doigt.setScaleX(width / 50);//mise a l'echelle
+        doigt.setScaleY(height / 50);
+        doigt.setLayoutX(-width/2);
+        doigt.setLayoutY(-width/2);
 		//etoile.setStrokeLineCap(StrokeLineCap.ROUND);
 		forme.setRotate(180);
 		ajouterForme(doigt);

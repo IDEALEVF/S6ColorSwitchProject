@@ -21,21 +21,29 @@ class CarreDeRonds extends Obstacles{
 		
 		for(int i=0;i<NBRE_BOULES/4;i++) {//place les boules du haut
 			Node n = creerCercle(BLUE,TAILLE);
-			n.setTranslateX(i*(width/4));
+			n.setLayoutX(i*(width/4));
+			n.setTranslateX(-width/2);
+			n.setTranslateY(-width/2);
 		}
 		for(int i=0;i<NBRE_BOULES/4;i++) {//place les boules de droite
 			Node n = creerCercle(YELLOW,TAILLE);
-			n.setTranslateX(width);
-			n.setTranslateY(i*(width/4));
+			n.setLayoutX(width);
+			n.setLayoutY(i*(width/4));
+			n.setTranslateX(-width/2);
+			n.setTranslateY(-width/2);
 		}
 		for(int i=0;i<NBRE_BOULES/4;i++) {//place les boules du bas
 			Node n = creerCercle(PURPLE,TAILLE);
-			n.setTranslateX(width-i*(width/4));
-			n.setTranslateY(height);
+			n.setLayoutX(width-i*(width/4));
+			n.setLayoutY(height);
+			n.setTranslateX(-width/2);
+			n.setTranslateY(-width/2);
 		}
 		for(int i=0;i<NBRE_BOULES/4;i++) {//place les boules de gauche
 			Node n = creerCercle(ROSE,TAILLE);
-			n.setTranslateY(height-i*(height/4));
+			n.setLayoutY(height-i*(height/4));
+			n.setTranslateX(-width/2);
+			n.setTranslateY(-width/2);
 		}
 	}
 	
@@ -59,17 +67,17 @@ class CarreDeRonds extends Obstacles{
 	}
 	
 	private void bougerForme(Node node) {
-		double posX = node.getTranslateX();
-		double posY = node.getTranslateY();
+		double posX = node.getLayoutX();
+		double posY = node.getLayoutY();
 		
 		if(posY <= 0 && posX < width) {//balle en haut mais pas a droite
-			node.setTranslateX(node.getTranslateX()+speed);//deplacement a droite
+			node.setLayoutX(node.getLayoutX()+speed);//deplacement a droite
 		}else if(posX >= width && posY < height) {//balle a droite mais pas en bas
-			node.setTranslateY(node.getTranslateY()+speed);//deplacement a droite
+			node.setLayoutY(node.getLayoutY()+speed);//deplacement a droite
 		}else if(posY >= height && posX > 0) {//balle en bas mais pas a gauche
-			node.setTranslateX(node.getTranslateX()-speed);//deplacement a gauche
+			node.setLayoutX(node.getLayoutX()-speed);//deplacement a gauche
 		}else if(posX <= 0 && posY > 0) {//balle a gauche mais pas en haut
-			node.setTranslateY(node.getTranslateY()-speed);//deplacement en haut
+			node.setLayoutY(node.getLayoutY()-speed);//deplacement en haut
 		}
 	}
 

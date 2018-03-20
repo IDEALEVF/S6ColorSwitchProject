@@ -11,7 +11,7 @@ public class MenuNiveau extends Menu{
 		this.setText("Niveau");
 		this.setGraphic(new ImageView(new Image("lv.png")));
 
-		for(int i = 1; i< 6; i++) {//ajout des niveaux
+		for(int i = 1; i< 7; i++) {//ajout des niveaux
 			this.getItems().add(new MenuItemNiveau(l, i));
 		}
 	}
