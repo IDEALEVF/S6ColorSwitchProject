@@ -14,8 +14,10 @@ import main.model.Pair;
 import main.model.Path;
 
 /**
- * Classe pour modeliser un cercle quadricolore.
- * Le pattern est : tourne vers la droite
+ * La balle du jeu
+ * @author BARRECH Mehdi & PITROU Adrien
+ * @version 1.0
+ * @since 03/03/18
  * */
 public class Ball extends Obstacles{
 	private double dirX;

@@ -1,12 +1,15 @@
 package main.model.forms;
 
-import javafx.scene.paint.Color;
-//import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
-import main.model.ColorSelected;
 import main.model.Level;
 
+/**
+ * Les etoiles qui font des points.
+ * @author CALVO-FERNANDEZ Adelie
+ * @version 1.0
+ * @since 03/03/18
+ * */
 class Etoile extends Bonus{
 
 	public Etoile(int posX, int posY, int width, int height, int speed, int rotate) {
@@ -57,8 +60,8 @@ class Etoile extends Bonus{
 		
 //		etoile.setLayoutX(-25);
 //		etoile.setLayoutY(-25);
-		etoile.setScaleX((double)width/50);
-		etoile.setScaleY((double)height/50);
+		etoile.setScaleX((double)width/25);
+		etoile.setScaleY((double)height/25);
 		
 		ajouterForme(etoile);
 	}
@@ -72,7 +75,6 @@ class Etoile extends Bonus{
 		}
 		rotation += 8;
 		forme.setRotate(rotation);
-
 	}
 
 	@Override
@@ -85,6 +87,7 @@ class Etoile extends Bonus{
 	public boolean doCollision(Level level) {
 		System.out.println("score +1");
 		level.addPoints(1);
+		level.retirerForme(this);
 		return false;
 	}
 	

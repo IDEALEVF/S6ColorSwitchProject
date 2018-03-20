@@ -4,6 +4,12 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
 import main.model.Level;
 
+/**
+ * Le doigt qui retient la balle
+ * @author PITROU Adrien
+ * @version 1.0
+ * @since 12/03/18
+ * */
 public class Doigt extends Form{
 
 	public Doigt(int posX, int posY, int width, int height, int speed, int rotate) {

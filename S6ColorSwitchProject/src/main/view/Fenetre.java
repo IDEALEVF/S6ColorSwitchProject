@@ -299,42 +299,36 @@ public class Fenetre extends Application implements Observer{
      * Menu
      * */
     public void menu() {
-    	//m.stop();
-    	clearForms();
+    	clearForms();//efface le contenu precedent
     	
     	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 75,
     			getHauteurFenetre()/2 - 75,150 , 150, 3, 0);
     	level.getObjects().addElement(forme);
-        //bouton.setFill(ColorSelected.BLUE);
-        //bouton.setRadius(20);
+        
     	Group bouton = forme.getForme();
         bouton.setLayoutX(getLargeurFenetre()/2 - 10);
         bouton.setLayoutY(getHauteurFenetre()/2 - 10);
         bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
         		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
         		
-//        Form deco1 = (Form)FormsFactory.build("Etoile", getLargeurFenetre()/4,
-//    			getHauteurFenetre()/4,20 , 20, 5, 0);
-//        level.getObjects().addElement(deco1);
-//        placerForme(deco1);
-//        
-//        Form deco2 = (Form)FormsFactory.build("Changecolor", 3*getLargeurFenetre()/4,
-//        		3*getHauteurFenetre()/4,20 , 20, 3, 0);
-//        level.getObjects().addElement(deco2);
-//        placerForme(deco2);
-//        
-//        Form deco3 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
-//        		getHauteurFenetre()/4,20 , 20, 3, 0);
-//        level.getObjects().addElement(deco3);
-//        placerForme(deco3);
-        //aremplacer.getChildren().add(bouton);
-        //components = aremplacer;
+        Form deco1 = (Form)FormsFactory.build("Etoile", getLargeurFenetre()/4,
+    			getHauteurFenetre()/4,20 , 20, 5, 0);
+        level.getObjects().addElement(deco1);
+        
+        Form deco2 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
+        		3*getHauteurFenetre()/4,20 , 20, 3, 0);
+        level.getObjects().addElement(deco2);
+        
+        Form deco3 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
+        		getHauteurFenetre()/4,20 , 20, 3, 0);
+        level.getObjects().addElement(deco3);
+
         Platform.runLater(() -> {
         	score.updateScore(level.getPoints());
         	ajouterForme(score.getForme());
-//        	ajouterForme(deco1.getForme());
-//        	ajouterForme(deco2.getForme());
-//        	ajouterForme(deco3.getForme());
+        	placerForme(deco1);
+        	placerForme(deco2);
+        	placerForme(deco3);
         	ajouterForme(bouton);
         	restart();
         });

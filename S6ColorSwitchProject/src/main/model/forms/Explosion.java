@@ -14,6 +14,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import main.model.Level;
 
+/**
+ * Une explosion a jouer quand la balle touche un obstacle
+ * @author CALVO-FERNANDEZ Adelie
+ * @version 1.0
+ * @since 03/03/18
+ * */
 public class Explosion extends Form {
 	private Rectangle r1;
 	private Rectangle r2;

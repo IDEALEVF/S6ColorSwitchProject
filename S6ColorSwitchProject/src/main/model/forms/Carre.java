@@ -6,6 +6,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 
+/**
+ * Obstacle Carre
+ * @author CALVO-FERNANDEZ Adelie
+ * @version 1.0
+ * @since 28/02/18
+ * */
 class Carre extends Obstacles{
 
 	Carre(int posX, int posY, int width, int height, int speed, int rotate) {

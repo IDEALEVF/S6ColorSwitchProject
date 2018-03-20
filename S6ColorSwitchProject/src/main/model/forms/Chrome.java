@@ -11,6 +11,12 @@ import main.model.Level;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+/**
+ * Cercle chromatique pour le mode AUTOMATIQUE
+ * @author PITROU Adrien
+ * @version 1.0
+ * @since 18/03/18
+ * */
 public class Chrome extends Form{
 
 	Chrome(int posX, int posY, int width, int height, int speed, int rotate) {

@@ -28,7 +28,7 @@ public class Ligne extends Obstacles{
                     part1.setWidth(TAILLE_RECTANGLE);
                     part1.setHeight(height);
                     part1.setLayoutX(posPart);
-                    part1.setLayoutY(posY-(2*height));
+                    //part1.setLayoutY(posY-(2*height));
                     part1.setFill(getNextColor());
                     
                     posPart += TAILLE_RECTANGLE;

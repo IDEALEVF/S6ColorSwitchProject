@@ -5,6 +5,12 @@ import javafx.scene.input.KeyEvent;
 import main.model.Level;
 import main.model.Type;
 
+/**
+ * Ecoute les touches du clavier
+ * @author PITROU Adrien
+ * @version 1.0
+ * @since 02/03/18
+ * */
 class EcouteurToucheEnfoncee implements EventHandler<KeyEvent>{
 	private Level l;
 	
@@ -15,6 +21,10 @@ class EcouteurToucheEnfoncee implements EventHandler<KeyEvent>{
     @Override
     public void handle(KeyEvent evt) {
         String touche = evt.getText();
+        
+        if(l.getBall() == null) {//pas d' action de clavier sans balle
+        	return;
+        }
        
         if(touche.equals("n")){
         	if(l.getType() == Type.AUTOMATIQUE) {

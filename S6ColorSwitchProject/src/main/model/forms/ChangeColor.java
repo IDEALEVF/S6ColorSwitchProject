@@ -72,6 +72,7 @@ class ChangeColor extends Bonus{
 	public boolean doCollision(Level level) {
 		System.out.println("change couleur");
 		level.getBall().setCouleur(ColorSelected.couleuralea());
+		level.retirerForme(this);
 		return false;
 	}
 

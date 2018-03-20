@@ -3,10 +3,8 @@ package main.model;
 import java.util.Observable;
 import java.util.Vector;
 
-import javafx.application.Platform;
 import main.model.forms.Ball;
 import main.model.forms.Chrome;
-import main.model.forms.Doigt;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
@@ -14,9 +12,6 @@ import main.model.forms.Road;
 import main.view.Fenetre;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Polygon;
 
 /**
  * Classe qui se prend en charge tout les objets et parametres d'un niveau :
@@ -592,6 +587,12 @@ public class Level{
 	}
 
 	public void gagne() {
+		ball = null;//arrete le jeu
 		fenetre.menu();
+	}
+
+	public void retirerForme(Form forme) {
+		objects.remove(forme);//retire du niveau
+		fenetre.retirerForme(forme);//retire de la fenetre
 	}
 }
