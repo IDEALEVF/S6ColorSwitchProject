@@ -21,9 +21,12 @@ import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Level;
+import main.model.Type;
+import main.model.forms.Ball;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
+import main.model.forms.MessageScore;
 import main.view.menubar.ContextualMenu;
 import main.view.menubar.ZMenuBar;
 import javafx.stage.WindowEvent;
@@ -43,8 +46,14 @@ public class Fenetre extends Application implements Observer{
 	private Moteur m;
 	private Level level;
 	private Pane components;
-	
-    public static void main(String[] args) {
+	private MessageScore score;
+	public static boolean nv;
+	public static boolean btnv;
+
+
+	public static void main(String[] args) {
+		nv=true;
+		btnv=false;
         launch(args);
     }
 
@@ -62,7 +71,7 @@ public class Fenetre extends Application implements Observer{
     public Pane getComponents() {
     	return components;
     }
-    
+
     /**
      * Retourne la largeur de base de la fenetre
      * @return LARGEUR_FENETRE
@@ -70,7 +79,7 @@ public class Fenetre extends Application implements Observer{
     public int getLargeurFenetre() {
     	return LARGEUR_FENETRE;
     }
-    
+
     /**
      * Renvoie la largeur courante de root
      * @return hauteur courante de root
@@ -78,7 +87,7 @@ public class Fenetre extends Application implements Observer{
     public double getWidth() {
     	return root.getWidth();
     }
-    
+
     /**
      * Renvoie la hauteur courante de root
      * @return hauteur courante de root
@@ -101,59 +110,24 @@ public class Fenetre extends Application implements Observer{
      * @param m le moteur de jeu qui contient l'objet Level et les formes
      * @param num le numero de la forme a ajouter
      * */
-    /*public void placerForme(int num) {
-    	Form forme = level.getObjects().get(num);
-    	Node node = forme.getForme();
-        node.setTranslateX(forme.getPosX());
-        node.setTranslateY(forme.getPosY());
-        components.getChildren().add(node);//formeG
-    }*/
-    
-    /**
-     * Place la forme d'indice num du moteur aux coordonnees x et y de cette forme
-     * @param components Le panneau dans lequel ajouter la forme
-     * @param m le moteur de jeu qui contient l'objet Level et les formes
-     * @param num le numero de la forme a ajouter
-     * */
     public void placerForme(Form forme) {
     	Node node = forme.getForme();
-    	//Node node = forme.getForme();
-        //node.setTranslateX(forme.getPosX());
-        //node.setTranslateY(forme.getPosY());
         node.setLayoutX(forme.getPosX());
         node.setLayoutY(forme.getPosY());
         components.getChildren().add(node);//formeG
-    	
     }
 
-    /**
-     * Place la balle du moteur aux coordonnees x et y de cette forme
-     * @param components Le panneau dans lequel ajouter la balle
-     * @param m le moteur de jeu qui contient l'objet Level et les formes
-     * @param num le numero de la forme a ajouter
-     * */
-    public void placerBalle() {
-    	//Node node = m.getBall();
-    	Form balle = level.getBall();
-    	System.out.println("balle placee en x="+balle.getPosX()+
-    			" y="+balle.getPosY() + " balle="+balle);
-    	Node node = balle.getForme();
-    	//node.setLayoutX(balle.getPosX());
-        //node.setLayoutY(balle.getPosY());
-        components.getChildren().add(node);//ajout de la balle dans le canevas
-    }
-    
     @Override
     public void start(Stage primaryStage) {
-    	
+    	score = (MessageScore) FormsFactory.build("MessageScore",30, 30, 30, 30, 3, 0);
+
     	//composants
     	components = new Pane();//boite contenant les formes du jeu
     	Background b = new Background(new BackgroundFill(ColorSelected.BLACK,null,null));
 		components.setBackground(b);//fond
-    	
+
 		//preparation du menu principal
     	this.level = new Level(this);
-    	menu();
 
     	//parametres de l'objet Stage
     	primaryStage.setTitle("Color Switch L3 group : PITROU BARRECH CALVO-FERNANDEZ");
@@ -166,7 +140,7 @@ public class Fenetre extends Application implements Observer{
 
 		//Menus
 		m = new Moteur(this);
-        ZMenuBar menuBar = new ZMenuBar(root, m, level);//la barre de menu
+        ZMenuBar menuBar = new ZMenuBar(root, m, level,this);//la barre de menu
         ContextualMenu cm = new ContextualMenu(m);
         components.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
         	@Override public void handle(MouseEvent e) {
@@ -181,17 +155,17 @@ public class Fenetre extends Application implements Observer{
         root.setTop(menuBar);//Barre de Menu
         primaryStage.setScene(new Scene(root, LARGEUR_FENETRE, HAUTEUR_FENETRE));
         root.setPrefSize(LARGEUR_FENETRE, HAUTEUR_FENETRE);
-        
+
         //ecouteur de touche
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, 
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED,
         		ControlerFactory.build(KeyEvent.KEY_PRESSED, level));
-        primaryStage.addEventHandler(KeyEvent.KEY_TYPED, 
+        primaryStage.addEventHandler(KeyEvent.KEY_TYPED,
         		ControlerFactory.build(KeyEvent.KEY_TYPED, level));
-        //primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, 
+        //primaryStage.addEventHandler(KeyEvent.KEY_RELEASED,
         //		ControlerFactory.build(KeyEvent.KEY_RELEASED, level));
-        primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, 
-        		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m));
-        //primaryStage.addEventHandler(MouseEvent.MOUSE_RELEASED, 
+        primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED,
+        		ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m,this));
+        //primaryStage.addEventHandler(MouseEvent.MOUSE_RELEASED,
         //		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
         primaryStage.widthProperty().addListener((obs, oldValue, newValue) -> {
             level.retaillerObjets();
@@ -199,17 +173,18 @@ public class Fenetre extends Application implements Observer{
         primaryStage.heightProperty().addListener((obs, oldValue, newValue) -> {
         	level.retaillerObjets();
         });
-        
+
         //icone de jeu
         Image icon=new Image("icon.png");
         primaryStage.getIcons().add(icon);
-        
-        m.start();
-        
+
+        //m.start();
+        menu();
+
         //primaryStage.setResizable(false);
         primaryStage.show();
     }
-    
+
     /**
      * Teste si la forme passee en parametres est dans les limites de la fenetre ou non
      * @param Form forme la forme a tester
@@ -217,13 +192,13 @@ public class Fenetre extends Application implements Observer{
      * */
     public boolean isInBounds(Form forme) {
     	assert(forme != null);
-    	
+
     	return forme.getPosX() < getLargeurFenetre() + 200
 				&& forme.getPosX() > - 200
 				&& forme.getPosY() < getHauteurFenetre() +400//pour la barre horizontale
 				&& forme.getPosY() > - 200;
     }
-    
+
     /**
      * Teste si la forme est deja dans la fenetre ou non
      * @param Form forme la forme a tester
@@ -232,51 +207,79 @@ public class Fenetre extends Application implements Observer{
     public boolean isInComponent(Form forme) {
     	return components.getChildren().contains(forme.getForme());
     }
-    
+
     /**
      * Nouvelle parite
      * */
     public void nouvellePartie() {
-    	//m.cancel();//arrete le moteur pour eviter les bugs
-    	
     	components.getChildren().removeAll(components.getChildren());//enleve les formes actuelles
-    	
+
     	//placement des formes
         for(Form forme:level.getObjects()) {//place les formes
         	if(isInBounds(forme)) {
         		placerForme(forme);
         	}
         }
-        
+
         //placerBalle();
     }
 
     /**
      * Fait defiler l'ecran selon l'axe des Y
+     * @param boolean haut la direction du defilement
      * */
-	public void defilerEcranY() {
-		//int DEFILEMENT = level.getBall().getSpeed();
-		
+	public void defilerEcranY(boolean haut) {
+		int defilement = level.getBall().getSpeed();
+		if(haut) {//inversion de direction
+			defilement = -defilement;
+		}
+
 		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
 			Form forme = level.getObjects().get(i);
-			forme.setPosY(forme.getPosY()+level.getBall().getSpeed());
+			forme.setPosY(forme.getPosY()+defilement);
 			forme.getForme().setLayoutY(forme.getPosY());
 		}
-		Form balle = level.getBall();
-		balle.setPosY(balle.getPosY()+level.getBall().getSpeed());//bouge la balle
-		Node node = balle.getForme();
-    	node.setLayoutY(balle.getPosY());
-    	
-    	level.setCoordinateY(level.getCoordinateY()+level.getBall().getSpeed());//modifie les coordonnees
+		Ball balle = level.getBall();
+		balle.setPosY(balle.getPosY()+defilement);//bouge la balle
+		balle.getForme().setLayoutY(balle.getPosY());
+
+		if(level.getType() == Type.AUTOMATIQUE) {//repercute le defilement pour le path
+			balle.repercuterDefilementY(defilement);
+		}
+
+    	level.setCoordinateY(level.getCoordinateY()+defilement);//modifie les coordonnees
 	}
-	
+
+	/**
+     * Fait defiler l'ecran selon l'axe des X
+     * @param boolean gauche la direction du defilement
+     * */
+	public void defilerEcranX(boolean gauche) {
+		int defilement = level.getBall().getSpeed();
+		if(!gauche) {//inversion de direction
+			defilement = -defilement;
+		}
+
+		for(int i=0;i<level.getObjects().size();i++) {//bouge les objets
+			Form forme = level.getObjects().get(i);
+			forme.setPosX(forme.getPosX()+defilement);
+			forme.getForme().setLayoutX(forme.getPosX());
+		}
+		Ball balle = level.getBall();
+		balle.setPosX(balle.getPosX()+defilement);//bouge la balle
+		balle.getForme().setLayoutX(balle.getPosX());
+
+		if(level.getType() == Type.AUTOMATIQUE) {//repercute le defilement pour le path
+			balle.repercuterDefilementX(defilement);
+		}
+
+    	level.setCoordinateX(level.getCoordinateX()+defilement);//modifie les coordonnees
+	}
+
 	@Override
 	public void update(Observable arg0, Object obj) {
 		Platform.runLater(() -> {
 			placerForme((Form)obj);
-//			Explosion ex=new Explosion();
-//	        components.getChildren().add(ex.getForme());
-//	        level.setExplo(ex);
 		});
 	}
 
@@ -295,44 +298,66 @@ public class Fenetre extends Application implements Observer{
 			components.getChildren().clear();
 		});
 	}
-	
+
 	/**
      * Menu
      * */
     public void menu() {
-    	//m.stop();
-    	clearForms();
-    	
-    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 75,
-    			getHauteurFenetre()/2 - 75,150 , 150, 3, 0);
+    	clearForms();//efface le contenu precedent
+    	Form forme = FormsFactory.build("BoutonJouer", getLargeurFenetre()/2 - 100,
+    			getHauteurFenetre()/2 - 100,200 , 200, 3, 0);
     	level.getObjects().addElement(forme);
-        //bouton.setFill(ColorSelected.BLUE);
-        //bouton.setRadius(20);
+
     	Group bouton = forme.getForme();
         bouton.setLayoutX(getLargeurFenetre()/2 - 10);
         bouton.setLayoutY(getHauteurFenetre()/2 - 10);
-        bouton.addEventHandler(MouseEvent.MOUSE_CLICKED, 
-        		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m));
-        //aremplacer.getChildren().add(bouton);
-        //components = aremplacer;
+        bouton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+        		ControlerFactory.build(MouseEvent.MOUSE_RELEASED, level, m,this));
+        //bouton.addEventHandler(MouseEvent.MOUSE_CLICKED,ControlerFactory.build(MouseEvent.MOUSE_CLICKED, level, m,forme));
+
+        Form deco1 = (Form)FormsFactory.build("Etoile", getLargeurFenetre()/4,
+    			getHauteurFenetre()/4,20 , 20, 5, 0);
+        level.getObjects().addElement(deco1);
+
+        Form deco2 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
+        		3*getHauteurFenetre()/4,20 , 20, 3, 0);
+        level.getObjects().addElement(deco2);
+
+        Form deco3 = (Form)FormsFactory.build("Etoile", 3*getLargeurFenetre()/4,
+        		getHauteurFenetre()/4,20 , 20, 3, 0);
+        level.getObjects().addElement(deco3);
+
         Platform.runLater(() -> {
-        	components.getChildren().add(bouton);
+        	score.updateScore(level.getPoints());
+        	ajouterForme(score.getForme());
+        	placerForme(deco1);
+        	placerForme(deco2);
+        	placerForme(deco3);
+        	ajouterForme(bouton);
         	restart();
         });
-        
+
         //assuprimer.getChildren().remove(1);
         //assuprimer.getChildren().add(aremplacer);
         //components = aremplacer;
     }
 
+	private void ajouterForme(Group forme) {
+		components.getChildren().add(forme);
+	}
+
 	public void restart() {
 		m.restart();
 	}
 
-	public void addChrome(Group chrome) {
-		Platform.runLater(() -> {
-        	components.getChildren().add(chrome);
-        });
+//	public void addChrome(Group chrome) {
+//		Platform.runLater(() -> {
+//        	components.getChildren().add(chrome);
+//        });
+//	}
+
+	public void updateScore(int score) {
+		this.score.updateScore(score);
 	}
 }
 

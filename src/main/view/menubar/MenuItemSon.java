@@ -7,12 +7,17 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.Level;
-
+/**
+ * Menu son
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * */
 public class MenuItemSon extends MenuItem implements Action{
 	Moteur m;
 	private boolean son=true;
@@ -37,11 +42,12 @@ public class MenuItemSon extends MenuItem implements Action{
 		this.setGraphic(iv);
 		this.m = m;
 		this.setText("Son");
+		this.setAccelerator(KeyCombination.keyCombination("w"));
 		System.out.println(media);
 		mediaPlayer.setOnRepeat(null);
 		mediaPlayer.play();
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, null, null));
+        		ControlerFactory.build(ActionEvent.ACTION, null, null, null));
 	}
 
 	public void changerSon(){

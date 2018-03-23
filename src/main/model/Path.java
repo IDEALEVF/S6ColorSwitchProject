@@ -41,28 +41,28 @@ public class Path {
 		Pair<Integer, Integer> p1 = points.get(iterator);//recuperation des deux points
 		Pair<Integer, Integer> p2 = points.get(iterator + 1);
 		
-		int vectX = p2.first() - p1.first();
-		int vectY = p2.second() - p1.second();
+		double vectX = p2.first() - posX;
+		double vectY = p2.second() - posY;
 		double dist = Math.sqrt(Math.pow(vectX, 2)+Math.pow(vectY, 2));
 		//double diviseur = dist / vitesse;
 		
 		double dirX = (double) Math.round((vitesse*vectX) / dist);
 		double dirY = (double) Math.round((vitesse*vectY) / dist);
 		
-		double compX = p2.first() - posX;
-		double compY = p2.second() - posY;
+//		double compX = p2.first() - posX;
+//		double compY = p2.second() - posY;
 		
-		System.out.println("dirX="+dirX + " dirY="+dirY+" compX="+compX +" compY"+compY);
+		System.out.println("dirX="+dirX + " dirY="+dirY);
 		System.out.println("dist="+dist + " vectX="+vectX+" vectY="+vectY);
 		
 		//double minTest = Math.min(Math.abs(compX), Math.abs(compY));
 		
 		//changement de direction si on est proche du point d'arrivee
-		if(Math.abs(compX) <= Math.abs(dirX) &&
-				Math.abs(compY) <= Math.abs(dirY)) {
+		if(Math.abs(vectX) <= Math.abs(dirX) &&
+				Math.abs(vectY) <= Math.abs(dirY)) {
 			System.out.println("--------------------------------------\n----------------\n");
 			iterator ++;
-			return new Pair<Double, Double>(compX, compY);
+			return new Pair<Double, Double>(vectX, vectY);
 		}
 		
 		//vecteur-directeur

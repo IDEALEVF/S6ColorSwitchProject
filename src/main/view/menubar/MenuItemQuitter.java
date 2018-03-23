@@ -18,14 +18,14 @@ public class MenuItemQuitter extends MenuItem implements Action{
 		this.setGraphic(new ImageView(new Image("save.png")));
 
 		this.setText("Quitter");
-		
+
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, null, null));
+        		ControlerFactory.build(ActionEvent.ACTION, null, null,null));
 	}
 
 	@Override
 	public void action(Level level) {
 		System.exit(0);
 	}
-	
+
 }

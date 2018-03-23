@@ -2,7 +2,12 @@ package main.model.forms;
 
 import javafx.scene.shape.Line;
 import main.model.ColorSelected;
-
+/**
+ * Obstacle CroixG
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * @since 19/01/18
+ * */
 class CroixG extends Obstacles{
 
 	CroixG(int posX, int posY, int width, int height, int speed, int rotate) {

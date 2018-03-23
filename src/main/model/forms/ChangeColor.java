@@ -1,14 +1,31 @@
 package main.model.forms;
 
+import java.io.File;
+
 import javafx.scene.Group;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.util.Duration;
 import main.model.ColorSelected;
+import main.model.Level;
 
+/**
+ * Le color switch qui modifie la couleur de la balle au contact
+ * @author CALVO-FERNANDEZ Adelie
+ * @since 22/02/18
+ * @version 1.0
+ * */
 class ChangeColor extends Bonus{
+
+	final File file=new File("src/ressources/colorswitch.wav");
+	final  Media media = new Media(file.toURI().toString());
+	final MediaPlayer mediaPlayer = new MediaPlayer(media);
 
 	public ChangeColor(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
+		mediaPlayer.setOnRepeat(null);
 		this.forme = new Group();
 		Arc arc = new Arc();
 		arc.setFill(ColorSelected.ROSE);
@@ -65,6 +82,22 @@ class ChangeColor extends Bonus{
 	public String toString() {
 		return "ChangeColor [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed="
 				+ speed + ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+
+	/**
+	 * Fonction exécutée quand la balle prend le changecolor
+	 * @param Level level
+	 * @return false car le change color ne fait pas perdre
+	 * */
+	@Override
+	public boolean doCollision(Level level) {
+		System.out.println("change couleur");
+		level.getBall().setCouleur(ColorSelected.couleuralea());
+		level.retirerForme(this);
+		mediaPlayer.seek(Duration.ZERO);
+    	mediaPlayer.play();//joue un son
+		return false;
 	}
 
 }

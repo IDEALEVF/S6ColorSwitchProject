@@ -27,13 +27,13 @@ public class MenuItemNouvellePartie extends MenuItem implements Action{
 		this.setText("Nouvelle Partie");
 
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, l, null));
+        		ControlerFactory.build(ActionEvent.ACTION, l, null,null));
 	}
 
 	@Override
 	public void action(Level level) {
 		System.out.println("Nouvelle partie");
 		l.nouvellePartie("niveau"+l.getNumber());
-		l.update();
+		//l.update();
 	}
 }

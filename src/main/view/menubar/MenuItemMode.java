@@ -8,7 +8,7 @@ import main.model.Type;
 
 public class MenuItemMode extends MenuItem implements Action{
 	Type modeType;
-	
+
 	MenuItemMode(Level l, int mode){
 		switch(mode) {
 		case 1:modeType = Type.INVERSE;break;
@@ -19,9 +19,9 @@ public class MenuItemMode extends MenuItem implements Action{
 		}
 		this.setText("Mode "+modeType.name());
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, l, null));
+        		ControlerFactory.build(ActionEvent.ACTION, l, null,null));
 	}
-	
+
 	public Type getType() {
 		return modeType;
 	}

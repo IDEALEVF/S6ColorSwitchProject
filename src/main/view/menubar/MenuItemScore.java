@@ -13,11 +13,11 @@ public class MenuItemScore extends MenuItem implements Action{
 	MenuItemScore(Level l){
 		this.setText("Score");
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION,  l, null));
+        		ControlerFactory.build(ActionEvent.ACTION,  l, null, null));
 	}
 
 	@Override
 	public void action(Level level) {
-		//new DialogScores(level);
+		new DialogScores(level);
 	}
 }

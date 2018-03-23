@@ -1,22 +1,19 @@
 package main.model;
 
 import java.util.Observable;
+import java.util.Optional;
 import java.util.Vector;
 
-import javafx.application.Platform;
 import main.model.forms.Ball;
 import main.model.forms.Chrome;
-import main.model.forms.Doigt;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
 import main.model.forms.FormsFactory;
 import main.model.forms.Road;
 import main.view.Fenetre;
 import javafx.scene.Group;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Polygon;
 
 /**
  * Classe qui se prend en charge tout les objets et parametres d'un niveau :
@@ -39,7 +36,7 @@ public class Level{
 	private Fenetre fenetre;//reference vers la vue
 	private int coordinateX, coordinateY;//distance de la balle a l'origine
 	Observable obs = new Observable();
-	private boolean perdu;
+	//private boolean perdu;
 	private Explosion explo;
 	private double scaleX = 0;
 	private double scaleY = 0;
@@ -48,20 +45,11 @@ public class Level{
 	private Vector<Color> colorPossible;
 	private static short colorIterator;
 	private Chrome chrome;
-	private Doigt doi;
-
-	public Doigt getDoi() {
-		return doi;
-	}
-
-
-	public Explosion getExplo() {
-		return explo;
-	}
-
-	public void setExplo(Explosion explo) {
-		this.explo = explo;
-	}
+//	private Doigt doi;
+//
+//	public Doigt getDoi() {
+//		return doi;
+//	}
 
 	/**
 	 * Constructeur par defaut
@@ -81,7 +69,7 @@ public class Level{
 		gravityY = 0;//pas de gravite
 		type = Type.NORMAL;
 		setCoordinateX(setCoordinateY(0));
-		perdu = false;
+		//perdu = false;
 		colorPossible = new Vector<Color>();
 		colorIterator = 0;
 	}
@@ -113,6 +101,14 @@ public class Level{
 		nouvellePartie(path);
 	}//Level
 
+	public Explosion getExplo() {
+		return explo;
+	}
+
+	public void setExplo(Explosion explo) {
+		this.explo = explo;
+	}
+
 	/**
 	 * Retourne le score
 	 * @return score
@@ -133,7 +129,7 @@ public class Level{
 		fenetre.clearForms();
 		objectsPossible.clear();//nettoyage des objets possibles precedents
 		gravityX = gravityY = 0;//suppression de la gravite
-		perdu = false;
+		//perdu = false;
 		chrome = null;
 		ball = null;
 		colorIterator = 0;
@@ -159,12 +155,9 @@ public class Level{
 			entete = true;
 			couleurs = true;
 		}
-		//rajout explosion et collision
-
-		Explosion explo=new Explosion();
-		Collision col=new Collision(this);
-		ball.setExplo(explo);
-		ball.setCol(col);
+		//ajout explosion
+		explo=new Explosion();
+		objects.add(explo);
 
 		for(int i=TAILLE_ENTETE;i<lignes.length;i++) {//pour chaque objet du fichier texte, le cree
 			String[] parties = lignes[i].split(" ");//coupe selon les espaces
@@ -175,7 +168,7 @@ public class Level{
 					chrome = (Chrome) FormsFactory.build("CHROME", 50, 50,
 							30, 30, 3, 45);//cercle chromatique
 					chrome.createChrome(colorPossible);
-					fenetre.addChrome(chrome.getForme());
+					fenetre.update(obs, chrome);
 					continue;
 				}
 				if(parties.length < 1 || parties[0].charAt(0) == '#') {//si on a une ligne incorrecte, on l' ignore
@@ -188,6 +181,7 @@ public class Level{
 					entete = false;
 					Road road = new Road(0, 0, 30, 30, 4, 4);
 					road.createRoad(ball.getPoints());
+					//fenetre.update(obs, road);
 					objects.add(road);
 					continue;
 				}
@@ -215,14 +209,14 @@ public class Level{
 				if(o != null){
 					objectsPossible.add(o);//cree les objets
 				}//if
-				//on récupère le doigt
-				if(parties[0].toUpperCase().equals("DOIGT")){
-					doi=(Doigt) o;
-				}
 			}//if
 		}//for
-		repartirObjets();
-		retaillerObjets();
+		repartirObjets();//choisit les objets a ajouter dans la fenetre
+		retaillerObjets();//met a l'echelle
+		recalculerObjets();//choisit ou non de les ajouter au thread java fx
+		fenetre.update(obs, ball);//ajout de la balle dans les niveaux
+		fenetre.restart();//lance le moteur
+		//fenetre.nv=false;
 	}
 
 	/**
@@ -241,29 +235,34 @@ public class Level{
 	 * Teste si le niveau est perdu ou non
 	 * @return true si le niveau est perdu et false sinon
 	 * */
-	public boolean isPerdu() {
-		return perdu;
-	}
+//	public boolean isPerdu() {
+//		return perdu;
+//	}
 
 	public void perdu() {
 		System.out.println("perdu");
-		perdu = true;
-		ball.gravityY(0);
+		//perdu = true;
+		//ball.gravityY(0);
+		ball = null;
 		//ball.setPosY(ball.getPosY()-10);
 		gravityYStop();
+
+		
+		fenetre.nv=true;//pour remettre
+		fenetre.btnv=false;//les bons sons
 	}
 
 	/**
 	 * Met la vue a jour
 	 * */
-	public void update() {
-		recalculerObjets();
-		Platform.runLater(() -> {
-			fenetre.placerBalle();
-		});
-		fenetre.restart();
-	}
-
+//	public void update() {
+//		recalculerObjets();
+////		Platform.runLater(() -> {
+////			fenetre.placerBalle();
+////		});
+//		fenetre.restart();
+//	}
+//
 	/**
 	 * Fait que la balle soit attiree en bas
 	 * */
@@ -478,7 +477,7 @@ public class Level{
 	 * */
 	private boolean isObjectsEnding() {
 		for(Form forme : objects) {
-			if(forme.getPosY() < -200) {//faux si il y a des objets non-visibles au dessus
+			if(forme.getPosY() < -100) {//faux si il y a des objets non-visibles au dessus
 				return false;
 			}
 		}
@@ -518,7 +517,7 @@ public class Level{
 	private void ajouterNouvellesFormes() {
 		System.out.println("Ajout de nouvelles formes");
 		final short NB_FORMES = 1;
-		int taillePre = -200;//la limite a ne pas depasser
+		int taillePre = -100;//la limite a ne pas depasser
 
 		for(short i=1;i<=NB_FORMES;i++) {
 			System.out.println("taille pre ="+taillePre);
@@ -528,6 +527,11 @@ public class Level{
 			taillePre -= (forme.getHeight() + (fenetre.getHauteurFenetre() / 4));
 			forme.setPosY(taillePre);
 			objects.addElement((Form) forme.clone());
+
+			//etoile dans les formes
+			Form etoile = FormsFactory.build("ETOILE", forme.getPosX(),
+					forme.getPosY(),10, 10, 3, 0);
+			objects.addElement(etoile);
 
 			//changecouleur entre les formes
 			Form changecouleur = FormsFactory.build("CHANGECOLOR", forme.getPosX(),
@@ -592,5 +596,27 @@ public class Level{
 
 	public Chrome getChrome() {
 		return chrome;
+	}
+
+	public void addPoints(int i) {
+		points += i;
+	}
+
+	public void gagne() {
+		ball = null;//arrete le jeu
+		fenetre.menu();
+		final Optional<String> result = score.alert.showAndWait();
+		/*result.ifPresent(button -> {  
+		    if (button == ButtonType.OK) {  
+		        
+		    }  
+		});*/
+		fenetre.nv=true;//pour remettre
+		fenetre.btnv=false;//les bons sons
+	}
+
+	public void retirerForme(Form forme) {
+		objects.remove(forme);//retire du niveau
+		fenetre.retirerForme(forme);//retire de la fenetre
 	}
 }

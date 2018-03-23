@@ -2,8 +2,14 @@ package main.model.forms;
 
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
-import main.model.ColorSelected;
+import main.model.Level;
 
+/**
+ * Le doigt qui retient la balle
+ * @author PITROU Adrien
+ * @version 1.0
+ * @since 12/03/18
+ * */
 public class Doigt extends Form{
 
 	public Doigt(int posX, int posY, int width, int height, int speed, int rotate) {
@@ -29,25 +35,25 @@ public class Doigt extends Form{
 
         double s5X = 35;
         double s5Y = 50;
-
+        
         double s6X = 25;
         double s6Y = 50;
-
+        
         double s7X = 25;
         double s7Y = 34;
-
+        
         double s8X = 18;
         double s8Y = 32;
-
+        
         double s9X = 10;
         double s9Y = 30;
-
+        
         double s10X = 0;
         double s10Y = 30;
-
+        
         double s11X = 0;
         double s11Y = 0;
-
+        
         double s12X = 30;
         double s12Y = 0;
 
@@ -57,10 +63,10 @@ public class Doigt extends Form{
         Polygon doigt = new Polygon();
         doigt.getPoints().addAll(s1X,s1Y,s2X,s2Y,s4X,s4Y,s5X,s5Y
 				,s6X,s6Y,s7X,s7Y,s8X,s8Y,s9X,s9Y,s10X,s10Y,s11X,s11Y,s12X,s12Y);
-        doigt.setFill(ColorSelected.WHITE);
+        doigt.setFill(WHITE);
         doigt.setStrokeWidth(3);
         doigt.setStrokeLineJoin(StrokeLineJoin.ROUND);
-        doigt.setStroke(ColorSelected.WHITE);
+        doigt.setStroke(WHITE);
         doigt.setScaleX(width / 50);//mise a l'echelle
         doigt.setScaleY(height / 50);
         doigt.setLayoutX(-width/2);
@@ -79,5 +85,11 @@ public class Doigt extends Form{
 	public String toString() {
 		return "Doigt [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed=" + speed
 				+ ", forme=" + forme + ", rotation=" + rotation + "]";
+	}
+
+	@Override
+	public boolean doCollision(Level level) {
+		level.gravityYStop();//le doigt arrete la balle
+		return false;
 	}
 }

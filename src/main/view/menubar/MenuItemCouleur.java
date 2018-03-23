@@ -23,7 +23,10 @@ import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Level;
-
+/**
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * */
 public class MenuItemCouleur extends MenuItem implements Action{
 	Moteur m;
 	ColorPicker colorPicker1 = new ColorPicker(ColorSelected.BLUE);
@@ -88,7 +91,7 @@ public class MenuItemCouleur extends MenuItem implements Action{
         primaryStage.setTitle("sélecteur de couleurs");
         primaryStage.setScene(scene);
 		this.addEventHandler(ActionEvent.ACTION,
-        ControlerFactory.build(ActionEvent.ACTION, null, null));
+        ControlerFactory.build(ActionEvent.ACTION, null, null,null));
 	}
 
 	public void changerCouleur(){

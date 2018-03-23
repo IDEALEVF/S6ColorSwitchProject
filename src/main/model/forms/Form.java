@@ -3,22 +3,24 @@ package main.model.forms;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import javafx.scene.control.Label;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
+import main.model.Level;
 
 /**
  * Classe abstraite qui represente un des objets manipule par le jeu
  * Color Switch. La classe encapsule un champ forme qui correspond a l'apparence
  * de la forme sur une scene java FX et les proprietes de l'objet.
  * Elle definit aussi des services generiques aux formes.
- * @author PITROU Adrien
+ * @author PITROU Adrien & CALVO FERNANDEZ Adélie
  * @since 20/01/2018
  * @version 1.0
  * */
-public abstract class Form implements Cloneable{
+public abstract class Form extends ColorSelected implements Cloneable{
 	protected int posX;
 	protected int posY;
 	protected int width;
@@ -26,7 +28,6 @@ public abstract class Form implements Cloneable{
 	protected int speed;
 	protected Group forme;
 	protected int rotation;
-
 
 	Form(int posX, int posY, int width, int height, int speed, int rotate){
 		this.posX = posX;
@@ -38,57 +39,38 @@ public abstract class Form implements Cloneable{
 		this.forme = new Group();
 	}
 
-
-    public ArrayList<Shape> getShape(){
-        ArrayList<Shape> listShape=new ArrayList<Shape>();
-        int taille=this.getForme().getChildren().size();
-        Group f1 = null;
-        for(int i=0;i<taille;i++){
-            //listShape.add((Shape) forme.getChildren().get(i));
-
-            System.out.println("getShape");
-            if((Shape.class).isAssignableFrom(forme.getChildren().get(i).getClass())){
-                System.out.println("shapeshape "+forme.getChildren().get(i));
-                listShape.add((Shape) forme.getChildren().get(i));
-            }else{
-            	f1=(Group) forme.getChildren().get(i);
-                System.out.println("passhape "+forme.getChildren().get(i).getClass()+"   "+Shape.class);
-                 forme.getChildren().get(i).getClip();
-                listShape.addAll(getShapeGroup(f1));
-
-            }
-
-        }
-        return listShape;
-
-    }
-
-
-    private ArrayList<Shape> getShapeGroup( Group f1){
-        ArrayList<Shape> listShape=new ArrayList<Shape>();
-        int taille=f1.getChildren().size();
-        for(int i=0;i<taille;i++){
-            //listShape.add((Shape) forme.getChildren().get(i));
-
-            System.out.println("getShape");
-            if((Shape.class).isAssignableFrom(f1.getChildren().get(i).getClass())){
-                listShape.add((Shape) (f1.getChildren().get(i)));
-            }else{
-                listShape.addAll(getShapeGroup(f1));
-
-            }
-
-        }
-        return listShape;
-
-    }
-
-
 	public abstract void deplacer();
 
-	public void setForme(Group f) {
-		forme=f;
+	public ArrayList<Shape> getShape(){
+		return getShapeGroup(forme);
 	}
+
+
+	/**
+	 * Fonction récursive qui retourne la liste des formes
+	 * @param Group f1
+	 * @return ArrayList<Shape> listShape
+	 * */
+	private ArrayList<Shape> getShapeGroup(Group f1){
+      ArrayList<Shape> listShape=new ArrayList<Shape>();
+      //int taille=f1.getChildren().size();
+      for(Node noeud : f1.getChildren()){
+      	//System.out.println("for : "+noeud);
+          //listShape.add((Shape) forme.getChildren().get(i));
+
+          if((Shape.class).isAssignableFrom(noeud.getClass())){
+              listShape.add((Shape) (noeud));
+          }else if((Label.class).isAssignableFrom(noeud.getClass())) {
+          	continue;
+          }else{
+              listShape.addAll(getShapeGroup((Group)noeud));
+          }
+
+      }
+      return listShape;
+	}
+
+	public abstract boolean doCollision(Level level);
 
 	public Group getForme() {
 		return forme;

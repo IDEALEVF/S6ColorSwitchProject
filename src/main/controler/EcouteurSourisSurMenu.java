@@ -6,7 +6,7 @@ import javafx.event.Event;
 
 class EcouteurSourisSurMenu implements EventHandler<Event> {
 	Moteur m;
-
+	
 	EcouteurSourisSurMenu(Moteur m){
 		this.m = m;
 	}

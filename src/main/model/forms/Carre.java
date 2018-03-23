@@ -6,14 +6,20 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 
+/**
+ * Obstacle Carre
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * @since 19/01/18
+ * */
 class Carre extends Obstacles{
 
 	Carre(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
-		
+
 		double size1 = -(width / 2);
 		double size2 = (width / 2);
-		
+
 		//this.forme = new Group();
 
 		Line ligneHaut=new Line(size1,size1,size2,size1);
@@ -40,7 +46,7 @@ class Carre extends Obstacles{
 		Shape angle2=Shape.union(ligneDroite, ligneBas);
 		Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
-		
+
 
 		forme.getChildren().add(ligneHaut);
 		forme.getChildren().add(ligneBas);

@@ -14,17 +14,17 @@ public class ZMenuBar extends MenuBar{
 	BorderPane root;
 	Moteur m;
 
-	public ZMenuBar(BorderPane root, Moteur m, Level level){
+	public ZMenuBar(BorderPane root, Moteur m, Level level,Object src){
 		this.root = root;
 		this.getMenus().add(new MenuFichier(m, level));
-		this.getMenus().add(new MenuNiveau(level));
+		this.getMenus().add(new MenuNiveau(level,src));
 		this.getMenus().add(new MenuHelp(m, level));
 		this.getMenus().add(new MenuParametre(m));
 
 		Background b = new Background(new BackgroundFill(ColorSelected.MENU,null,null));
 		this.setBackground(b);
 		//this.setOnMouseClicked(ControlerFactory.build(MouseEvent.MOUSE_CLICKED, null, null));
-		this.setOnMouseEntered(ControlerFactory.build(MouseEvent.MOUSE_ENTERED, null, m));
+		this.setOnMouseEntered(ControlerFactory.build(MouseEvent.MOUSE_ENTERED, null, m, null));
 		//this.setOnMouseExited(ControlerFactory.build(MouseEvent.MOUSE_EXITED, null, m));
 		//this.setEventHandler(MouseEvent.MOUSE_PRESSED, ControlerFactory.build(MouseEvent.MOUSE_CLICKED, null, null));
 	}

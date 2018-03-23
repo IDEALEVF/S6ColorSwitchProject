@@ -4,40 +4,39 @@ import java.util.Arrays;
 
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
-import main.model.ColorSelected;
 import javafx.scene.paint.Color;
 
 public class Ligne extends Obstacles{
-
+	
 	private Color[] colorPossible;
 	private static short compteurCouleur;
-
+	
 	Ligne(int posX, int posY, int width, int height, int speed, int rotate){
 		super(posX, posY, width, height, speed, rotate);
-
+                
                 final double TAILLE_RECTANGLE = width / 4;
                 double posPart = posX - ((3*width)/2);
                 colorPossible = new Color[4];
-                colorPossible[0] = ColorSelected.YELLOW;
-                colorPossible[1] = ColorSelected.BLUE;
-                colorPossible[2] = ColorSelected.PURPLE;
-                colorPossible[3] = ColorSelected.ROSE;
+                colorPossible[0] = YELLOW;
+                colorPossible[1] = BLUE;
+                colorPossible[2] = PURPLE;
+                colorPossible[3] = ROSE;
                 compteurCouleur = 0;
-
+		
                 for(int i=0;i<8;i++){
                     Rectangle part1 = new Rectangle();
                     part1.setWidth(TAILLE_RECTANGLE);
                     part1.setHeight(height);
                     part1.setLayoutX(posPart);
-                    part1.setLayoutY(posY-(2*height));
+                    //part1.setLayoutY(posY-(2*height));
                     part1.setFill(getNextColor());
-
+                    
                     posPart += TAILLE_RECTANGLE;
-
+                    
                     ajouterForme(part1);
                 }
 	}
-
+	
 	/**
 	 * Renvoie la prochaine couleur possible
 	 * @return Color la prochaine couleur possible

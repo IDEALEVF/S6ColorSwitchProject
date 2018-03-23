@@ -6,13 +6,13 @@ import javafx.scene.image.ImageView;
 import main.model.Level;
 
 public class MenuNiveau extends Menu{
-	
-	MenuNiveau(Level l){
+
+	MenuNiveau(Level l, Object src){
 		this.setText("Niveau");
 		this.setGraphic(new ImageView(new Image("lv.png")));
 
-		for(int i = 1; i< 6; i++) {//ajout des niveaux
-			this.getItems().add(new MenuItemNiveau(l, i));
+		for(int i = 1; i< 7; i++) {//ajout des niveaux
+			this.getItems().add(new MenuItemNiveau(l, i,src));
 		}
 	}
 }

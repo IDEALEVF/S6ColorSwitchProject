@@ -1,5 +1,10 @@
 package main.model.forms;
-
+/**
+ * Obstacle CroixD
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * @since 30/01/18
+ * */
 class CroixD extends CroixG{
 
 	public CroixD(int posX, int posY, int width, int height, int speed, int rotate) {

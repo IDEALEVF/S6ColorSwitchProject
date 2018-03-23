@@ -25,7 +25,7 @@ public class EcouteurToucheClique implements EventHandler<KeyEvent>{
     public void handle(KeyEvent evt) {
         String touche = evt.getCharacter();
 
-        if(touche.equalsIgnoreCase("n")){
+        if(touche.equalsIgnoreCase("N")||touche.equalsIgnoreCase("B")){
         	mediaPlayer.seek(Duration.ZERO);
         	mediaPlayer.play();//joue un son
         	//System.out.print(mediaPlayer.getStatus());
