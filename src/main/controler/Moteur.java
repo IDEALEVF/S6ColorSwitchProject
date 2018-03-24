@@ -1,6 +1,5 @@
 package main.controler;
 
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import main.model.Collision;
@@ -47,16 +46,16 @@ public class Moteur extends Service<Object>{
 		}
 
 		if(l.getType() == Type.AUTOMATIQUE) {
-			if( l.getBall().getPosY()<f.getHauteurFenetre()*1/5) {//defilement vers le haut
+			if( l.getBall().getPosY()<f.getHauteurFenetre()*1/4) {//defilement vers le haut
 				f.defilerEcranY(false);
 			}
-			if( l.getBall().getPosY()>f.getHauteurFenetre()*4/5) {//defilement vers le bas
+			if( l.getBall().getPosY()>f.getHauteurFenetre()*3/4) {//defilement vers le bas
 				f.defilerEcranY(true);
 			}
-			if( l.getBall().getPosX()<f.getLargeurFenetre()*1/5) {//defilement vers la gauche
+			if( l.getBall().getPosX()<f.getLargeurFenetre()*1/4) {//defilement vers la gauche
 				f.defilerEcranX(true);
 			}
-			if( l.getBall().getPosX()>f.getLargeurFenetre()*4/5) {//defilement vers la droite
+			if( l.getBall().getPosX()>f.getLargeurFenetre()*3/4) {//defilement vers la droite
 				f.defilerEcranX(false);
 			}
 		}else if(l.getType() == Type.INVERSE){
@@ -109,7 +108,6 @@ public class Moteur extends Service<Object>{
 		@Override
 		protected Object call() throws Exception {
 			try {
-				System.out.println("call");
 				while(true) {
 					synchronized(this) {
 						Thread.sleep(50);
@@ -124,7 +122,6 @@ public class Moteur extends Service<Object>{
 							f.getLevel().getExplo().seDeplacer(l.getBall());
 							Thread.sleep(1050);
 							f.getLevel().perdu();//fait perdre le niveau
-							
 							f.menu();
 							return f;
 						}

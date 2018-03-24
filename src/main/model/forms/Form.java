@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 import main.model.Level;
@@ -16,7 +16,7 @@ import main.model.Level;
  * Color Switch. La classe encapsule un champ forme qui correspond a l'apparence
  * de la forme sur une scene java FX et les proprietes de l'objet.
  * Elle definit aussi des services generiques aux formes.
- * @author PITROU Adrien & CALVO FERNANDEZ Adélie
+ * @author PITROU Adrien
  * @since 20/01/2018
  * @version 1.0
  * */
@@ -28,6 +28,7 @@ public abstract class Form extends ColorSelected implements Cloneable{
 	protected int speed;
 	protected Group forme;
 	protected int rotation;
+	protected ArrayList<Color> colorPossible;
 
 	Form(int posX, int posY, int width, int height, int speed, int rotate){
 		this.posX = posX;
@@ -37,17 +38,36 @@ public abstract class Form extends ColorSelected implements Cloneable{
 		this.speed = speed;
 		this.rotation = rotate;
 		this.forme = new Group();
+
+		forme.setRotate(rotation);
 	}
 
 	public abstract void deplacer();
 
+	public void addColorPossible(Color[] liste) {
+		assert(liste != null);
+
+		colorPossible = new ArrayList<Color>();
+		for(int i=0;i<liste.length;i++) {
+			colorPossible.add(liste[i]);
+		}
+	}
+
+	public void addColorPossible(ArrayList<Color> liste) {
+		assert(liste != null);
+
+		colorPossible = new ArrayList<Color>();
+		for(Color couleur : liste) {
+			colorPossible.add(couleur);
+		}
+	}
+
 	public ArrayList<Shape> getShape(){
 		return getShapeGroup(forme);
 	}
-
-
 	/**
 	 * Fonction récursive qui retourne la liste des formes
+	 * @author adélie
 	 * @param Group f1
 	 * @return ArrayList<Shape> listShape
 	 * */
@@ -122,6 +142,17 @@ public abstract class Form extends ColorSelected implements Cloneable{
 		forme.getChildren().add(n);
 	}
 
+	public boolean isInBounds(Form forme) {
+		return (posX > forme.posX && posX < forme.posX + width) ||
+				(posY > forme.posY && posY < forme.posY + height) ||
+				(posX + width > forme.posX && posX + width < forme.posX + width) ||
+				(posY + height > forme.posY && posY + height < forme.posY + height);
+	}
+
+	public boolean isBoundsIntersect(Form forme) {
+		return this.isInBounds(forme) || forme.isInBounds(this);
+	}
+
 	protected void tourner(){
 		if(rotation > 360) {//la rotation reste modulo 360
 			rotation -= 360;
@@ -184,25 +215,23 @@ public abstract class Form extends ColorSelected implements Cloneable{
 					int.class, int.class, int.class, int.class, int.class, int.class).newInstance(
 							posX, posY, width, height, speed, rotation);
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return o;
+	}
+
+	public ArrayList<Color> getColorPossible() {
+		return colorPossible;
 	}
 }

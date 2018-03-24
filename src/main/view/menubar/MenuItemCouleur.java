@@ -1,28 +1,20 @@
 package main.view.menubar;
 
-import java.io.File;
-import java.net.URL;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.ColorSelected;
 import main.model.Level;
+
 /**
  * @author CALVO FERNANDEZ Adélie
  * @version 1.0
@@ -91,7 +83,7 @@ public class MenuItemCouleur extends MenuItem implements Action{
         primaryStage.setTitle("sélecteur de couleurs");
         primaryStage.setScene(scene);
 		this.addEventHandler(ActionEvent.ACTION,
-        ControlerFactory.build(ActionEvent.ACTION, null, null,null));
+        ControlerFactory.build(ActionEvent.ACTION, null, null, null));
 	}
 
 	public void changerCouleur(){

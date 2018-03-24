@@ -16,12 +16,11 @@ public class Ligne extends Obstacles{
                 
                 final double TAILLE_RECTANGLE = width / 4;
                 double posPart = posX - ((3*width)/2);
-                colorPossible = new Color[4];
-                colorPossible[0] = YELLOW;
-                colorPossible[1] = BLUE;
-                colorPossible[2] = PURPLE;
-                colorPossible[3] = ROSE;
+                
+                Color[] colorPossible = {BLUE,ROSE,YELLOW,PURPLE};//les couleurs possibles
+                this.colorPossible = colorPossible;
                 compteurCouleur = 0;
+        		addColorPossible(colorPossible);
 		
                 for(int i=0;i<8;i++){
                     Rectangle part1 = new Rectangle();

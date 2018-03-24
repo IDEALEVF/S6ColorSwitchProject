@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 class CarreDeRonds extends Obstacles{
@@ -45,6 +46,9 @@ class CarreDeRonds extends Obstacles{
 			n.setTranslateX(-width/2);
 			n.setTranslateY(-width/2);
 		}
+		
+		Color[] colorPossible = {BLUE,ROSE,YELLOW,PURPLE};//les couleurs possibles
+		addColorPossible(colorPossible);
 	}
 	
 	private Circle creerCercle(Paint couleur, int radius) {

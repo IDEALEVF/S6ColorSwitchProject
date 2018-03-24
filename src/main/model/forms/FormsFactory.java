@@ -21,7 +21,6 @@ public class FormsFactory {
 		case "ETOILE" :return new Etoile(x, y, width, height, vitesse, rotate);//ETOILE
 		case "POINT" :return new Point(x, y, width, height, vitesse, rotate);//POINT
 		case "OBSTACLEROUND1" :return new ObstacleRound1(x , y, width, height, vitesse, rotate);//OBSTACLEROUND1
-		case "OBSTACLECARRE1" :return new ObstacleCarre1(x , y, width, height, vitesse, rotate);//OBSTACLECARRE1
 		case "LIGNEFIN" :return new LigneFin(x , y, width, height, vitesse, rotate);//LIGNE FIN
 		case "MESSAGECOLORSWITCH" :return new MessageColorSwitch(x , y, width, height, vitesse, rotate);//MESSAGECOLORSWITCH
 		case "DOIGT" :return new Doigt(x , y, width, height, vitesse, rotate);//DOIGT
@@ -33,7 +32,12 @@ public class FormsFactory {
 		case "ROAD" :return new Road(x , y, width, height, vitesse, rotate);//ROAD
 		case "CHROME" :return new Chrome(x , y, width, height, vitesse, rotate);//CHROME
 		case "MESSAGESCORE" :return new MessageScore(x , y, width, height, vitesse, rotate);//MESSAGE SCORE
-		default:throw new FormeInexistanteException();
+		case "CARREIMMOBILE" :return new CarreImmobile(x , y, width, height, vitesse, rotate);//CARRE IMMOBILE
+		case "CARREBLEU" :return new CarreBleu(x , y, width, height, vitesse, rotate);//CARRE BLEU
+		case "CARREROSE" :return new CarreRose(x , y, width, height, vitesse, rotate);//CARRE ROSE
+		case "CARREJAUNE" :return new CarreJaune(x , y, width, height, vitesse, rotate);//CARRE JAUNE
+		case "CARREMAUVE" :return new CarreMauve(x , y, width, height, vitesse, rotate);//CARRE MAUVE
+		default:throw new FormeInexistanteException(acomparer);
 		}
 	}
 

@@ -13,7 +13,7 @@ import main.view.Fenetre;
 class ActionNouvellePartie implements EventHandler<MouseEvent>{
     Level level;
 
-	final File file=new File("src/ressources/inprogress.wav");
+    final File file=new File("src/ressources/inprogress.wav");
 	final  Media media = new Media(file.toURI().toString());
 	final MediaPlayer mediaPlayer = new MediaPlayer(media);
 	Object src;
@@ -25,13 +25,9 @@ class ActionNouvellePartie implements EventHandler<MouseEvent>{
 
     @Override
     public void handle(MouseEvent t) {
-
-		mediaPlayer.seek(Duration.ZERO);
-    	//mediaPlayer.play();//joue un son
-        System.out.println("action np");
-
-        level.nouvellePartie("niveau4");
-        ((Fenetre)src).btnv=true;
+    	mediaPlayer.seek(Duration.ZERO);
+        level.nouvellePartie("ENDLESS/niveau1");
+        ((Fenetre)src).setBtnv(true);
         //level.update();
     }
 }

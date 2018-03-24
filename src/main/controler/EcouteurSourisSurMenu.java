@@ -1,7 +1,6 @@
 package main.controler;
 
 import javafx.event.EventHandler;
-import javafx.application.Platform;
 import javafx.event.Event;
 
 class EcouteurSourisSurMenu implements EventHandler<Event> {

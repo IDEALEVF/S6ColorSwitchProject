@@ -13,6 +13,7 @@ import main.model.Level;
  * Les etoiles qui font des points.
  * @author CALVO FERNANDEZ Adélie
  * @version 1.0
+ * @since 03/03/18
  * */
 class Etoile extends Bonus{
 
@@ -91,6 +92,7 @@ class Etoile extends Bonus{
 		return "Etoile [posX=" + posX + ", posY=" + posY + ", width=" + width + ", height=" + height + ", speed="
 				+ speed + ", forme=" + forme + ", rotation=" + rotation + "]";
 	}
+
 	/**
 	 * Fonction exécutée quand la balle prend l'étoile
 	 * @param Level level

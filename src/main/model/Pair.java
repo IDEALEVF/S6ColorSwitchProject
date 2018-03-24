@@ -1,5 +1,6 @@
 package main.model;
 
+@SuppressWarnings("hiding") // marche tres bien
 public class Pair<T, Comparable>{
 	T arg1;
 	Comparable arg2;

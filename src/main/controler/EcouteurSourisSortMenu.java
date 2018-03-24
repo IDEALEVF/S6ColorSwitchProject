@@ -8,13 +8,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import main.model.Level;
 import main.model.Type;
-import main.model.forms.Ball;
-import main.model.forms.BoutonJouer;
 import main.view.Fenetre;
 
 import java.io.File;
 
-import javafx.application.Platform;
 import javafx.event.Event;
 
 /**
@@ -44,26 +41,20 @@ class EcouteurSourisSortMenu implements EventHandler<Event> {
 
 	@Override
 	public void handle(Event evt) {
-		//if(!l.isPerdu()) {
-		//pourquoi ça passe dans le si et le else
-		if(evt.getSource().getClass().equals(javafx.stage.Stage.class)&& ((Fenetre)src).nv){
-			if(!((Fenetre)src).btnv){
-				//System.out.println("ICI\n"+src.getClass());
-				//System.out.println(Fenetre.class);
+		if(evt.getSource().getClass().equals(javafx.stage.Stage.class)&& ((Fenetre)src).getNv()){
+			if(!((Fenetre)src).getBtnv()){
 				mediaPlayer2.seek(Duration.ZERO);
 		    	mediaPlayer2.play();//joue un son
 			}else{
 
 				mediaPlayer2.seek(Duration.ZERO);
 		    	mediaPlayer2.play();//joue un son
-		        ((Fenetre)src).nv=false;
+		        ((Fenetre)src).setNv(false);
 			}
 
 
 		}
 		else{
-			//System.out.println(evt.getSource().getClass());
-			//System.out.println("ICI2222\n"+(src!=null?src.getClass():"src")+((Fenetre)src).nv);
 			mediaPlayer.seek(Duration.ZERO);
 			mediaPlayer.play();//joue un son
 

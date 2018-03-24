@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
+//import java.sql.*;
+//import java.util.Vector;
+//
+//import javax.sql.rowset.JdbcRowSet;
+//import javax.sql.rowset.RowSetProvider;
 
 /**
  * Classe qui propose des services de lecture / ecriture dans des fichiers textes.
@@ -17,21 +22,46 @@ import java.util.Vector;
  * @version 1.0
  * */
 public class Loader{
-	
+
 	private Loader(){} //ininstanciable
-	
+
 	/**
 	 * Lit les donnees d'un fichier dont le chemin absolu est passe
 	 * en parametres et les renvoie sous forme de liste de String
+	 * @author Mehdi
 	 * @param path le chemin absolu vers le fichier source
 	 * @return une liste de String
 	 * */
+//	public static Vector<String> read(String path){
+//		Vector<String> vect = null;
+//		try{
+//		String url="jdbc:mysql://localhost/niveau";
+//		String login="root";
+//		String password="";
+//		vect = new Vector<String>();
+//		JdbcRowSet rowset = RowSetProvider.newFactory().createJdbcRowSet();
+//		rowset.setUrl(url);
+//		rowset.setUsername(login);
+//		rowset.setPassword(password);
+//
+//		rowset.setCommand("select * from "+path);
+//		rowset.execute();
+//		while(rowset.next()){
+//			String line = rowset.getString(1)+" "+rowset.getString(2)+" "+rowset.getString(3)+" "+rowset.getString(4)+" "+rowset.getString(5)+" "+rowset.getString(6)+" "+rowset.getString(7);
+//			vect.add(line);
+//			System.out.println(line);
+//		}
+//		}catch (Exception e){
+//				e.printStackTrace();
+//		}
+//		return vect;
+//	}
 	public static Vector<String> read(String path) {
 		assert(path != null);
-		
+
 		Vector<String> returned = new Vector<String>();
 		Scanner sc = null;
-		
+
 		try {
 			sc = new Scanner(new BufferedReader(new FileReader(path)));
 			while(sc.hasNextLine()){//ajoute les lignes du fichier a la liste
@@ -42,10 +72,10 @@ public class Loader{
 		}finally {
 			sc.close();
 		}
-		
+
 		return returned;
 	}
-	
+
 	/**
 	 * Lit les donnees d'un fichier dont le chemin absolu est passe
 	 * en parametres et les renvoie sous forme de tableau de String
@@ -54,17 +84,17 @@ public class Loader{
 	 * */
 	public static String[] readInTab(String path) {
 		assert(path != null);
-		
+
 		Vector<String> liste = read(path);
 		String[] tab = new String[liste.size()];
-		
+
 		for(int i=0;i<liste.size();i++) {//fait passer les lignes dans le tableau
 			tab[i] = liste.get(i);
 		}
-		
+
 		return tab;
  	}
-	
+
 	/**
 	 * Ecrit les lignes d'une liste de String passee en parametres
 	 * dans un fichier dont le chemin absolu est aussi passe en parametres
@@ -74,10 +104,10 @@ public class Loader{
 	public static void write(Vector<String> tab, String path) {
 		assert(path != null);
 		assert(tab != null);
-		
+
 		BufferedWriter bf = null;
 		Iterator<String> it = tab.iterator();
-		
+
 		try {
 			bf = new BufferedWriter(new FileWriter(path));
 			while(it.hasNext()){//ajoute les lignes de la liste au fichier
@@ -95,7 +125,7 @@ public class Loader{
 			}
 		}
 	}
-	
+
 	/**
 	 * Ecrit les lignes d'une tableau de String passee en parametres
 	 * dans un fichier dont le chemin absolu est aussi passe en parametres
@@ -105,13 +135,13 @@ public class Loader{
 	public static void writeSinceTab(String[] tab, String path) {
 		assert(path != null);
 		assert(tab != null);
-		
+
 		Vector<String> liste = new Vector<String>();
-		
+
 		for(int i=0;i<tab.length;i++) {//fait passer les lignes dans le tableau
 			liste.add(tab[i]);
 		}
-		
+
 		write(liste, path);
  	}
 }

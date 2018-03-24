@@ -14,12 +14,12 @@ public class ZMenuBar extends MenuBar{
 	BorderPane root;
 	Moteur m;
 
-	public ZMenuBar(BorderPane root, Moteur m, Level level,Object src){
+	public ZMenuBar(BorderPane root, Moteur m, Level level, Object src){
 		this.root = root;
 		this.getMenus().add(new MenuFichier(m, level));
-		this.getMenus().add(new MenuNiveau(level,src));
+		this.getMenus().add(new MenuNiveau(level, src));
 		this.getMenus().add(new MenuHelp(m, level));
-		this.getMenus().add(new MenuParametre(m));
+		this.getMenus().add(new MenuParametre(m,level));
 
 		Background b = new Background(new BackgroundFill(ColorSelected.MENU,null,null));
 		this.setBackground(b);

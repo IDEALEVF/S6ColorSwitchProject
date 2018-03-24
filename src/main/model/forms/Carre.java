@@ -1,14 +1,12 @@
 package main.model.forms;
 
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import main.model.ColorSelected;
 
 /**
  * Obstacle Carre
- * @author CALVO FERNANDEZ Adélie
+ * @author CALVO-FERNANDEZ Adelie
  * @version 1.0
  * @since 19/01/18
  * */
@@ -42,9 +40,9 @@ class Carre extends Obstacles{
 		ligneDroite.setStroke(ColorSelected.YELLOW);
 		ligneDroite.setStrokeWidth(10);
 
-		Shape angle1=Shape.union(ligneGauche, ligneHaut);
-		Shape angle2=Shape.union(ligneDroite, ligneBas);
-		Shape carre=Shape.union(angle1, angle2);
+//		Shape angle1=Shape.union(ligneGauche, ligneHaut);
+//		Shape angle2=Shape.union(ligneDroite, ligneBas);
+//		Shape carre=Shape.union(angle1, angle2);
 		//forme.getChildren().add(carre);
 
 
@@ -52,6 +50,9 @@ class Carre extends Obstacles{
 		forme.getChildren().add(ligneBas);
 		forme.getChildren().add(ligneGauche);
 		forme.getChildren().add(ligneDroite);
+
+		Color[] colorPossible = {BLUE,ROSE,YELLOW,PURPLE};//les couleurs possibles
+		addColorPossible(colorPossible);
 	}
 
 	@Override

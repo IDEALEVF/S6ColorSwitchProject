@@ -1,10 +1,10 @@
 package main.model;
 
 import java.util.Observable;
-import java.util.Optional;
 import java.util.Vector;
 
 import main.model.forms.Ball;
+import main.model.forms.ChangeColor;
 import main.model.forms.Chrome;
 import main.model.forms.Explosion;
 import main.model.forms.Form;
@@ -12,7 +12,6 @@ import main.model.forms.FormsFactory;
 import main.model.forms.Road;
 import main.view.Fenetre;
 import javafx.scene.Group;
-import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 
 /**
@@ -58,9 +57,9 @@ public class Level{
 		name = "niveau 1";
 		score = new Score(6);
 		ball = null;
-		score.add("Bob", 23);//assuprimer
-		score.add("Adrien", 230);
-		score.add("Anne", 140);
+		score.add("Mehdi", 3);//assuprimer
+		score.add("Adrien", 2);
+		score.add("Adélie", 1);
 		objects = new Vector<Form>();
 		objectsPossible = new Vector<Form>();
 		number = 0;
@@ -216,7 +215,6 @@ public class Level{
 		recalculerObjets();//choisit ou non de les ajouter au thread java fx
 		fenetre.update(obs, ball);//ajout de la balle dans les niveaux
 		fenetre.restart();//lance le moteur
-		//fenetre.nv=false;
 	}
 
 	/**
@@ -241,15 +239,10 @@ public class Level{
 
 	public void perdu() {
 		System.out.println("perdu");
-		//perdu = true;
-		//ball.gravityY(0);
 		ball = null;
-		//ball.setPosY(ball.getPosY()-10);
 		gravityYStop();
-
-		
-		fenetre.nv=true;//pour remettre
-		fenetre.btnv=false;//les bons sons
+		fenetre.setNv(true);//pour remettre
+		fenetre.setBtnv(false);//les bons sons
 	}
 
 	/**
@@ -455,13 +448,16 @@ public class Level{
 		for(Form forme : objects) {
 			if(!fenetre.isInComponent(forme)) {
 				if(fenetre.isInBounds(forme)) {//si l'objet est dans les limites d'affichage
-					System.out.println("ajout fenetre -> "+forme);
+					//System.out.println("ajout fenetre -> "+forme);
 					//fenetre.placerForme(forme);
 					fenetre.update(obs, forme);
 				}
 			}else {
+				if(forme.getClass().equals(Road.class)) {//ne retire jamais le road
+					continue;
+				}
 				if(!fenetre.isInBounds(forme)) {//si l'objet n'est pas dans les limites d'affichage
-					System.out.println("retrait fenetre -> "+forme);
+					//System.out.println("retrait fenetre -> "+forme);
 					fenetre.retirerForme(forme);
 					//fenetre.update(obs, forme);
 				}
@@ -490,7 +486,7 @@ public class Level{
 	private void repartirObjets() {
 
 		if(type.equals(Type.ENDLESS)) {//si on a un niveau sans fin -> place les premiers
-			System.out.println("Endless");
+			//System.out.println("Endless");
 			Vector<Form> assuprimer = new Vector<Form>();
 			for(Form forme : objectsPossible) {
 				if(fenetre.isInBounds(forme)) {//seulement pour les formes visibles au depart
@@ -499,14 +495,29 @@ public class Level{
 				}
 			}
 			objectsPossible.removeAll(assuprimer);
-			System.out.println(objects + "\n---\n"+ objectsPossible);
+			//System.out.println(objects + "\n---\n"+ objectsPossible);
 			if(isObjectsEnding()) {//si objects arrive a la fin, ajoute de nouveaux obstacles
 				ajouterNouvellesFormes();
 			}
 		}else {//autre niveau -> objets places en ordre
-			System.out.println("Normal");
+			//System.out.println("Normal");
 			for(Form forme : objectsPossible) {
 				objects.add(forme);
+
+				if(type != Type.AUTOMATIQUE && forme.getColorPossible() != null) {//ne fait les calculs que pour les obstacles utiles
+					//etoile dans les formes
+					Form etoile = FormsFactory.build("ETOILE", forme.getPosX(),
+							forme.getPosY(),10, 10, 3, 0);
+					objects.addElement(etoile);
+
+					//changecouleur entre les formes
+					ChangeColor changeCouleur = (ChangeColor) FormsFactory.build("CHANGECOLOR", forme.getPosX(),
+							forme.getPosY() + (fenetre.getHauteurFenetre() / 4) ,
+							12, 12, 3, 0);
+
+					changeCouleur.addColorPossible(forme.getColorPossible());//les couleurs possibles
+					objects.addElement(changeCouleur);
+				}
 			}
 		}
 	}
@@ -515,13 +526,13 @@ public class Level{
 	 * Decide quand ajouter une nouvelle forme a l'ensemble des formes
 	 * */
 	private void ajouterNouvellesFormes() {
-		System.out.println("Ajout de nouvelles formes");
+		//System.out.println("Ajout de nouvelles formes");
 		final short NB_FORMES = 1;
 		int taillePre = -100;//la limite a ne pas depasser
 
 		for(short i=1;i<=NB_FORMES;i++) {
-			System.out.println("taille pre ="+taillePre);
-			System.out.println("boucle "+i);
+			//System.out.println("taille pre ="+taillePre);
+			//System.out.println("boucle "+i);
 			int alea =  (int) (Math.random() * (objectsPossible.size()));
 			Form forme = objectsPossible.get(alea);
 			taillePre -= (forme.getHeight() + (fenetre.getHauteurFenetre() / 4));
@@ -534,10 +545,11 @@ public class Level{
 			objects.addElement(etoile);
 
 			//changecouleur entre les formes
-			Form changecouleur = FormsFactory.build("CHANGECOLOR", forme.getPosX(),
+			ChangeColor changeCouleur = (ChangeColor)FormsFactory.build("CHANGECOLOR", forme.getPosX(),
 					forme.getPosY() + (fenetre.getHauteurFenetre() / 4) ,
 					12, 12, 3, 0);
-			objects.addElement(changecouleur);
+			changeCouleur.addColorPossible(forme.getColorPossible());//les couleurs possibles
+			objects.addElement(changeCouleur);
 		}
 	}
 
@@ -605,18 +617,17 @@ public class Level{
 	public void gagne() {
 		ball = null;//arrete le jeu
 		fenetre.menu();
-		final Optional<String> result = score.alert.showAndWait();
-		/*result.ifPresent(button -> {  
-		    if (button == ButtonType.OK) {  
-		        
-		    }  
-		});*/
-		fenetre.nv=true;//pour remettre
-		fenetre.btnv=false;//les bons sons
+
+		fenetre.setNv(true);//pour remettre
+		fenetre.setBtnv(false);//les bons sons
 	}
 
 	public void retirerForme(Form forme) {
 		objects.remove(forme);//retire du niveau
 		fenetre.retirerForme(forme);//retire de la fenetre
+	}
+
+	public Object getFenetre() {
+		return fenetre;
 	}
 }

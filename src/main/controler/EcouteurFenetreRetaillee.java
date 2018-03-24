@@ -1,7 +1,6 @@
 package main.controler;
 
 import javafx.event.EventHandler;
-import javafx.stage.WindowEvent;
 import javafx.event.Event;
 import main.model.Level;
 

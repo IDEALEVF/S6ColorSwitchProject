@@ -1,10 +1,9 @@
 package main.view.menubar;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import main.controler.ControlerFactory;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.Circle;
@@ -15,12 +14,13 @@ import main.model.Level;
 public class MenuItemFormeBalle extends MenuItem implements Action{
 	private int num;
 	private Shape forme;
-	private Level l;
+	//private Level l;
 
 	public MenuItemFormeBalle(int num, Level l){
 		this.num = num;
-		this.l = l;
+		//this.l = l;
 		this.setText("Balle "+num);
+		this.setGraphic(new ImageView(new Image("balle"+num+".png")));
 		
 		this.addEventHandler(ActionEvent.ACTION,
         		ControlerFactory.build(ActionEvent.ACTION, l));

@@ -3,29 +3,15 @@ package main.model;
 import java.util.Comparator;
 import java.util.Vector;
 
-import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-import javafx.scene.control.TextInputDialog;
-
 public class Score{
 	Vector<Pair<String, Integer>> tabScores;
-	final TextInputDialog alert = new TextInputDialog();
-	public final Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+	
 	Score(int size){
 		tabScores = new Vector<Pair<String, Integer>>();
 		for(int i=0;i<size;i++) {
 			tabScores.add(new Pair<String, Integer>("Default", 0));
 		}
-		alert1.setTitle("Information");
-		alert1.setHeaderText(null);
-		alert1.setContentText("Projet réalisé par PITROU Adrien, CALVO FERNANDEZ Adélie et BARRECH Mehdi");
-		alert.setTitle("Information");
-		alert.setHeaderText(null);
-		alert.setContentText("Entrez votre nom");
-		
-		
 	}
-	
 	
 	public String[] getNames(){
 		int taille = tabScores.size();

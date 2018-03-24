@@ -1,7 +1,6 @@
 package main.view.menubar;
 
 import java.io.File;
-import java.net.URL;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
@@ -13,8 +12,8 @@ import javafx.scene.media.MediaPlayer;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
 import main.model.Level;
+
 /**
- * Menu son
  * @author CALVO FERNANDEZ Adélie
  * @version 1.0
  * */

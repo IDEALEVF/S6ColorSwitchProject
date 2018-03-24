@@ -7,9 +7,7 @@ import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -21,6 +19,7 @@ import main.model.Level;
  * Une explosion a jouer quand la balle touche un obstacle
  * @author CALVO FERNANDEZ Adélie
  * @version 1.0
+ * @since 03/03/18
  * */
 public class Explosion extends Form {
 	private Rectangle r1;
@@ -46,14 +45,7 @@ public class Explosion extends Form {
 		r6 = new Rectangle(-10, 0, 10, 10);
 		r7 = new Rectangle(-10, 0, 10, 10);
 		r8 = new Rectangle(-10, 0, 10, 10);
-		/*r1.setFill(Color.BEIGE);
-		r2.setFill(Color.BEIGE);
-		r3.setFill(Color.BEIGE);
-		r4.setFill(Color.BEIGE);
-		r5.setFill(Color.BEIGE);
-		r6.setFill(Color.BEIGE);
-		r7.setFill(Color.BEIGE);
-		r8.setFill(Color.BEIGE);*/
+
 		forme.getChildren().add(r1);
 		forme.getChildren().add(r2);
 		forme.getChildren().add(r3);
@@ -90,11 +82,11 @@ public class Explosion extends Form {
 		r8.setFill(b.getCouleur());
 		int posx=b.getPosX();
 		int posy=b.getPosY();
-		System.out.print("EXPLOSION"+ posx+" "+posy);
+		System.out.println("explo posX = "+posx+" posY="+posy);
 		int marge=90;
 		b.setCouleur(Color.TRANSPARENT);
-		forme.setLayoutX(0);
 		forme.setLayoutY(0);
+		forme.setLayoutX(0);
 		//System.out.print("EXPLOSION"+ r1);
 		final KeyFrame kf1 = new KeyFrame(Duration.ZERO, new KeyValue(r1.translateXProperty(), posx), new KeyValue(r1.translateYProperty(), posy));
         final KeyFrame kf11 = new KeyFrame(Duration.seconds(1), new KeyValue(r1.translateXProperty(), posx), new KeyValue(r1.translateYProperty(), posy-marge));

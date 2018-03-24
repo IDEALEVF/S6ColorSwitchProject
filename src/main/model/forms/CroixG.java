@@ -1,5 +1,6 @@
 package main.model.forms;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import main.model.ColorSelected;
 /**
@@ -47,6 +48,9 @@ class CroixG extends Obstacles{
 		forme.getChildren().add(ligneBas);
 		forme.getChildren().add(ligneGauche);
 		forme.getChildren().add(ligneDroite);
+
+		Color[] colorPossible = {BLUE,ROSE,YELLOW,PURPLE};//les couleurs possibles
+		addColorPossible(colorPossible);
 	}
 
 	@Override

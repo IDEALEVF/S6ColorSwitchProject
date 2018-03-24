@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import main.controler.ControlerFactory;
 import main.model.Level;
+
 /**
  * @author CALVO FERNANDEZ Adélie
  * @version 1.0
@@ -21,10 +22,10 @@ public class MenuItemHelp extends MenuItem implements Action{
 		this.setGraphic(new ImageView(new Image("help.png")));
 		alert.setTitle("Information");
 		alert.setHeaderText(null);
-		alert.setContentText("Projet réalisé par PITROU Adrien, CALVO FERNANDEZ Adélie et BARRECH Mehdi");
+		alert.setContentText("Projet realise par PITROU Adrien, CALVO FERNANDEZ Adélie et BARRECH Mehdi");
 		this.setText("Help");
 		this.addEventHandler(ActionEvent.ACTION,
-        		ControlerFactory.build(ActionEvent.ACTION, null, null,null));
+        		ControlerFactory.build(ActionEvent.ACTION, null, null, null));
 	}
 
 	@Override

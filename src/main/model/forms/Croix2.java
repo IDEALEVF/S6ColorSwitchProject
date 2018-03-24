@@ -1,5 +1,9 @@
 package main.model.forms;
-
+/**
+ * Obstacle CroixG
+ * @author CALVO FERNANDEZ Adélie
+ * @version 1.0
+ * */
 public class Croix2 extends Obstacles{
 	private final Form part1;
 	private final Form part2;
@@ -12,7 +16,7 @@ public class Croix2 extends Obstacles{
 		addObstacle(part1.getForme());
 		addObstacle(part2.getForme());
 
-		
+
 	}
 
 	@Override

@@ -1,10 +1,6 @@
 package main.view.menubar;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.WindowEvent;
 import main.controler.ControlerFactory;
 import main.controler.Moteur;
@@ -16,8 +12,8 @@ public class ContextualMenu extends ContextMenu{
 		/*this.m = m;
 		this.getItems().add(new MenuItemQuitter());
 		this.addEventHandler(WindowEvent.WINDOW_SHOWING,
-        		ControlerFactory.build(WindowEvent.WINDOW_SHOWING,null, m));
+        		ControlerFactory.build(WindowEvent.WINDOW_SHOWING,null, m, null));
 		this.addEventHandler(WindowEvent.WINDOW_HIDING,
-        		ControlerFactory.build(WindowEvent.WINDOW_HIDING,null, m));*/
+        		ControlerFactory.build(WindowEvent.WINDOW_HIDING,null, m, null));*/
 	}
 }

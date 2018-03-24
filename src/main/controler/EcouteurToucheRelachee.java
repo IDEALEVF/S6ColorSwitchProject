@@ -5,10 +5,10 @@ import javafx.scene.input.KeyEvent;
 import main.model.Level;
 
 class EcouteurToucheRelachee implements EventHandler<KeyEvent>{
-	private Level l;
+	//private Level l;
 	
 	EcouteurToucheRelachee(Level l){
-		this.l = l;
+		//this.l = l;
 	}
 	
     @Override

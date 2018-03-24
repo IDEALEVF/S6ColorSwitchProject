@@ -27,23 +27,21 @@ public class Ball extends Form{
 	private Color couleur;
 	private boolean isAuto = false;
 	private Path chemin;
-	
+
 	Ball(int posX, int posY, int width, int height, int speed, int rotate) {
 		super(posX, posY, width, height, speed, rotate);
 		this.dirX = 0;
 		this.dirY = 0;
 		this.MAXV = speed;
-		
+
 		Circle circle = new Circle();
         circle.setRadius(width);
         circle.setFill(ColorSelected.YELLOW);
-        //circle.setStroke(ColorSelected.YELLOW);
-        //circle.setStrokeWidth(1);
         ajouterForme(circle);
         this.setCouleur(ColorSelected.YELLOW);
-        
+
         Vector<Pair<Integer, Integer>> points = new Vector<Pair<Integer, Integer>>();
-        
+
         chemin = new Path(points);
 	}
 
@@ -77,7 +75,7 @@ public class Ball extends Form{
         System.out.println("exploser");
         //timeline2.setAutoReverse(true);
 	}
-	
+
 	/**
 	 * Fait l'effet de la gravite sur les Y
 	 * @param int gravite
@@ -101,7 +99,7 @@ public class Ball extends Form{
 			}
 		}
 	}
-	
+
 	/**
 	 * Maximise la valeur en Y
 	 * */
@@ -109,7 +107,7 @@ public class Ball extends Form{
 		dirY = -(MAXV);
 		latence = 3;
 	}
-	
+
 	/**
 	 * Renvoie la couleur actuelle de la balle
 	 * */
@@ -142,7 +140,7 @@ public class Ball extends Form{
 	public void start() {
 		isAuto = true;
 	}
-	
+
 	private void chdir() {
 		Pair<Double, Double> coordonnees = chemin.getNextDir(posX, posY, speed);
 		dirX = coordonnees.first();
@@ -156,7 +154,7 @@ public class Ball extends Form{
 	public Vector<Pair<Integer, Integer>> getPoints() {
 		return chemin.getPoints();
 	}
-	
+
 	/**
 	 * Repercute le defilement de l'axe des X
 	 * @param int defilement
@@ -167,7 +165,7 @@ public class Ball extends Form{
 			point.setFirst(point.first()+defilement);
 		}
 	}
-	
+
 	/**
 	 * Repercute le defilement de l'axe des Y
 	 * @param int defilement
@@ -178,7 +176,7 @@ public class Ball extends Form{
 			point.setSecond(point.second()+defilement);
 		}
 	}
-	
+
 	/**
 	 * Change l'apparence de la balle
 	 * @param Node nouvelleForme la nouvelle forme
